@@ -74,7 +74,6 @@
     "reactify": "^1.1.0",
     "uglify-js": "^2.4.20",
     "webpack": "^1.13.1",
-    "webpack": "^1.12.13",
     "webpack-bundle-tracker": "0.0.93"
   }
 }
