@@ -1,15 +1,14 @@
 // Main entry point for react components
-import React from 'react';
 import { render } from 'react-dom';
-import { Router, Route, browserHistory, IndexRoute } from 'react-router';
-import Home from './components/home.jsx';
+import { Router, Route } from 'react-router';
+import React from 'react';
 import Main from './components/main.jsx';
+import Team from './components/team.jsx';
 
-
-const routes = (<Router history={browserHistory}>
+let routes = (<Router>
                 <Route path="/" component={Main}>
-                    <IndexRoute component={Home} history={browserHistory}/>
+                    <Route path="/team" component={Team}/>
                 </Route>
-              </Router>);
+              </Router>)
 
 render(routes, document.getElementById('react'));
