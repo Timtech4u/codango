@@ -1,3 +1,2 @@
 // tests.webpack.js
-var context = require.context('./codango/static/js', true, /-test\.jsx$/);
-context.keys().forEach(context);
+var context = require.context('./codango/static/js/tests', true, /-test\.jsx$/);

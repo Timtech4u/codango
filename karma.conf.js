@@ -1,67 +1,44 @@
-
-const path = require('path');
+var mocha = require('mocha')
+var webpack = require('webpack');
 module.exports = function (config) {
-  config.set({
-    browsers: ['PhantomJS'],
-    singleRun: true,
-    frameworks: ['mocha'],
-    files: [
-      'tests.webpack.js',
-    ],
-    plugins: ['karma-phantomjs-launcher', 'karma-mocha',
-      'karma-sourcemap-loader', 'karma-webpack', 'karma-coverage',
-      'karma-mocha-reporter'],
-    preprocessors: {
-      'tests.webpack.js': ['webpack', 'sourcemap'],
-    },
-    reporters: ['mocha', 'coverage'],
-    coverageReporter: {
-      type: 'html',
-      dir: 'jsCoverage/',
-    },
-    webpack: {
-      devtool: 'inline-source-map',
-      noParse: [
-        /node_modules\/sinon/,
-      ],
-      module: {
-        loaders: [
-          {
-            test: /\.jsx?$/,
-            exclude: /node_modules/,
-            loader: 'babel-loader',
-            postLoaders: [{
-              test: /\.jsx?$/,
-              exclude: /(tests|node_modules|bower_components)\//,
-              loader: 'istanbul-instrumenter' }],
-            query: {
-              presets: ['react', 'es2015', 'stage-0'],
-            },
-          },
-          {
-            test: /\.jsx?$/,
-            include: path.resolve('codango/static/js'),
-            exclude: /tests/,
-            loader: 'isparta',
-          },
+    config.set({
+        browsers: ['PhantomJS'],
+        singleRun: true,
+        frameworks: ['mocha'],
+        files: [
+            'tests.webpack.js'
         ],
-      },
-      resolve: {
-        alias: {
-          sinon: 'sinon/pkg/sinon',
+        preprocessors: {
+            'tests.webpack.js': ['webpack']
         },
-      },
-      externals: {
-        jsdom: 'window',
-        cheerio: 'window',
-        'react/lib/ExecutionEnvironment': true,
-        'react/lib/ReactContext': true,
-      },
-      watch: true,
-      chunks: false,
-    },
-    webpackServer: {
-      noInfo: true,
-    },
-  });
+        reporters: ['progress'],
+        webpack: {
+            module: {
+                loaders: [
+                    {
+                        test: /\.jsx?$/,
+                        exclude: /node_modules/,
+                        loader: 'babel-loader',
+                        query: {
+                            presets:['react', 'es2015', 'stage-0']
+                        }
+                    },
+                ]
+            },
+            resolve: {
+                alias: {
+                    'sinon': 'sinon/pkg/sinon'
+                }
+            },
+            externals: {
+                'jsdom': 'window',
+                'cheerio': 'window',
+                'react/lib/ExecutionEnvironment': true
+            },
+            watch: true
+        },
+        webpackServer: {
+            noInfo: true
+        }
+    });
 };
