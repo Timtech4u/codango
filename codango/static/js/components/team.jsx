@@ -25,7 +25,7 @@ var Team = React.createClass({
                              <img src="https://avatars2.githubusercontent.com/u/15629602?v=3&s=460" className="img-responsive"/>
                           </div>
                           <div className="team-desc">
-                               <a href="https://github.com/andela-sndagi"><h4>Stanley Ndagi</h4></a>
+                               <a href="https://github.com/NdagiStanley"><h4>Stanley Ndagi</h4></a>
                               <span>Developer</span>
                           </div>
                       </div>
