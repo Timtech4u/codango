@@ -1,3 +1,4 @@
+import React from 'react';
 const expect = require('expect');
 import { shallow , mount, render } from 'enzyme';
 // Contact page-test.jsx

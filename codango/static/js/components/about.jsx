@@ -1,5 +1,6 @@
 let React = require('react');
 let FlipCard = require('react-flipcard');
+let Card = require('../components/about-card.jsx');
 let Share = require('react-material-icons/icons/social/share');
 let Community = require('react-material-icons/icons/social/people');
 let Pair = require('react-material-icons/icons/action/code');
@@ -72,7 +73,7 @@ let About = React.createClass({
             </div>
           <div id="cards" className="cards">
             {this.state.aboutContent.map((cardInfo) => {
-                return (<Card heading={cardInfo.heading} content={cardInfo.content}
+                return (<Card heading={cardInfo.heading} content={cardInfo.content} key={this.state.aboutContent.indexOf(cardInfo)}
                     icon={cardInfo.icon}/>)
             })}
           </div>
@@ -82,21 +83,4 @@ let About = React.createClass({
   }
 });
 
-var Card = React.createClass({
-  render: function(){
-    return(
-        <FlipCard>
-              {/* The first child is used as the front of the card */}
-              <div>
-                <h4 className="about-h4"><strong>{this.props.heading}</strong></h4>
-                <div className="section-icon"><this.props.icon /></div>
-              </div>
-              {/* The second child is used as the back of the card */}
-              <div>
-                <p>{this.props.content}</p>
-              </div>
-            </FlipCard>
-    );
-  }
-});
 module.exports = About;
