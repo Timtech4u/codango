@@ -20,13 +20,15 @@ describe('<LoginForm />', () => {
   })
 
   it('contains Facebook login button', () => {
-    const html = wrapper.find(Button).at(1).html()
-    expect(html.indexOf('Login with Facebook')).toNotEqual(-1)
+    const button = wrapper.find('a[href="/login/facebook/?next=/"]')
+    expect(button.text()).toEqual('Login with Facebook')
+    expect(button.props()['href']).toEqual('/login/facebook/?next=/')
   })
 
   it('contains Google login button', () => {
-    const html = wrapper.find(Button).at(2).html()
-    expect(html.indexOf('Login with Google')).toNotEqual(-1)
+    const button = wrapper.find('a[href="/login/google-oauth2/?next=/"]')
+    expect(button.text()).toEqual('Login with Google')
+    expect(button.props()['href']).toEqual('/login/google-oauth2/?next=/')
   })
 
   it('contains forgot passsword link', () => {
