@@ -25387,7 +25387,7 @@
 	                                    _react2.default.createElement(
 	                                        _reactRouter.Link,
 	                                        { to: '/about' },
-	                                        'About'
+	                                        'About Us'
 	                                    )
 	                                ),
 	                                _react2.default.createElement(
@@ -25396,7 +25396,7 @@
 	                                    _react2.default.createElement(
 	                                        _reactRouter.Link,
 	                                        { to: '/contact' },
-	                                        'Contact us'
+	                                        'Contact Us'
 	                                    )
 	                                ),
 	                                _react2.default.createElement(
