@@ -72,18 +72,13 @@ class LoginForm extends Component {
           <Button type="submit" className="btn btn-primary">Login</Button>
         </FormGroup>
         <FormGroup>
-          <Button type="submit"
-            className="btn btn-primary"
-            inline disabled
-          >Login with Facebook
-        </Button>
+          <a href="/login/facebook/?next=/" className="btn btn-primary">
+            Login with Facebook
+          </a>
           {' '}
-          <Button
-            type="submit"
-            className="btn btn-danger"
-            inline disabled
-          >Login with Google
-          </Button>
+          <a href="/login/google-oauth2/?next=/" className="btn btn-danger">
+            Login with Google
+          </a>
         </FormGroup>
         <p>Forgot password? <a href="/recovery">Reset</a></p>
       </form>
