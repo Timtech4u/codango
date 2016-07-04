@@ -44736,214 +44736,6 @@
 	                                        "Hassan Oyeboade"
 	                                    )
 	                                ),
-	                                React.createElement("img", { src: "https://avatars2.githubusercontent.com/u/13224175?v=3&s=460", className: "img-responsive" })
-	                            ),
-	                            React.createElement(
-	                                "div",
-	                                { className: "team-desc" },
-	                                React.createElement(
-	                                    "a",
-	                                    { href: "https://github.com/andela-cnnadi" },
-	                                    React.createElement(
-	                                        "h4",
-	                                        null,
-	                                        "Chidiebere Nnadi"
-	                                    )
-	                                ),
-	                                React.createElement(
-	                                    "span",
-	                                    null,
-	                                    "Team Lead"
-	                                )
-	                            )
-	                        )
-	                    ),
-	                    React.createElement(
-	                        "div",
-	                        { className: "col-sm-4" },
-	                        React.createElement(
-	                            "div",
-	                            { className: "team-members" },
-	                            React.createElement(
-	                                "div",
-	                                { className: "team-avatar" },
-	                                React.createElement("img", { src: "https://avatars2.githubusercontent.com/u/15629602?v=3&s=460", className: "img-responsive" })
-	                            ),
-	                            React.createElement(
-	                                "div",
-	                                { className: "team-desc" },
-	                                React.createElement(
-	                                    "a",
-	                                    { href: "https://github.com/andela-sndagi" },
-	                                    React.createElement(
-	                                        "h4",
-	                                        null,
-	                                        "Stanley Ndagi"
-	                                    )
-	                                ),
-	                                React.createElement(
-	                                    "span",
-	                                    null,
-	                                    "Developer"
-	                                )
-	                            )
-	                        )
-	                    ),
-	                    React.createElement(
-	                        "div",
-	                        { className: "col-sm-4" },
-	                        React.createElement(
-	                            "div",
-	                            { className: "team-members" },
-	                            React.createElement(
-	                                "div",
-	                                { className: "team-avatar" },
-	                                React.createElement("img", { src: "https://avatars2.githubusercontent.com/u/12407721?v=3&s=400", className: "img-responsive" })
-	                            ),
-	                            React.createElement(
-	                                "div",
-	                                { className: "team-desc" },
-	                                React.createElement(
-	                                    "a",
-	                                    { href: "https://github.com/andela-mochieng" },
-	                                    React.createElement(
-	                                        "h4",
-	                                        null,
-	                                        "Margaret Ochieng"
-	                                    )
-	                                ),
-	                                React.createElement(
-	                                    "span",
-	                                    null,
-	                                    "Developer"
-	                                )
-	                            )
-	                        )
-	                    )
-	                ),
-	                React.createElement(
-	                    "div",
-	                    { className: "row" },
-	                    React.createElement(
-	                        "div",
-	                        { className: "col-sm-4" },
-	                        React.createElement(
-	                            "div",
-	                            { className: "team-members" },
-	                            React.createElement(
-	                                "div",
-	                                { className: "team-avatar" },
-	                                React.createElement("img", { src: "https://avatars3.githubusercontent.com/u/17270426?v=3&s=460", className: "img-responsive" })
-	                            ),
-	                            React.createElement(
-	                                "div",
-	                                { className: "team-desc" },
-	                                React.createElement(
-	                                    "a",
-	                                    { href: "https://github.com/andela-aabdulwahab" },
-	                                    React.createElement(
-	                                        "h4",
-	                                        null,
-	                                        "Abdulmalik Abdulwahab"
-	                                    )
-	                                ),
-	                                React.createElement(
-	                                    "span",
-	                                    null,
-	                                    "Developer"
-	                                )
-	                            )
-	                        )
-	                    ),
-	                    React.createElement(
-	                        "div",
-	                        { className: "col-sm-4" },
-	                        React.createElement(
-	                            "div",
-	                            { className: "team-members" },
-	                            React.createElement(
-	                                "div",
-	                                { className: "team-avatar" },
-	                                React.createElement("img", { src: "https://avatars2.githubusercontent.com/u/17288133?v=3&s=460", className: "img-responsive" })
-	                            ),
-	                            React.createElement(
-	                                "div",
-	                                { className: "team-desc" },
-	                                React.createElement(
-	                                    "a",
-	                                    { href: "https://github.com/andela-akiura" },
-	                                    React.createElement(
-	                                        "h4",
-	                                        null,
-	                                        "Alex Kiura"
-	                                    )
-	                                ),
-	                                React.createElement(
-	                                    "span",
-	                                    null,
-	                                    "Developer"
-	                                )
-	                            )
-	                        )
-	                    ),
-	                    React.createElement(
-	                        "div",
-	                        { className: "col-sm-4" },
-	                        React.createElement(
-	                            "div",
-	                            { className: "team-members" },
-	                            React.createElement(
-	                                "div",
-	                                { className: "team-avatar" },
-	                                React.createElement("img", { src: "https://avatars0.githubusercontent.com/u/18328313?v=3&s=460", className: "img-responsive" })
-	                            ),
-	                            React.createElement(
-	                                "div",
-	                                { className: "team-desc" },
-	                                React.createElement(
-	                                    "a",
-	                                    { href: "https://github.com/andela-snwuguru" },
-	                                    React.createElement(
-	                                        "h4",
-	                                        null,
-	                                        "Nwuguru Sunday"
-	                                    )
-	                                ),
-	                                React.createElement(
-	                                    "span",
-	                                    null,
-	                                    "Developer"
-	                                )
-	                            )
-	                        )
-	                    )
-	                ),
-	                React.createElement(
-	                    "div",
-	                    { className: "row" },
-	                    React.createElement(
-	                        "div",
-	                        { className: "col-sm-4" },
-	                        React.createElement(
-	                            "div",
-	                            { className: "team-members" },
-	                            React.createElement(
-	                                "div",
-	                                { className: "team-avatar" },
-	                                React.createElement("img", { src: "https://avatars1.githubusercontent.com/u/18309948?v=3&s=460", className: "img-responsive" })
-	                            ),
-	                            React.createElement(
-	                                "div",
-	                                { className: "team-desc" },
-	                                React.createElement(
-	                                    "a",
-	                                    { href: "https://github.com/andela-hoyeboade" },
-	                                    React.createElement(
-	                                        "h4",
-	                                        null,
-	                                        "Hassan Oyeboade"
-	                                    )
-	                                ),
 	                                React.createElement(
 	                                    "span",
 	                                    null,
@@ -45006,20 +44798,6 @@
 	                                "div",
 	                                { className: "team-avatar" },
 	                                React.createElement("img", { src: "https://avatars2.githubusercontent.com/u/13224175?v=3&s=460", className: "img-responsive" })
-	                            ),
-	                            React.createElement(
-	                                "div",
-	                                { className: "team-desc" },
-	                                React.createElement(
-	                                    "a",
-	                                    { href: "https://github.com/andela-ooshodi" },
-	                                    React.createElement(
-	                                        "h4",
-	                                        null,
-	                                        "Olufunmilade Oshodi"
-	                                    )
-	                                ),
-	                                React.createElement("img", { src: "https://avatars2.githubusercontent.com/u/15088852?v=3&s=460", className: "img-responsive" })
 	                            ),
 	                            React.createElement(
 	                                "div",
@@ -45100,121 +44878,71 @@
 	                                    )
 	                                ),
 	                                React.createElement(
-	                                    "div",
-	                                    { className: "team-members" },
-	                                    React.createElement(
-	                                        "div",
-	                                        { className: "team-avatar" },
-	                                        React.createElement("img", { src: "https://avatars2.githubusercontent.com/u/15088852?v=3&s=460", className: "img-responsive" })
-	                                    ),
-	                                    React.createElement(
-	                                        "div",
-	                                        { className: "team-desc" },
-	                                        React.createElement(
-	                                            "a",
-	                                            { href: "https://github.com/andela-ashuaib" },
-	                                            React.createElement(
-	                                                "h4",
-	                                                null,
-	                                                "Abiodun Shuaib"
-	                                            )
-	                                        ),
-	                                        React.createElement(
-	                                            "span",
-	                                            null,
-	                                            "Developer"
-	                                        )
-	                                    )
+	                                    "span",
+	                                    null,
+	                                    "Developer"
 	                                )
+	                            )
+	                        )
+	                    ),
+	                    React.createElement(
+	                        "div",
+	                        { className: "col-sm-4" },
+	                        React.createElement(
+	                            "div",
+	                            { className: "team-members" },
+	                            React.createElement(
+	                                "div",
+	                                { className: "team-avatar" },
+	                                React.createElement("img", { src: "https://avatars3.githubusercontent.com/u/13269579?v=3&s=460", className: "img-responsive" })
 	                            ),
 	                            React.createElement(
 	                                "div",
-	                                { className: "col-sm-4" },
+	                                { className: "team-desc" },
 	                                React.createElement(
-	                                    "div",
-	                                    { className: "team-members" },
+	                                    "a",
+	                                    { href: "https://github.com/andela-jngatia" },
 	                                    React.createElement(
-	                                        "div",
-	                                        { className: "team-avatar" },
-	                                        React.createElement("img", { src: "https://avatars3.githubusercontent.com/u/13269579?v=3&s=460", className: "img-responsive" })
-	                                    ),
-	                                    React.createElement(
-	                                        "div",
-	                                        { className: "team-desc" },
-	                                        React.createElement(
-	                                            "a",
-	                                            { href: "https://github.com/andela-jngatia" },
-	                                            React.createElement(
-	                                                "h4",
-	                                                null,
-	                                                "Joan Ngatia"
-	                                            )
-	                                        ),
-	                                        React.createElement("img", { src: "https://avatars2.githubusercontent.com/u/15629602?v=3&s=460", className: "img-responsive" })
-	                                    ),
-	                                    React.createElement(
-	                                        "div",
-	                                        { className: "team-desc" },
-	                                        React.createElement(
-	                                            "a",
-	                                            { href: "https://github.com/andela-jngatia" },
-	                                            React.createElement(
-	                                                "h4",
-	                                                null,
-	                                                "Joan Ngatia"
-	                                            )
-	                                        ),
-	                                        React.createElement(
-	                                            "span",
-	                                            null,
-	                                            "Developer"
-	                                        )
+	                                        "h4",
+	                                        null,
+	                                        "Joan Ngatia"
 	                                    )
+	                                ),
+	                                React.createElement(
+	                                    "span",
+	                                    null,
+	                                    "Developer"
 	                                )
+	                            )
+	                        )
+	                    ),
+	                    React.createElement(
+	                        "div",
+	                        { className: "col-sm-4" },
+	                        React.createElement(
+	                            "div",
+	                            { className: "team-members" },
+	                            React.createElement(
+	                                "div",
+	                                { className: "team-avatar" },
+	                                React.createElement("img", { src: "https://avatars2.githubusercontent.com/u/13224913?v=3&s=400", className: "img-responsive" })
 	                            ),
 	                            React.createElement(
 	                                "div",
-	                                { className: "col-sm-4" },
+	                                { className: "team-desc" },
 	                                React.createElement(
-	                                    "div",
-	                                    { className: "team-members" },
+	                                    "a",
+	                                    { href: "https://github.com/IniOluwa" },
 	                                    React.createElement(
-	                                        "div",
-	                                        { className: "team-avatar" },
-	                                        React.createElement("img", { src: "https://avatars2.githubusercontent.com/u/13224913?v=3&s=400", className: "img-responsive" })
-	                                    ),
-	                                    React.createElement(
-	                                        "div",
-	                                        { className: "team-desc" },
-	                                        React.createElement(
-	                                            "a",
-	                                            { href: "https://github.com/IniOluwa" },
-	                                            React.createElement(
-	                                                "h4",
-	                                                null,
-	                                                "Ini-Oluwa C. Fageyinbo"
-	                                            )
-	                                        ),
-	                                        React.createElement("img", { src: "https://avatars2.githubusercontent.com/u/17288133?v=3&s=460", className: "img-responsive" })
-	                                    ),
-	                                    React.createElement(
-	                                        "div",
-	                                        { className: "team-desc" },
-	                                        React.createElement(
-	                                            "a",
-	                                            { href: "https://github.com/IniOluwa" },
-	                                            React.createElement(
-	                                                "h4",
-	                                                null,
-	                                                "Ini-Oluwa C. Fageyinbo"
-	                                            )
-	                                        ),
-	                                        React.createElement(
-	                                            "span",
-	                                            null,
-	                                            "Developer"
-	                                        )
+	                                        "h4",
+	                                        null,
+	                                        "Ini-Oluwa C. Fageyinbo"
 	                                    )
+	                                ),
+	                                React.createElement(
+	                                    "span",
+	                                    null,
+	                                    "Developer"
 	                                )
 	                            )
 	                        )
