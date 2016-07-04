@@ -33,6 +33,7 @@ module.exports = function (config) {
             externals: {
                 'jsdom': 'window',
                 'cheerio': 'window',
+                'react/lib/ReactContext': true,
                 'react/lib/ExecutionEnvironment': true
             },
             watch: true

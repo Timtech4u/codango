@@ -21,6 +21,6 @@ describe('<Home />', () => {
   });
 
   it('links to about-us', () => {
-    expect(wrapper.find(Link).first().prop('to')).toEqual('/about-us')
+    expect(wrapper.find(Link).at(0).prop('to')).toEqual('/about')
   })
 });

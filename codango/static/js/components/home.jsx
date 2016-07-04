@@ -16,7 +16,7 @@ class Home extends Component {
                 sharing resources, joining various communities and pair
                 programming
               </h3>
-              <a className="btn btn-primary btn-lg" href="/about-us">Learn more</a>
+              <Link className="btn btn-primary btn-lg" to="/about">Learn more</Link>
             </div>
           </Col>
           <Col md={4}>
