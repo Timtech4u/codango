@@ -7,7 +7,7 @@ class CreateResource(StaticLiveServerTestCase):
     fixtures = ['users.json']
 
     def setUp(self):
-        self.browser = webdriver.PhantomJS()
+        self.browser = webdriver.Firefox()
         self.browser.set_window_size(1400, 1000)
         self.browser.implicitly_wait(10)
 
@@ -32,5 +32,3 @@ class CreateResource(StaticLiveServerTestCase):
             "//button[contains(text(),'Share')]").click()
         body = self.browser.find_element_by_tag_name('body')
         self.assertIn('Successfully', body.text)
-
-

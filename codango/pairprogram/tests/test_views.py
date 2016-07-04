@@ -5,6 +5,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
+import time
 setup_test_environment()
 
 
@@ -12,9 +13,10 @@ class PairProgramTest(StaticLiveServerTestCase):
     fixtures = ['users.json']
 
     def setUp(self):
-        self.browser = webdriver.PhantomJS()
+        self.browser = webdriver.Firefox()
         self.browser.set_window_size(1400, 1000)
-        self.browser.implicitly_wait(10)
+        self.browser.implicitly_wait(30)
+        self.browser.set_page_load_timeout(30)
 
     def tearDown(self):
         self.browser.quit()
@@ -32,6 +34,7 @@ class PairProgramTest(StaticLiveServerTestCase):
         password_field = self.browser.find_element_by_name('password')
         password_field.send_keys('password')
         password_field.send_keys(Keys.RETURN)
+        time.sleep(10)
 
         # username and password accepted
         body = self.browser.find_element_by_tag_name('body')

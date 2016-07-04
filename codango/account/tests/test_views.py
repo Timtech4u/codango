@@ -1,15 +1,16 @@
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-
+import time
 
 class IndexViewTest(StaticLiveServerTestCase):
     fixtures = ['users.json']
 
     def setUp(self):
-        self.browser = webdriver.PhantomJS()
+        self.browser = webdriver.Firefox()
         self.browser.set_window_size(1400, 1000)
-        self.browser.implicitly_wait(10)
+        self.browser.implicitly_wait(30)
+        self.browser.set_page_load_timeout(30)
 
     def tearDown(self):
         self.browser.quit()
@@ -27,7 +28,7 @@ class IndexViewTest(StaticLiveServerTestCase):
         password_field = self.browser.find_element_by_name('password')
         password_field.send_keys('password')
         password_field.send_keys(Keys.RETURN)
-
+        time.sleep(10)
         # username and password accepted
         body = self.browser.find_element_by_tag_name('body')
         self.assertIn('Share', body.text)
@@ -42,7 +43,7 @@ class IndexViewTest(StaticLiveServerTestCase):
 class StaticPages(StaticLiveServerTestCase):
 
     def setUp(self):
-        self.browser = webdriver.PhantomJS()
+        self.browser = webdriver.Firefox()
         self.browser.set_window_size(1400, 1000)
         self.browser.implicitly_wait(10)
 

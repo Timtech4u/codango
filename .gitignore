@@ -92,4 +92,9 @@ codango/lib
 codango/include
 
 # Static files
-/staticfiles
+staticfiles
+
+compile.sh
+
+#coverage info for js tests
+/jsCoverage

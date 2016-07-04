@@ -8,14 +8,16 @@ from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from userprofile.models import Notification
+import time
 setup_test_environment()
 
 
 class UserProfileTest(StaticLiveServerTestCase):
     def setUp(self):
-        self.browser = webdriver.PhantomJS()
+        self.browser = webdriver.Firefox()
         self.browser.set_window_size(1400, 1000)
-        self.browser.implicitly_wait(10)
+        self.browser.implicitly_wait(30)
+        self.browser.set_page_load_timeout(30)
         self.browser.get(self.live_server_url)
 
         body = self.browser.find_element_by_tag_name('body')
@@ -105,7 +107,7 @@ class FollowUserProfileTest(TestCase):
         password_field = self.browser.find_element_by_name('password')
         password_field.send_keys('password')
         password_field.send_keys(Keys.RETURN)
-
+        time.sleep(5)
         # username and password accepted
         body = self.browser.find_element_by_tag_name('body')
         self.assertIn('Share', body.text)
@@ -121,7 +123,7 @@ class SettingsPageTest(StaticLiveServerTestCase):
     fixtures = ['users.json']
 
     def setUp(self):
-        self.browser = webdriver.PhantomJS()
+        self.browser = webdriver.Firefox()
         self.browser.set_window_size(1400, 1000)
         self.browser.implicitly_wait(10)
 
@@ -141,7 +143,7 @@ class SettingsPageTest(StaticLiveServerTestCase):
         password_field = self.browser.find_element_by_name('password')
         password_field.send_keys('password')
         password_field.send_keys(Keys.RETURN)
-
+        time.sleep(10)
         # username and password accepted
         body = self.browser.find_element_by_tag_name('body')
         self.assertIn('Share', body.text)
