@@ -38,12 +38,6 @@ module.exports = function (config) {
               presets: ['react', 'es2015', 'stage-0'],
             },
           },
-          {
-            test: /\.jsx?$/,
-            include: path.resolve('codango/static/js'),
-            exclude: /tests/,
-            loader: 'isparta',
-          },
         ],
       },
       resolve: {
