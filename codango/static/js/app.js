@@ -148,6 +148,91 @@ ajaxContent = {
   }
 };
 
+/*
+* Script to handle resource deletion
+*/
+
+function deleteResource(resource_id){
+
+    if(confirm('Are you sure you want to delete this resource?')){
+      $('#preloader').show();
+      endpoint = '/resource/post/' + resource_id;
+      $.ajax({
+        url: endpoint,
+        type: 'DELETE',
+        success:function(data){
+          $('#feed'+resource_id+' .alert')
+          .addClass('alert-danger')
+          .text(data.status)
+          .fadeIn('slow', function(){
+            setTimeout(function(){
+              $('#feed'+resource_id+' .alert').fadeOut('slow');
+              $('#feed'+resource_id).fadeOut('slow');
+            }, 2000);
+          })
+        },
+        error:function(error){
+             alert('error')
+             console.log(error)
+            $('#preloader').hide();
+        },
+        complete:function(){
+           $('#preloader').hide();
+        }
+      });
+    }
+}
+$(function(){
+  $('.delete').click(function(){
+
+  });
+})
+
+/* end of modifications */
+
+/*
+* Script to handle resource deletion
+*/
+function deleteResource(resource_id){
+
+    if(confirm('Are you sure you want to delete this resource?')){
+      $('#preloader').show();
+      endpoint = '/resource/post/' + resource_id;
+      $.ajax({
+        url: endpoint,
+        type: 'DELETE',
+        success:function(data){
+          $('#feed'+resource_id+' .alert')
+          .addClass('alert-danger')
+          .text(data.status)
+          .fadeIn('slow', function(){
+            setTimeout(function(){
+              $('#feed'+resource_id+' .alert').fadeOut('slow');
+              if($('#feed'+resource_id).hasClass('single')){
+                document.location.href = document.location.href;
+              }
+              $('#feed'+resource_id).fadeOut('slow').remove();
+            }, 2000);
+          })
+        },
+        error:function(error){
+             $('#feed'+resource_id+' .alert')
+             .addClass('alert-danger')
+             .text('Unable to delete resource')
+             .fadeIn('slow', function(){
+                setTimeout(function(){
+                  $('#feed'+resource_id+' .alert').fadeOut('slow');
+                }, 2000);
+              });
+        },
+        complete:function(data){
+           $('#preloader').hide();
+        }
+      });
+    }
+}
+
+/* end of modifications */
 
 formPost = {
   config: {
@@ -174,7 +259,7 @@ formPost = {
     }
     otherData = _this.serializeArray();
     $.each(otherData, function (key, input) {
-      fd.append(input.name, input.value);
+        fd.append(input.name, input.value);
     });
     return fd;
   },
@@ -189,7 +274,15 @@ formPost = {
       processData: false,
       data: fd,
       success: function (userData) {
+
         if (typeof(userData) === 'object') {
+          if(userData.type == 'updatepost'){
+            _this.append('<div class="alert alert-success successmsg">' + userData.status + '</div>');
+            setTimeout(function () {
+              $('.successmsg').hide();
+            }, 5000);
+            return false;
+          }
           if (Array.isArray(userData.user_id)) {
             userData.user_id.forEach(function (value) {
               // Re-assgin the call back variable
@@ -220,6 +313,12 @@ formPost = {
         }, 5000);
       },
       complete: function () {
+        if(data[2] && data[2].name == 'resource_id'){
+          setTimeout(function () {
+            document.location.href = '/resource/post/'+data[2].value;
+          }, 2000);
+          return
+        }
         var selector = '#rcomments-' + data[1].value;
         var commentcount = '.commentcount-' + data[1].value;
         if (_this.hasClass('share')) {
@@ -234,6 +333,8 @@ formPost = {
           $(commentcount).load(document.URL + ' ' + commentcount);
         }
         _this.trigger('reset');
+
+
       }
     });
   }
@@ -714,8 +815,10 @@ $(document).ready(function () {
   readNotification.init({
     button: '#notifications .list-group-item'
   });
-
-  $('#id-snippet-body').hide();
+  var snippetText = $('#snippet').attr('data');
+  if(snippetText === undefined || !snippetText.length){
+    $('#id-snippet-body').hide();
+  }
   $(document).click(function () {
     $('#notifications').hide();
   });

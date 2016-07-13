@@ -5,7 +5,7 @@ from django.core.urlresolvers import reverse
 from django.db.models import Q
 from django.contrib.auth.models import User
 from django.http import HttpResponse, HttpResponseNotFound
-from django.views.generic import View, TemplateView
+from django.views.generic import View, TemplateView, DetailView
 from django.db.models import Count
 from resources.models import Resource
 from comments.forms import CommentForm
@@ -14,6 +14,7 @@ from votes.models import Vote
 
 
 class LoginRequiredMixin(object):
+
     @method_decorator(login_required(login_url='/'))
     def dispatch(self, request, *args, **kwargs):
         return super(LoginRequiredMixin, self).dispatch(
@@ -40,9 +41,9 @@ class CommunityBaseView(LoginRequiredMixin, TemplateView):
 
         resources = self.sort_by(sortby,
                                  Resource.objects.filter(
-                                    Q(text__contains=query) |
-                                    Q(snippet_text__contains=query) |
-                                    Q(resource_file_name__contains=query)))
+                                     Q(text__contains=query) |
+                                     Q(snippet_text__contains=query) |
+                                     Q(resource_file_name__contains=query)))
 
         users = User.objects.filter(
             Q(username__contains=query) |
@@ -93,7 +94,18 @@ class CommunityView(CommunityBaseView):
     def post(self, request, *args, **kwargs):
 
         try:
-            form = self.form_class(request.POST, request.FILES)
+            resource_id = request.POST.get('resource_id', 0)
+            resource = None
+            edit = False
+            if resource_id:
+                resource = Resource.objects.get(
+                    id=resource_id, author=request.user)
+                edit = True
+                if resource:
+                    if request.POST.get('snippet_text', None) is None:
+                        request.POST['snippet_text'] = resource.snippet_text
+            form = self.form_class(
+                request.POST, request.FILES, instance=resource)
             resource = form.save(commit=False)
             try:
                 resource.resource_file_name = form.files['resource_file'].name
@@ -107,10 +119,11 @@ class CommunityView(CommunityBaseView):
                 "content": self.request.user.username +
                 " Posted a new resource",
                 "link": "#",
-                "type": "newpost",
+                "type": "newpost" if not edit else "updatepost",
                 "read": False,
                 "user_id": [follower.id for follower in followers],
                 "status": "Successfully Posted Your Resource"
+                    if not edit else 'Resource Successfully Updated'
             }
             response_json = json.dumps(response_dict)
             return HttpResponse(response_json, content_type="application/json")
@@ -152,7 +165,7 @@ class ResourceVoteView(View):
             "upvotes": len(resource.upvotes()),
             "downvotes": len(resource.downvotes()),
             "status": status,
-            }
+        }
 
         if user_id != resource.author.id:
             response_dict.update(
@@ -170,6 +183,19 @@ class ResourceVoteView(View):
 class SinglePostView(LoginRequiredMixin, TemplateView):
     template_name = 'resources/single-post.html'
 
+    def delete(self, request, *args, **kwargs):
+        resource = Resource.objects.get(
+            id=kwargs['resource_id'], author=request.user)
+        if resource:
+            resource.delete()
+            response_dict = {
+                "status": "Resource successfully deleted"
+            }
+            response_json = json.dumps(response_dict)
+            return HttpResponse(response_json, content_type="application/json")
+        else:
+            return HttpResponseNotFound("Unknown resource")
+
     def get_context_data(self, **kwargs):
         context = super(SinglePostView, self).get_context_data(**kwargs)
         try:
@@ -179,4 +205,18 @@ class SinglePostView(LoginRequiredMixin, TemplateView):
             pass
         context['commentform'] = CommentForm(auto_id=False)
         context['title'] = 'Viewing post'
+        return context
+
+
+class ResourceEditView(LoginRequiredMixin, TemplateView):
+    template_name = 'resources/edit-post.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(ResourceEditView, self).get_context_data(**kwargs)
+        try:
+            context['resource'] = \
+                Resource.objects.get(id=kwargs['resource_id'])
+        except Resource.DoesNotExist:
+            pass
+        context['title'] = 'Editing post'
         return context

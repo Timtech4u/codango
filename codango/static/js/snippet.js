@@ -6,6 +6,10 @@ $(document).ready(function () {
   var editor = ace.edit('editor');
   editor.setTheme('ace/theme/twilight');
   editor.session.setMode('ace/mode/python');
+  snippet_text = $('#snippet').attr('data');
+  if (snippet_text){
+    editor.getSession().setValue(snippet_text)
+  }
   editor.getSession().on('change', function () {
     snippet.val(editor.getSession().getValue());
   });

@@ -1,22 +1,25 @@
 {% load cloudinary %}
 {% load endless %}
+{% load bootstrap %}
 {% load staticfiles %}
+
 <div class="content-block">
-    {% if messages %}
-    <div class="row">
-        {% for message in messages %}
-        <div class="alert alert-{{ message.tags }}" role="alert" id="flash-message">
-            {{ message }}
-        </div>
-        {% endfor %}
-    </div>
-    {% endif %}
-    {% if request.path == '/user/'|add:request.user.username or request.path == '/home' or '/resource/ajax/community' in request.path %}
-    <div class="row">
-        <div class="col-sm-12" id='share-form-new'>
-            <form id="id_share_form" role="form" class="share" action="{% url 'resource_create' %}" method="POST" enctype="multipart/form-data">
+    {% if resource %}
+        <h3 class="activity-feed section-header">{{ title }}
+        </h3>
+        <div class="feed">
+            <div class="profile-img">
+                {% if resource.author.profile.image %}
+                    {% cloudinary resource.author.profile.image width=70 height=70 crop="fill" %}
+                {% else %}
+                    {% cloudinary "vqr7n59zfxyeybttleug.gif" width=64 height=64 crop="fill" %}
+                {% endif %}
+            </div>
+            <div class="feed-content">
+              <form id="id_share_form" role="form" class="share" action="{% url 'resource_create' %}" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
-                <textarea id="id-plain-text" name="text" class="form-control" rows="5" placeholder="Ask your Questions, Share your Knowledge... Don't forget to Tag it!!"></textarea>
+                <textarea id="id-plain-text" name="text" class="form-control" rows="5" placeholder="Ask your Questions, Share your Knowledge... Don't forget to Tag it!!">{{ resource.text }}</textarea>
+                <input type="hidden" name="resource_id" value="{{ resource.id }}" />
                 <input id="id-pdf-file" name="resource_file" class="form-control hide well well-sm" type="file" />
                 <div class="well" id="id-snippet-body">
                     <pre id="editor" name="snippet_text"></pre>
@@ -53,37 +56,14 @@
                         </div>
                     </div>
                     <div class="col-sm-4">
-                        <button type="submit" class="btn btn-primary pull-right">Share</button>
+                        <button type="submit" class="btn btn-primary pull-right">Save</button>
                     </div>
                 </div>
-                <textarea hidden id="snippet" name="snippet_text"></textarea>
+                <textarea hidden id="snippet" name="snippet_text" data="{{ resource.snippet_text }}"></textarea>
             </form>
-        </div>
-    </div>
-    {% endif %}
-    <div class="row">
-        <div class="col-sm-12">
-            <h3 class="activity-feed section-header"><i class="mdi mdi-rss"></i> {{ title }}
-                    <div id="preloader">
-                        <img src="{% static 'img/ajax-loader.gif' %}"/>
-                    </div>
-                    <ul class="filter pull-right dropdown">
-                        <li>
-                            <a class="btn btn-default dropdown-toggle" type="button" id="filter-button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                Filter By
-                                <span class="caret"></span>
-                            </a>
-                            <ul class="filter-menu dropdown-menu" aria-labelledby="filter-button">
-                                <li><a href="?sortby=date" class="filterby" role="tab" data-sort="data" data-toggle="tab">Newest</a></li>
-                                <li><a href="?sortby=votes" class="filterby" role="tab" data-sort="votes" data-toggle="tab">Votes</a></li>
-                                <li><a href="?sortby=comments" class="filterby" role="tab" data-sort="comments" data-toggle="tab">Comments</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-            </h3>
-            <div id="community-content">
-                {% include "account/partials/community.html" %}
             </div>
         </div>
-    </div>
+    {% else %}
+        <p>There is no resource for this item</p>
+    {% endif %}
 </div>

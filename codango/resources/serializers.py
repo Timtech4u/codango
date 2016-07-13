@@ -8,8 +8,9 @@ from comments.serializers import CommentSerializer
 class ResourceSerializer(serializers.ModelSerializer):
     """Resource Serializer"""
 
+
     comments = CommentSerializer(many=True, read_only=True)
-    author = serializers.ReadOnlyField(source='user.username')
+    author = serializers.ReadOnlyField(source='author.username')
 
     class Meta:
         model = Resource
