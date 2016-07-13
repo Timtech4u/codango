@@ -49,7 +49,6 @@ let About = React.createClass({
   },
   handleOnFlip(flipped) {
     if (flipped) {
-      // this.refs.backButton.getDOMNode().focus();
       this.refs.backButton.focus();
     }
   },
