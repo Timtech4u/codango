@@ -289,12 +289,12 @@ votes = {
         else _this.addClass('active');
         if (_this.hasClass('like')) {
           _this.siblings('.unlike').removeClass('active')
-          .find('span').html('&nbsp;&nbsp;' + data.downvotes);
-          _this.find('span').html('&nbsp;&nbsp;' + data.upvotes);
+          .find('strong').html('&nbsp;&nbsp;' + data.downvotes);
+          _this.find('strong').html('&nbsp;&nbsp;' + data.upvotes);
         } else {
           _this.siblings('.like').removeClass('active')
-          .find('span').html('&nbsp;&nbsp;' + data.upvotes);
-          _this.find('span').html('&nbsp;&nbsp;' + data.downvotes);
+          .find('strong').html('&nbsp;&nbsp;' + data.upvotes);
+          _this.find('strong').html('&nbsp;&nbsp;' + data.downvotes);
         }
       }
     });
