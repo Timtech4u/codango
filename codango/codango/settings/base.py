@@ -219,8 +219,14 @@ CELERYBEAT_SCHEDULE = {
         'task': 'resources.tasks.send_recent_posts',
         'schedule': crontab(0, 0, day_of_month='1'),
         'args': ['monthly'],
-    },
+    }
 }
 
 # Celery Test Runner for unit tests
 TEST_RUNNER = 'djcelery.contrib.test_runner.CeleryTestSuiteRunner'
+
+TIME = 6000
+SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+SESSION_COOKIE_AGE = TIME    # change expired session
+SESSION_IDLE_TIMEOUT = TIME  # logout

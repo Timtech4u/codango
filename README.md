@@ -64,6 +64,8 @@ GITHUB_CLIENT_ID:
     "123456789101112131415"  # This is your Github client ID
 GITHUB_SECRET_KEY:
     "12345678910111213141516171819202122232425"  # This is your Github secret Key
+CELERY_NOTIFICATION_TIMEOUT:
+    "10"  # This is the timeout set to 10 seconds (Increase this parameter for production)
 
 ```
 

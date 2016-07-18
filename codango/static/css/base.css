@@ -863,20 +863,14 @@ li.L8 {
 
 
 /* settings styling */
-
-.passwordform {
-    border: 1px solid #eee;
-}
-
-.usernameform {
+.panelheaderform {
     margin-top: 20px;
 
     border: 1px solid #eee;
 }
 
-.passwordform form,
-.usernameform form,
-.frequencyform form {
+.panelheaderform form{
+    margin-left: 10px;
     margin-top: 20px;
     margin-left: 10px;
 }
@@ -889,8 +883,7 @@ li.L8 {
     background-color: #e9eaed;
 }
 
-.passwordform .form-control,
-.usernameform .form-control {
+.passwordform .form-control, .panelheaderform .form-control {
     width: 80%;
 }
 

@@ -19,6 +19,12 @@ class UserProfileForm(forms.ModelForm):
         }
 
 
+class NotificationPreferenceForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ['like_preference', 'comment_preference']
+
+
 class ChangeUsernameForm(forms.Form):
     new_username = forms.CharField(
         label='New Username', max_length=100,

@@ -2,8 +2,9 @@
 /* eslint no-var: 0, func-names: 0*/
 /* eslint no-alert: 0, func-names: 0*/
 
-var myDataRef = new Firebase('https://popping-inferno-54.firebaseio.com/');
+var myDataRef = new Firebase('https://project-8667655276128018284.firebaseio.com/');
 var ajaxContent;
+var userid = Cookies.get('userid');
 var formPost;
 var mobileNav;
 var votes;
@@ -15,6 +16,25 @@ var realTime;
 var eventListeners;
 var invitedUsers = [];
 var inviteToSession;
+
+var BASE_FIREBASE_URL = "https://project-8667655276128018284.firebaseio.com/"
+
+if(userid){
+  var baseRef = new Firebase(BASE_FIREBASE_URL);
+var amOnline = baseRef.child('/.info/connected');
+
+  var userRef = baseRef.child('/presence/' + userid);
+  amOnline.on('value', function(snapshot) {
+    if (snapshot.val()) {
+      // User is online.
+      userRef.onDisconnect().remove();
+      userRef.set(true);
+    }
+  });
+}
+
+
+
 
 $.ajaxSetup({
   headers: {
@@ -298,7 +318,7 @@ formPost = {
           _this.append('<div class="alert alert-success successmsg">' + userData.status + '</div>');
           setTimeout(function () {
             $('.successmsg').hide();
-          }, 5000);
+          }, 5000)
         }
       },
       error: function (status) {

@@ -98,3 +98,6 @@ compile.sh
 
 #coverage info for js tests
 /jsCoverage
+
+#vscode directory
+.vscode

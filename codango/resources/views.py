@@ -5,12 +5,16 @@ from django.core.urlresolvers import reverse
 from django.db.models import Q
 from django.contrib.auth.models import User
 from django.http import HttpResponse, HttpResponseNotFound
-from django.views.generic import View, TemplateView, DetailView
+from django.views.generic import View, TemplateView
+from django.template import loader
 from django.db.models import Count
-from resources.models import Resource
+from resources.models import Resource, NotificationQueue
 from comments.forms import CommentForm
 from resources.forms import ResourceForm
 from votes.models import Vote
+from account.emails import SendGrid
+from codango.settings.base import CODANGO_EMAIL
+from account.helper import schedule_notification
 
 
 class LoginRequiredMixin(object):
@@ -176,6 +180,7 @@ class ResourceVoteView(View):
                  "type": "vote",
                  "read": False,
                  "user_id": resource.author.id})
+
         response_json = json.dumps(response_dict)
         return HttpResponse(response_json, content_type="application/json")
 
@@ -199,12 +204,11 @@ class SinglePostView(LoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super(SinglePostView, self).get_context_data(**kwargs)
         try:
-            context['resource'] = \
-                Resource.objects.get(id=kwargs['resource_id'])
+            context['resource'] = Resource.objects.get(
+                id=kwargs['resource_id'])
         except Resource.DoesNotExist:
-            pass
-        context['commentform'] = CommentForm(auto_id=False)
-        context['title'] = 'Viewing post'
+            context['commentform'] = CommentForm(auto_id=False)
+            context['title'] = 'Viewing post'
         return context
 
 
