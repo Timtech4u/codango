@@ -1,8 +1,8 @@
 /* global Firebase: true, $:true, FB:true, prettyPrint: true */
 /* eslint no-var: 0, func-names: 0*/
 /* eslint no-alert: 0, func-names: 0*/
-
-var myDataRef = new Firebase('https://project-8667655276128018284.firebaseio.com/');
+var FIREBASE_URL = Config.firebaseUrl;
+var myDataRef = new Firebase(FIREBASE_URL);
 var ajaxContent;
 var userid = Cookies.get('userid');
 var formPost;
@@ -17,10 +17,8 @@ var eventListeners;
 var invitedUsers = [];
 var inviteToSession;
 
-var BASE_FIREBASE_URL = "https://project-8667655276128018284.firebaseio.com/"
-
 if(userid){
-  var baseRef = new Firebase(BASE_FIREBASE_URL);
+  var baseRef = new Firebase(FIREBASE_URL);
 var amOnline = baseRef.child('/.info/connected');
 
   var userRef = baseRef.child('/presence/' + userid);
