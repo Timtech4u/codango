@@ -20,7 +20,7 @@ var FirepadUserList = (function() {
       }
     });
 
-    this.userList_ = this.makeUserList_()
+    this.userList_ = this.makeUserList_();
     place.appendChild(this.userList_);
   }
 
@@ -68,25 +68,10 @@ var FirepadUserList = (function() {
       }
     });
 
-    var nameInput = elt('input', null, { type: 'text', 'class': 'firepad-userlist-name-input' });
-    nameInput.value = this.displayName_;
+    var nameInput = elt('h5', null, {'class': 'firepad-userlist-name-input' });
+    nameInput.innerHTML = this.displayName_+(' ( you )');
 
-    var nameHint = elt('div', 'ENTER YOUR NAME', { 'class': 'firepad-userlist-name-hint' });
-    if (this.hasName_) nameHint.style.display = 'none';
-
-    // Update Firebase when name changes.
-    var self = this;
-    on(nameInput, 'change', function(e) {
-      var name = nameInput.value || "Guest " + Math.floor(Math.random() * 1000);
-      myUserRef.child('name').onDisconnect().remove();
-      myUserRef.child('name').set(name);
-      nameHint.style.display = 'none';
-      nameInput.blur();
-      self.displayName_ = name;
-      stopEvent(e);
-    });
-
-    var nameDiv = elt('div', [nameInput, nameHint]);
+    var nameDiv = elt('div', [nameInput]);
 
     return elt('div', [colorDiv, nameDiv], {
       'class': 'firepad-userlist-user ' + 'firepad-user-' + this.userId_
@@ -111,13 +96,13 @@ var FirepadUserList = (function() {
 
       var color = userSnapshot.child('color').val();
       if (!isValidColor(color)) {
-        color = "#ffb"
+        color = "#008000";
       }
 
       var colorDiv = elt('div', null, { 'class': 'firepad-userlist-color-indicator' });
       colorDiv.style.backgroundColor = color;
 
-      var nameDiv = elt('div', name || 'Guest', { 'class': 'firepad-userlist-name' });
+      var nameDiv = elt('h5', name || 'Guest', { 'class': 'firepad-userlist-name' });
 
       var userDiv = elt('div', [colorDiv, nameDiv], {
         'class': 'firepad-userlist-user ' + 'firepad-user-' + userId
