@@ -2,7 +2,7 @@
 {% load bootstrap %}
 {% load static %}
 {% block head %}
-    <link rel="stylesheet" href="https://cdn.firebase.com/libs/firepad/1.2.0/firepad.css"/>
+    <link rel="stylesheet" href="https://cdn.firebase.com/libs/firepad/1.3.0/firepad.css"/>
     <link rel="stylesheet" href="{% static 'css/firepad-userlist.css' %}"/>
     <style>
         html {
@@ -61,11 +61,13 @@
 
 {% endblock body %}
 {% block script %}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.1.3/mode-javascript.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.1.3/theme-textmate.js"></script>
-    <script src="https://cdn.firebase.com/js/client/2.2.4/firebase.js"></script>
-    <script src="https://cdn.firebase.com/libs/firepad/1.2.0/firepad.min.js"></script>
-    <script src="{% static 'js/user_list.js' %}"></script>
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.1.3/mode-javascript.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.1.3/theme-textmate.js"></script>-->
+    <!-- ACE -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.2/ace.js"></script>
+    <!-- Firepad -->
+    <script src="https://cdn.firebase.com/libs/firepad/1.3.0/firepad.min.js"></script>
+    <script src="{% static 'js/firepad_user_list.js' %}"></script>
     <script src="{% static 'js/pair.js' %}"></script>
 
 {% endblock script %}
