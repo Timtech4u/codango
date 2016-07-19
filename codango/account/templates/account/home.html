@@ -7,6 +7,7 @@
 {% block title %}Home{% endblock title %}
 
 {% block sidebar %}
+
 <div class="col-sm-3 hidden-sm hidden-xs">
     <div class="content-block">
     {% include "account/partials/community-menu.html" %}
@@ -28,4 +29,8 @@
 {% include "account/partials/feeds.html" %}
     
 {% endblock content %}
+{% block script %}
+    <script type="text/javascript" src="{% static 'lib/ace-builds/src-min-noconflict/ace.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/snippet.js' %}"></script>
 
+{% endblock script %}
