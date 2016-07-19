@@ -12,7 +12,7 @@ var editor = null;
  */
 function changeEditorOption(language, theme) {
   editor.setTheme('ace/theme/' + theme);
-  session.setMode('ace/mode/' + language); 
+  session.setMode('ace/mode/' + language);
 }
 
 $(document).ready(function () {
