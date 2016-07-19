@@ -589,6 +589,10 @@ pre {
   margin-bottom: 0px;
   display: inline-block; }
 
+.session-name {
+    display: inline-block;
+}
+
 #file-info {
   display: inline-block; }
 
