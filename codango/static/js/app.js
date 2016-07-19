@@ -18,6 +18,7 @@ var invitedUsers = [];
 var inviteToSession;
 
 
+
 if(userid){
   var baseRef = new Firebase(FIREBASE_URL);
 var amOnline = baseRef.child('/.info/connected');
