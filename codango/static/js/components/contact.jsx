@@ -1,6 +1,6 @@
 import ReactDOM from 'react-dom';
 import React, {Component} from 'react';
-
+import request from 'superagent';
 import {
     Col,
     form,
@@ -20,6 +20,7 @@ class Contact extends Component {
     super();
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleFieldChange = this.handleFieldChange.bind(this);
+    this.sendMessage = this.sendMessage.bind(this);
     this.state = {
         name: '',
         email: '',
@@ -39,9 +40,23 @@ class Contact extends Component {
 
     handleSubmit(event) {
       event.preventDefault();
-      console.log(this.state)
+      this.sendMessage(this.state.name, this.state.email, this.state.subject, this.state.message)
     }
 
+    sendMessage(name, email, subject, message) {
+      request
+        .post('/api/v1/contactus/')
+        .send({'name': name, 'email': email, 'subject': subject,
+               'message': message })
+        .end((err, result) => {
+          if (result.status === 201) {
+            console.log(result.body.message)
+          }
+          else {
+            console.log(result.body.message)
+          }
+        });
+    }
   render() {
         return (
             <div>
