@@ -41,8 +41,10 @@ $(document).ready(function () {
     bindEvents: function () {
       // Language change event handler
       $('#language').change(function () {
-
-        changeEditorOption($(this).val(), $('#theme').val());
+        var lang = $(this).val();
+        var theme = $('#theme').val();
+        changeEditorOption(lang, theme);
+        app.updateSession(lang);
       });
 
       // Theme change event handler
@@ -52,7 +54,6 @@ $(document).ready(function () {
         changeEditorOption(lang, theme);
 
         localStorage.setItem('theme', theme)
-
       });
     },
     getPageRef: function () {
