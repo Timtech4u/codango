@@ -1,21 +1,22 @@
 .firepad-userlist {
   text-align: left;
-  font-family: 'Helvetica Neue', sans-serif;
   line-height: normal;
+  margin-left: -15px;
 }
 
 .firepad-userlist-heading {
-  margin: 20px 15px 0;
-  font-size: 12px;
-  font-weight: bold;
+  margin: 30px 15px 0;
+  font-size: 14px;
+  font-weight: 700;
   border-bottom: 2px solid #c9c9c9;
+  padding-bottom: 3px;
 }
 
 .firepad-userlist-users {
   position: relative;
   left: 15px;
   right: 15px;
-  top: 5px;
+  top: -5px;
   bottom: 10px;
 }
 
