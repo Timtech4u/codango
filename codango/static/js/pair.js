@@ -41,7 +41,8 @@ $(document).ready(function () {
       session.setUseWorker(false);
       session.setMode('ace/mode/' + language);
       var firePad = Firepad.fromACE(app.getPageRef(), editor);
-      var firepadUserList = FirepadUserList.fromDiv(firepadRef.child('users'),
+      var sessionId = $('#session-id').val();
+      var firepadUserList = FirepadUserList.fromDiv(firepadRef.child('users/'+sessionId),
                      document.getElementById('userlist'), userid, displayName);
     },
     bindEvents: function () {
@@ -63,6 +64,7 @@ $(document).ready(function () {
       });
     },
     getPageRef: function () {
+
       var sessionId = $('#session-id').val();
       return firepadRef.child('session/' + sessionId);
     },

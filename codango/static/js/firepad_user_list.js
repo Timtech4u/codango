@@ -102,7 +102,7 @@ var FirepadUserList = (function() {
       var colorDiv = elt('div', null, { 'class': 'firepad-userlist-color-indicator' });
       colorDiv.style.backgroundColor = color;
 
-      var nameDiv = elt('h5', name || 'Guest', { 'class': 'firepad-userlist-name' });
+      var nameDiv = elt('a', name || 'Guest', { 'class': 'firepad-userlist-name', 'href': '/user/'+name });
 
       var userDiv = elt('div', [colorDiv, nameDiv], {
         'class': 'firepad-userlist-user ' + 'firepad-user-' + userId

@@ -24,6 +24,10 @@
   position: relative;
   margin: 3px 0;
 }
+.firepad-userlist-user a{
+  text-decoration: none;
+  color: inherit;
+}
 
 .firepad-userlist-color-indicator {
   display: inline-block;
