@@ -15,8 +15,10 @@ var FirepadUserList = (function() {
     this.firebaseOn_(ref.root().child('.info/connected'), 'value', function(s) {
       if (s.val() === true && self.displayName_) {
         var nameRef = ref.child(self.userId_).child('name');
-        nameRef.onDisconnect().remove();
+        var statusRef = ref.child(self.userId_).child('status');
+        statusRef.onDisconnect().set('offline');
         nameRef.set(self.displayName_);
+        statusRef.set('online');
       }
     });
 
@@ -39,7 +41,7 @@ var FirepadUserList = (function() {
       this.makeHeading_(),
       elt('div', [
         this.makeUserEntryForSelf_(),
-        this.makeUserEntriesForOthers_()
+        this.makeUserEntriesForOthers_(),
       ], { 'class': 'firepad-userlist-users' })
     ], { 'class': 'firepad-userlist' });
   };
@@ -68,12 +70,15 @@ var FirepadUserList = (function() {
       }
     });
 
+
     var nameInput = elt('h5', null, {'class': 'firepad-userlist-name-input' });
-    nameInput.innerHTML = this.displayName_+(' ( you )');
+    nameInput.innerHTML = this.displayName_+(' (you)');
+
+    var statusDiv = elt('div', {'class': 'firepad-user-status'});
 
     var nameDiv = elt('div', [nameInput]);
 
-    return elt('div', [colorDiv, nameDiv], {
+    return elt('div', [colorDiv, nameDiv, statusDiv], {
       'class': 'firepad-userlist-user ' + 'firepad-user-' + this.userId_
     });
   };
@@ -81,6 +86,7 @@ var FirepadUserList = (function() {
   FirepadUserList.prototype.makeUserEntriesForOthers_ = function() {
     var self = this;
     var userList = elt('div');
+    var offlineUserList = elt('div');
     var userId2Element = {};
 
     function updateChild(userSnapshot, prevChildName) {
@@ -94,17 +100,22 @@ var FirepadUserList = (function() {
       if (typeof name !== 'string') { name = 'Guest'; }
       name = name.substring(0, 20);
 
-      var color = userSnapshot.child('color').val();
-      if (!isValidColor(color)) {
-        color = "#008000";
+      var status = userSnapshot.child('status').val();
+      var statusDiv = elt('div', status, {'class': 'firepad-user-status'});
+
+      var nameElement = elt('a', name || 'Guest', { 'class': 'firepad-userlist-name', 'href': '/user/'+name });
+
+      var color = "#008000";
+      if (status == "offline") {
+        color = "#afafaf";
+        nameElement.style.fontStyle = 'italic';
+        nameElement.style.color = "#888"
       }
 
       var colorDiv = elt('div', null, { 'class': 'firepad-userlist-color-indicator' });
       colorDiv.style.backgroundColor = color;
 
-      var nameDiv = elt('a', name || 'Guest', { 'class': 'firepad-userlist-name', 'href': '/user/'+name });
-
-      var userDiv = elt('div', [colorDiv, nameDiv], {
+      var userDiv = elt('div', [colorDiv, nameElement], {
         'class': 'firepad-userlist-user ' + 'firepad-user-' + userId
       });
       userId2Element[userId] = userDiv;
@@ -114,22 +125,16 @@ var FirepadUserList = (function() {
         // But don't show it.
         userDiv.style.display = 'none';
       }
-
-      var nextElement = prevChildName ? userId2Element[prevChildName].nextSibling : userList.firstChild;
-      userList.insertBefore(userDiv, nextElement);
+      if(status == 'offline') {
+        userList.appendChild(userDiv);
+      } else {
+        userList.insertBefore(userDiv, userList.firstChild);
+     }
     }
 
     this.firebaseOn_(this.ref_, 'child_added', updateChild);
     this.firebaseOn_(this.ref_, 'child_changed', updateChild);
     this.firebaseOn_(this.ref_, 'child_moved', updateChild);
-    this.firebaseOn_(this.ref_, 'child_removed', function(removedSnapshot) {
-      var userId = removedSnapshot.key();
-      var div = userId2Element[userId];
-      if (div) {
-        userList.removeChild(div);
-        delete userId2Element[userId];
-      }
-    });
 
     return userList;
   };
