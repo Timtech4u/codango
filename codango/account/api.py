@@ -3,10 +3,17 @@ import psycopg2
 from rest_framework import generics, permissions
 # from serializers import UserSerializer, UserFollowSerializer, UserSettingsSerializer
 from serializers import UserSerializer, UserFollowSerializer, UserSettingsSerializer
-from serializers import AllUsersSerializer, UserRegisterSerializer
+from serializers import AllUsersSerializer, UserRegisterSerializer, ContactUsSerializer
 from userprofile import serializers, models
 from django.contrib.auth.models import User
 from rest_framework import permissions
+from rest_framework.permissions import AllowAny
+from models import ContactUsModel
+from codango.settings.base import ADMIN_EMAIL
+from emails import SendGrid
+from rest_framework import status
+from rest_framework.views import APIView
+from rest_framework.response import Response
 
 
 class IsOwner(permissions.BasePermission):
@@ -93,3 +100,33 @@ class UserSettingsAPIView(generics.RetrieveUpdateAPIView):
     queryset = models.UserSettings.objects.all()
     serializer_class = UserSettingsSerializer
     permission_classes = (IsOwner,)
+
+class ContactUsAPIView(generics.CreateAPIView):
+    """
+    For api/v1/contactus/ url path
+    To enable user send message to the admin
+    """
+    permission_classes = (AllowAny,)
+    serializer_class = ContactUsSerializer
+
+    def post(self, request):
+        name = request.data.get('name')
+        email = request.data.get('email')
+        subject = request.data.get('subject')
+        message = request.data.get('message')
+        email_compose = SendGrid.compose(
+            sender='{0} <{1}>'.format(name, email),
+            recipient="hassan.oyeboade@andela.com",
+            subject=subject,
+            text=message,
+            html=None
+        )
+
+        # Send email
+        response = SendGrid.send(email_compose)
+
+        # Inform the user if mail sent was successful or not
+        if response == 200:
+            return Response({"message": "Your message has been succesfully sent"}, status=status.HTTP_201_CREATED)
+        else:
+            return Response({"message": "Message not sent"}, status=status.HTTP_400_BAD_REQUEST)

@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from userprofile.models import UserProfile, UserSettings
 from userprofile.serializers import UserProfileSerializer, NotificationSerializer
 from userprofile.serializers import FollowSerializer
-
+from models import ContactUsModel
 
 class AllUsersSerializer(serializers.ModelSerializer):
     """Serializer for User model having only the field required for all users"""
@@ -122,3 +122,11 @@ class UserFollowSerializer(serializers.ModelSerializer):
         # Note that id is non-updatable,
         # therefore not required in the read-only fields
         fields = ('id', 'following')
+
+class ContactUsSerializer(serializers.ModelSerializer):
+    """ContactSerializer to be used in /api/v1/contactus/"""
+
+    class Meta:
+        model = ContactUsModel
+
+        fields = ('name', 'email', 'subject', 'message')

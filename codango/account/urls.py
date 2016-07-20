@@ -1,6 +1,6 @@
 from django.conf.urls import include, url
 from account import views
-
+from api import *
 urlpatterns = [
     url(r'^$', views.IndexView.as_view(), name='index'),
     url(r'^home$', views.HomeView.as_view(), name='home'),
