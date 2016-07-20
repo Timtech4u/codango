@@ -8,6 +8,7 @@ var editor = null;
 var userid = Cookies.get('userid');
 var displayName = $('#username').attr('value');
 var firepadRef = new Firebase(FIRBASE_URL);
+var sessionId = $('#session-id').val();
 
 /**
  * Handles ace editor initialization
@@ -34,10 +35,10 @@ $(document).ready(function () {
       session.setUseWrapMode(true);
       session.setUseWorker(false);
       session.setMode('ace/mode/' + language);
-      var firePad = Firepad.fromACE(app.getPageRef(), editor);
-      var sessionId = $('#session-id').val();
-      var firepadUserList = FirepadUserList.fromDiv(firepadRef.child('users/'+sessionId),
-                     document.getElementById('userlist'), userid, displayName);
+      pageRef = app.getPageRef();
+      var firePad = Firepad.fromACE(pageRef, editor);
+      var firepadUserList = FirepadUserList.fromDiv(pageRef.child('users/'+
+         sessionId), document.getElementById('userlist'), userid, displayName);
     },
     bindEvents: function () {
       // Language change event handler
@@ -51,8 +52,6 @@ $(document).ready(function () {
       });
     },
     getPageRef: function () {
-
-      var sessionId = $('#session-id').val();
       return firepadRef.child('session/' + sessionId);
     }
   };

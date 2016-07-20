@@ -135,6 +135,14 @@ var FirepadUserList = (function() {
     this.firebaseOn_(this.ref_, 'child_added', updateChild);
     this.firebaseOn_(this.ref_, 'child_changed', updateChild);
     this.firebaseOn_(this.ref_, 'child_moved', updateChild);
+    this.firebaseOn_(this.ref_, 'child_removed', function(removedSnapshot) {
+      var userId = removedSnapshot.key();
+      var div = userId2Element[userId];
+      if (div) {
+        userList.removeChild(div);
+        delete userId2Element[userId];
+      }
+    });
 
     return userList;
   };
