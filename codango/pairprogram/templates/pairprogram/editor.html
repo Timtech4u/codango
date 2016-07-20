@@ -20,31 +20,19 @@
 {% block body %}
     <input type="hidden" value="{{ request.user.username }}" id="username"/>
     <input type="hidden" value="{{ session_id }}" id="session-id"/>
-    <div class="session-name col-sm-12" id="div_1"><span><h3>{{ session_name }}</h3></span></div>
+    <div class="session-name col-sm-12" id="div_1"><span><h3>{{ session.session_name }}</h3></span></div>
     <div class="editor-preferences">
         <em>Language</em>
-        <select id="language">
-            <option value="javascript">Javascript</option>
-            <option value="python">Python</option>
-            <option value="ruby">Ruby</option>
-            <option value="PHP">PHP</option>
-            <option value="java">Java</option>
-            <option value="css">CSS</option>
-            <option value="html">HTML</option>
+        <select id="language" {% if session.initiator != request.user  %}  disabled="disabled" {% endif %}>
+            {% for key, value in languages %}
+              <option value="{{value}}" {% if session.language == value  %} selected="selected" {% endif %} >{{key}}</option>
+            {% endfor %}
         </select>
         <em>Theme</em>
         <select id="theme">
-            <option value="monokai">Monokai</option>
-            <option value="dreamweaver">Dreamweaver</option>
-            <option value="textmate">Textmate</option>
-            <option value="terminal">Terminal</option>
-            <option value="chaos">Chaos</option>
-            <option value="clouds">Clouds</option>
-            <option value="cobalt">Cobalt</option>
-            <option value="dawn">Dawn</option>
-            <option value="github">Github</option>
-            <option value="eclipse">Eclipse</option>
-            <option value="iplastic">iPlastic</option>
+            {% for key, value in themes %}
+              <option value="{{value}}" {% if value == 'cobalt'  %} selected="selected" {% endif %} >{{key}}</option>
+            {% endfor %}
         </select>
 
     </div>
