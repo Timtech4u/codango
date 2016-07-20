@@ -1,6 +1,5 @@
 .firepad-userlist {
   text-align: left;
-  line-height: normal;
   margin-left: -15px;
 }
 
@@ -26,7 +25,6 @@
   margin: 3px 0;
 }
 .firepad-userlist-user a{
-  text-decoration: none;
   color: inherit;
 }
 
@@ -70,5 +68,5 @@ input.firepad-userlist-name-input {
 }
 
 .firepad-userlist-name {
-  font-size: 13px;
+  font-size: 14px;
 }
