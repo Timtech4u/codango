@@ -53,7 +53,7 @@ var FirepadUserList = (function() {
     });
 
     return elt('div', [
-      elt('span', 'Online ('),
+      elt('span', 'Participants ('),
       counterSpan,
       elt('span', ')')
     ], { 'class': 'firepad-userlist-heading' });
@@ -109,7 +109,7 @@ var FirepadUserList = (function() {
       if (status == "offline") {
         color = "#afafaf";
         nameElement.style.fontStyle = 'italic';
-        nameElement.style.color = "#888"
+        nameElement.style.color = "#888";
       }
 
       var colorDiv = elt('div', null, { 'class': 'firepad-userlist-color-indicator' });
