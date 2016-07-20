@@ -7,6 +7,7 @@ from django.dispatch import receiver
 
 class Session(models.Model):
     session_name = models.CharField(max_length=200, null=True)
+    language = models.CharField(max_length=30, default="python")
     last_active_date = models.DateTimeField(default=timezone.now)
     status = models.BooleanField(default=True)
     initiator = models.ForeignKey(User)
