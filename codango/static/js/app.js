@@ -669,6 +669,10 @@ inviteToSession = {
       if (!inviteToSession.isEmailInList(email)) {
         return inviteToSession.validationError('Email is already in the list');
       }
+
+      if (invitedUsers.length >= 4) {
+        return inviteToSession.validationError('You cannot add more than 4 users');
+      }
       // Reset the error message paragraph tag
       $(inviteToSession.config.validateDiv).html('');
 
