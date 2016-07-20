@@ -12,6 +12,7 @@ from account.emails import SendGrid
 from pairprogram.models import Session, Participant
 from pairprogram.forms import SessionForm
 from resources.views import LoginRequiredMixin
+from pyfirebase import Firebase
 
 class StartPairView(LoginRequiredMixin, TemplateView):
     template_name = 'pairprogram/sessions.html'
@@ -158,14 +159,21 @@ class DeleteSessionView(LoginRequiredMixin, View):
 
     def post(self, request, *args, **kwargs):
         session_id = request.POST['session_id']
+        firebase = Firebase('https://project-8667655276128018284.fir'
+                            'ebaseio.com/')
+        pair_users_ref = "session/{}/users".format(session_id)
+        pair_users_session = firebase.ref(pair_users_ref).child(session_id)
 
         try:
             session = Session.objects.get(id=session_id)
             if session.initiator == self.request.user:
+                pair_users_session.delete()
                 session.delete()
             else:
                 participant = Participant.objects.filter(
                     session_id=session_id, participant_id=self.request.user)
+                participant_id = self.request.user.id
+                pair_users_session.child(str(participant_id)).delete()
                 participant.delete()
         except Session.DoesNotExist:
             pass
