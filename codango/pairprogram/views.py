@@ -83,6 +83,7 @@ class PairSessionView(LoginRequiredMixin, View):
             try:
                 Participant.objects.create(
                     participant=user, session=session)
+
             except IntegrityError:
                 pass
             url = 'http://%s%s' % (
@@ -116,12 +117,16 @@ class PairSessionView(LoginRequiredMixin, View):
             response_dict['email'] = email
             response_dict['status'] = "error"
             if request.user.email != email:
-                response = self.send_invites(email, session, request)
-                response_dict['message'] = "Successfully sent" \
-                    if response == 200 else "There was an error"
-                response_dict['status'] = "success" \
-                    if response == 200 else "error"
-
+                participants = Participant.objects.filter(session=session)
+                if len(participants) < 5:
+                    response = self.send_invites (email, session, request)
+                    response_dict['message'] = "Successfully sent" \
+                        if response == 200 else "There was an error"
+                    response_dict['status'] = "success" \
+                        if response == 200 else "error"
+                else:
+                    response_dict[
+                    'message'] = "A session cannot hold more than 5 users"
             else:
                 response_dict[
                     'message'] = "You can't send an invite to yourself"
