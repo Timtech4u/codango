@@ -6,12 +6,12 @@ from django.contrib import messages
 from django.http import JsonResponse
 from django.core.urlresolvers import reverse
 from django.db import IntegrityError
-
+import json
 from account.emails import SendGrid
 from pairprogram.models import Session, Participant
 from pairprogram.forms import SessionForm
 from resources.views import LoginRequiredMixin
-
+from django.conf import settings
 
 class StartPairView(LoginRequiredMixin, TemplateView):
     template_name = 'pairprogram/sessions.html'
@@ -65,9 +65,11 @@ class PairSessionView(LoginRequiredMixin, View):
         result = any(self.request.user == row.participant
                      for row in participants)
         context['profile'] = self.request.user.profile
-        context['session_name'] = Session.objects.get(
-            id=context['session_id']).session_name
+        context['session'] = Session.objects.get(
+            id=context['session_id'])
         context['sessionform'] = self.form_class()
+        context['themes'] = settings.EDITOR_THEME.iteritems() 
+        context['languages'] = settings.EDITOR_LANGUAGE.iteritems() 
 
         if not result:
             messages.add_message(self.request, messages.ERROR,
@@ -83,7 +85,7 @@ class PairSessionView(LoginRequiredMixin, View):
             try:
                 Participant.objects.create(
                     participant=user, session=session)
-                
+
             except IntegrityError:
                 pass
             url = 'http://%s%s' % (
@@ -133,6 +135,24 @@ class PairSessionView(LoginRequiredMixin, View):
             result.append(response_dict)
         return JsonResponse(
             {'response': result})
+
+    def put(self, request, *args, **kwargs):
+        from django.http import QueryDict
+        data = QueryDict(request.body)
+        language = data.get('language', 'python')
+        session = Session.objects.get(id=kwargs['session_id'])
+        response_dict = {}
+        if session:
+            session.language = language
+            session.save()
+            response_dict[
+                    'message'] = "Session updated successfully"
+        else:
+            response_dict[
+                    'message'] = "Session unable to updated"
+
+        return JsonResponse(
+            {'response': response_dict})
 
 
 class DeleteSessionView(LoginRequiredMixin, View):
