@@ -16,7 +16,6 @@ var realTime;
 var eventListeners;
 var invitedUsers = [];
 var inviteToSession;
-
 var BASE_FIREBASE_URL = "https://project-8667655276128018284.firebaseio.com/"
 
 if(userid){
@@ -34,7 +33,25 @@ var amOnline = baseRef.child('/.info/connected');
 }
 
 
+/* Start of Facebook SDK import */
 
+window.fbAsyncInit = function() {
+  FB.init({
+    appId      : '1035208709886501',
+    xfbml      : true,
+    version    : 'v2.6'
+  });
+};
+
+(function(d, s, id){
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+
+/* End of Facebook SDK Import */
 
 $.ajaxSetup({
   headers: {
@@ -822,7 +839,44 @@ var deleteSession = {
     }
 };
 
+shareResource = {
+  config : {
+    link: '.share-container a'
+  },
+  init: function(){
+    $('body').on('click', shareResource.config.link, function(e) {
+      e.preventDefault();
+      let title = $(this).attr('title');
+      let resourceId = $(this).attr('data-id');
+      let resourcePage = location.protocol + '//' + location.host +
+                          '/resource/post/'+resourceId;
+      let content = $('#rcomments-'+resourceId).siblings('h1').text();
+      console.log(title)
+      if(title === "Facebook"){
+        FB.ui({
+          method: 'feed',
+          link: resourcePage,
+          caption: content,
+        }, function(response){});
+      };
+      if (title === "Twitter") {
+        url = 'https://twitter.com/intent/tweet?text='+resourcePage+'  '+content;
+        window.open(url, 'twitter');
+      };
+      if (title === "Google+") {
+        url = "https://plus.google.com/share?url="+resourcePage;
+        window.open(url, 'googleplus');
+      }
+    });
+
+    $('body').on('click', '.share-resource', function(e){
+      e.preventDefault();
+    });
+  },
+};
+
 $(document).ready(function () {
+  shareResource.init();
   realTime.init();
   inviteToSession.init();
 

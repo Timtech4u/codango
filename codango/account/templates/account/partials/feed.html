@@ -61,15 +61,15 @@
                 <div class="commentcount commentcount-{{resource.id}}"><a class=" comment-count"><span class="mdi mdi-comment item">&nbsp;&nbsp;<strong>{{ resource.comments.count }} Comment{% if resource.comments.count > 1%}s{% endif %}</strong></span></a>
                 </div>
                 <div class="share-wrapper pull-right">
-                    <a class="share" ><span class="mdi mdi-share-variant" >&nbsp;&nbsp;</span><strong> Share</strong></a>
-                    <div class="share-container" >
-                        <div class="share-icons" >
-                            <a class="facebook"><span class="mdi mdi-facebook-box">&nbsp;&nbsp;</span></a>
-                            <a class="twitter"><span class="mdi mdi-twitter-box">&nbsp;&nbsp;</span></a>
-                            <a class="gplus"><span class="mdi mdi-google-plus-box">&nbsp;&nbsp;</span></a>
-                        </div>
-                        <div class="arrow-down"></div>
-                    </div>
+                  <a class="share-resource" ><span class="mdi mdi-share-variant" >&nbsp;&nbsp;</span><strong> Share</strong></a>
+                  <div class="share-container" >
+                      <div class="share-icons" >
+                          <a class="facebook" data-id="{{ resource.id }}" title="Facebook"><span class="mdi mdi-facebook-box">&nbsp;&nbsp;</span></a>
+                          <a class="twitter" data-id="{{ resource.id }}" title="Twitter"><span class="mdi mdi-twitter-box">&nbsp;&nbsp;</span></a>
+                          <a class="gplus" data-id="{{ resource.id }}" title="Google+"><span class="mdi mdi-google-plus-box">&nbsp;&nbsp;</span></a>
+                      </div>
+                      <div class="arrow-down"></div>
+                  </div>
                 </div>
             </div>
             </div>
@@ -92,15 +92,15 @@
                                         <time class="comment-date" datetime="16-12-2014 01:05">
                                         {{comment.date_modified|timesince}} ago
                                         </time></em>
+                                        {% if comment.author.id == request.user.id %}
+                                            <a href="{% url 'comment_action' comment_id=comment.id %}" class="delete-comment pull-right"><span class="mdi mdi-delete"></span></a>
+                                            <a href="#" class="show-edit pull-right"><span class="mdi mdi-pencil"></span> </a>
+                                        {% endif %}
                                     </div>
                                 </header>
                                 <div class="comment-post view">
                                     <p>
                                         {{comment}}
-                                        {% if comment.author.id == request.user.id %}
-                                            <a href="{% url 'comment_action' comment_id=comment.id %}" class="delete-comment pull-right"><span class="mdi mdi-delete"></span></a>
-                                            <a href="#" class="show-edit pull-right"><span class="mdi mdi-pencil"></span> </a>
-                                        {% endif %}
                                     </p>
                                 </div>
                                 {% if comment.author.id == request.user.id %}
