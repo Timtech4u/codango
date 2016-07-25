@@ -14,7 +14,7 @@ from resources.forms import ResourceForm
 from votes.models import Vote
 from account.emails import SendGrid
 from codango.settings.base import CODANGO_EMAIL
-from account.helper import schedule_notification
+from userprofile.models import Notification
 
 
 class LoginRequiredMixin(object):
@@ -125,7 +125,7 @@ class CommunityView(CommunityBaseView):
                 "link": "#",
                 "type": "newpost" if not edit else "updatepost",
                 "read": False,
-                "user_id": [follower.id for follower in followers],
+                "user_id": [follower.follower.id for follower in followers],
                 "status": "Successfully Posted Your Resource"
                     if not edit else 'Resource Successfully Updated'
             }
