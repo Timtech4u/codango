@@ -207,7 +207,7 @@ class TestContactUs(APITestCase):
 
     def test_user_can_contact_the_admin(self):
         """Confirm users can contact the admin"""
-        response = self.client.post(reverse('contactus')
+        response = self.client.post(reverse('contactus'),
                                     data={'name': self.name, 'email': self.email, 'subject': self.subject, 'message': self.message}, format='json')
         self.assertEqual(response.status_code, 201)
         self.assertIn(response.data.get('message'), "Your message has been succesfully sent")
