@@ -199,7 +199,7 @@ class UserTests(APITestCase):
 
 class TestContactUs(APITestCase):
 
-    def setup(self):
+    def setUp(self):
         self.name = "Margaret"
         self.email = "margaret.ochieng@andela.com"
         self.subject = "Testing Contact API Endpoint"
