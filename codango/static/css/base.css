@@ -596,6 +596,13 @@ pre {
 #file-info {
   display: inline-block; }
 
+#file-icon {
+  margin-bottom: 0px;
+  display: inline-block; }
+
+#file-info {
+  display: inline-block; }
+
 /* content style end */
 /* Pairing style */
 .session-name {
