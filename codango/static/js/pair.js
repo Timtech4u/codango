@@ -26,7 +26,10 @@ $(document).ready(function () {
       }
       var theme = selectedTheme || save_theme || 'cobalt';
       var language = selectedLanguage || 'python';
+<<<<<<< HEAD
 
+=======
+>>>>>>> f57e7c9dfbc007f30498d7438c7f52b94258e415
       // Get current session firebase ref
       editor = ace.edit('firepad-container');
       session = editor.getSession();
