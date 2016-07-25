@@ -1,6 +1,7 @@
 from rest_framework import status
 from rest_framework.test import APITestCase
 
+from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 
 # DRY variables to be used repeatedly
@@ -195,3 +196,18 @@ class UserTests(APITestCase):
         # Asserting that the followed is added to the user's data
         confirmation = self.client.get(url_for_one).data
         self.assertEqual(confirmation.get("userprofile")["followings"][0]["id"], 4)
+
+class TestContactUs(APITestCase):
+
+    def setup(self):
+        self.name = "Margaret"
+        self.email = "margaret.ochieng@andela.com"
+        self.subject = "Testing Contact API Endpoint"
+        self.message = "Confirming that the Contact endpoint actually works"
+
+    def test_user_can_contact_the_admin(self):
+        """Confirm users can contact the admin"""
+        response = self.client.post(reverse('contactus')
+                                    data={'name': self.name, 'email': self.email, 'subject': self.subject, 'message': self.message}, format='json')
+        self.assertEqual(response.status_code, 201)
+        self.assertIn(response.data.get('message'), "Your message has been succesfully sent")
