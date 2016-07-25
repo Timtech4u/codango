@@ -18,6 +18,20 @@ var invitedUsers = [];
 var inviteToSession;
 
 
+if(userid){
+var baseRef = new Firebase(FIREBASE_URL);
+var amOnline = baseRef.child('/.info/connected');
+
+  var userRef = baseRef.child('/presence/' + userid);
+  amOnline.on('value', function(snapshot) {
+    if (snapshot.val()) {
+      // User is online.
+      userRef.onDisconnect().remove();
+      userRef.set(true);
+    }
+  });
+}
+
 $.ajaxSetup({
   headers: {
     'X-CSRFToken': $("meta[name='csrf-token']").attr('content')
