@@ -2,19 +2,17 @@
   ace:true, Firepad: true, FirepadUserList: true*/
 /* eslint no-var: 0, func-names: 0*/
 /* eslint no-alert: 0, func-names: 0*/
-var FIRBASE_URL = 'https://intense-fire-2301.firebaseio.com/';
-
-var editor = ace.edit('firepad-container');
-var session = editor.getSession();
-
+var FIRBASE_URL = Config.firebaseUrl;
+var session = null;
+var editor = null;
 /**
  * Handles ace editor initialization
  * @param {string} langauge - the programming language of the session
  * @param {object} theme - the present theme being used by the session
  */
-function init(language, theme) {
+function changeEditorOption(language, theme) {
   editor.setTheme('ace/theme/' + theme);
-  session.setMode('ace/mode/' + language);
+  session.setMode('ace/mode/' + language); 
 }
 
 $(document).ready(function () {
@@ -24,23 +22,25 @@ $(document).ready(function () {
       var theme = selectedTheme || 'monokai';
       var language = selectedLanguage || 'javascript';
       // Get current session firebase ref
-
+      editor = ace.edit('firepad-container');
+      session = editor.getSession();
       app.bindEvents();
       // Initialize ACE Editor
       editor.setTheme('ace/theme/' + theme);
       session.setUseWrapMode(true);
       session.setUseWorker(false);
       session.setMode('ace/mode/' + language);
+      var firePad = Firepad.fromACE(app.getPageRef(), editor);
     },
     bindEvents: function () {
       // Language change event handler
       $('#language').change(function () {
-        init($(this).val(), $('#theme').val());
+        changeEditorOption($(this).val(), $('#theme').val());
       });
 
       // Theme change event handler
       $('#theme').change(function () {
-        init($('#language').val(), $(this).val());
+        changeEditorOption($('#language').val(), $(this).val());
       });
     },
     getPageRef: function () {
@@ -49,5 +49,5 @@ $(document).ready(function () {
       return firepadRef.child('session/' + sessionId);
     }
   };
-  app.init();
+ app.init();
 });
