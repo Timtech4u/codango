@@ -48,6 +48,6 @@ urlpatterns = [
     url(r'^users/(?P<pk>[0-9]+)$', UserDetailAPIView.as_view()),
     url(r'^users/(?P<pk>[0-9]+)/follow/', UserFollowAPIView.as_view()),
     url(r'^users/(?P<pk>[0-9]+)/settings/', UserSettingsAPIView.as_view()),
-    url(r'^contactus/$', ContactUsAPIView.as_view())
+    url(r'^contactus/$', ContactUsAPIView.as_view(), name='contactus')
 
 ]

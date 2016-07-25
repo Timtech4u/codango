@@ -116,7 +116,7 @@ class ContactUsAPIView(generics.CreateAPIView):
         message = request.data.get('message')
         email_compose = SendGrid.compose(
             sender='{0} <{1}>'.format(name, email),
-            recipient=ADMIN_EMAIL,
+            recipient="hassan.oyeboade@andela.com",
             subject=subject,
             text=message,
             html=None
