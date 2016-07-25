@@ -586,8 +586,8 @@ eventListeners = {
     // Shows the edit comments box
     $('body').on('click', '.show-edit', function (e) {
       e.preventDefault();
-      $(this).closest('div').siblings('.edit-view').show();
-      $(this).closest('.view').hide();
+      $(this).parents('header').siblings('.edit-view').show();
+      $(this).parents('header').siblings('.view').hide();
     });
 
     // Deletes all notifications
@@ -616,7 +616,21 @@ eventListeners = {
       e.preventDefault();
       $(this).closest('.feed-content').find('.comments-div').toggle();
     });
-
+    $(document).mouseup(function (e) {
+      var container = $(".comments-div");
+      if (!container.is(e.target) && container.has(e.target).length === 0)
+      {
+          container.hide();
+      }
+    });
+    //Share Resource
+    $(document).on('click', '.share-resource', function (e) {
+      e.preventDefault();
+      $(this).siblings('.share-container').toggle();
+    });
+    $(':not(.share-wrapper)').click(function(e){
+        $('.share-container').hide();
+    });
     // Responsive view sidebar slide in
     $('#more a').click(function (e) {
       e.preventDefault();
