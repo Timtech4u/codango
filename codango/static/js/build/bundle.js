@@ -82112,7 +82112,10 @@
 	            name: '',
 	            email: '',
 	            subject: '',
-	            message: ''
+	            message: '',
+	            flashMessage: '',
+	            displayFlashMessage: 'none',
+	            messageType: 'success'
 	        };
 	        return _this;
 	    }
@@ -82132,14 +82135,28 @@
 	            this.sendMessage(this.state.name, this.state.email, this.state.subject, this.state.message);
 	        }
 	    }, {
+	        key: 'displayFlashMessage',
+	        value: function displayFlashMessage(message, messageType) {
+	            this.setState({ "messageType": messageType,
+	                "flashMessage": message,
+	                "displayFlashMessage": "block"
+	            });
+	            setTimeout(function () {
+	                this.setState({ "flashMessage": "",
+	                    "displayFlashMessage": "none" });
+	            }.bind(this), 3000);
+	        }
+	    }, {
 	        key: 'sendMessage',
 	        value: function sendMessage(name, email, subject, message) {
+	            var _this2 = this;
+
 	            _superagent2.default.post('/api/v1/contactus/').send({ 'name': name, 'email': email, 'subject': subject,
 	                'message': message }).end(function (err, result) {
 	                if (result.status === 201) {
-	                    console.log(result.body.message);
+	                    _this2.displayFlashMessage(result.body.message, "success");
 	                } else {
-	                    console.log(result.body.message);
+	                    _this2.displayFlashMessage("Unable to send message", "danger");
 	                }
 	            });
 	        }
@@ -82160,7 +82177,7 @@
 	                        _react2.default.createElement(
 	                            'h1',
 	                            { className: 'page-title' },
-	                            'Contact us ',
+	                            'Contact us now ',
 	                            _react2.default.createElement(
 	                                'small',
 	                                null,
@@ -82185,6 +82202,11 @@
 	                            _react2.default.createElement(
 	                                _reactBootstrap.Form,
 	                                { horizontal: true, action: 'post', onSubmit: this.handleSubmit, className: 'Contact' },
+	                                _react2.default.createElement(
+	                                    _reactBootstrap.Alert,
+	                                    { bsStyle: this.state.messageType, style: { "display": this.state.displayFlashMessage } },
+	                                    this.state.flashMessage
+	                                ),
 	                                _react2.default.createElement(
 	                                    _reactBootstrap.FormGroup,
 	                                    { controlId: 'formControlsText' },
