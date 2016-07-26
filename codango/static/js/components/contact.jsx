@@ -22,6 +22,8 @@ class Contact extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleFieldChange = this.handleFieldChange.bind(this);
     this.sendMessage = this.sendMessage.bind(this);
+    this.displayFlashMessage = this.displayFlashMessage.bind(this);
+    this.clearTextFields = this.clearTextFields.bind(this);
     this.state = {
         name: '',
         email: '',
@@ -48,14 +50,18 @@ class Contact extends Component {
         this.state.subject, this.state.message)
     }
 
+    clearTextFields() {
+      this.setState({name: '', email: '', subject:'', message:''});
+    }
+    
     displayFlashMessage(message, messageType) {
-      this.setState({"messageType": messageType,
-                      "flashMessage": message,
-                      "displayFlashMessage": "block",
+      this.setState({messageType: messageType,
+                      flashMessage: message,
+                      displayFlashMessage: "block",
                     });
       setTimeout(function(){
-        this.setState({"flashMessage": "",
-                        "displayFlashMessage": "none"});
+        this.setState({flashMessage: "",
+                        displayFlashMessage: "none"});
       }.bind(this), 3000);
     }
 
@@ -67,6 +73,7 @@ class Contact extends Component {
         .end((err, result) => {
           if (result.status === 201) {
             this.displayFlashMessage(result.body.message, "success")
+            this.clearTextFields()
           }
           else {
             this.displayFlashMessage("Unable to send message", "danger")
@@ -79,7 +86,7 @@ class Contact extends Component {
             <div>
               <div className="row">
                 <div className="col-sm-12 col-lg-12">
-                    <h1 className="page-title">Contact us now <small><em>We'd love to hear from you</em></small></h1>
+                    <h1 className="page-title">Contact us <small><em>We'd love to hear from you</em></small></h1>
                 </div>
               </div>
               <div className="row">
@@ -92,25 +99,25 @@ class Contact extends Component {
                           <FormGroup controlId="formControlsText">
                               <Col componentClass={ControlLabel} sm={2}>Name</Col>
                                <Col sm={10}>
-                                   <FormControl type="text" required={true} placeholder="Enter fullname" name="name" onChange={this.handleFieldChange}/>
+                                   <FormControl type="text" required={true} placeholder="Enter fullname" name="name" value={this.state.name} onChange={this.handleFieldChange}/>
                                </Col>
                           </FormGroup>
                           <FormGroup controlId="formControlsText">
                               <Col componentClass={ControlLabel} sm={2}>Email</Col>
                               <Col sm={10}>
-                                  <FormControl type="email" required={true} placeholder="john.doe@example.com" name="email" onChange={this.handleFieldChange}/>
+                                  <FormControl type="email" required={true} placeholder="john.doe@example.com" name="email" value={this.state.email} onChange={this.handleFieldChange}/>
                               </Col>
                           </FormGroup>
                           <FormGroup controlId="formControlsText">
                               <Col componentClass={ControlLabel} sm={2}>Subject</Col>
                               <Col sm={10}>
-                                  <FormControl type="text" placeholder="Enter message subject" name="subject" onChange={this.handleFieldChange}/>
+                                  <FormControl type="text" placeholder="Enter message subject" name="subject" value={this.state.subject} onChange={this.handleFieldChange}/>
                               </Col>
                           </FormGroup>
                           <FormGroup controlId="formControlsText">
                               <Col componentClass={ControlLabel} sm={2}>Message</Col>
                               <Col sm={10}>
-                                  <FormControl componentClass="textarea" required={true} placeholder="Enter your message here" name="message" onChange={this.handleFieldChange}/>
+                                  <FormControl componentClass="textarea" required={true} placeholder="Enter your message here" name="message" value={this.state.message} onChange={this.handleFieldChange}/>
                               </Col>
                           </FormGroup>
                           <FormGroup controlId="formControlsText">

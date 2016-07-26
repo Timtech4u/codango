@@ -82108,6 +82108,8 @@
 	        _this.handleSubmit = _this.handleSubmit.bind(_this);
 	        _this.handleFieldChange = _this.handleFieldChange.bind(_this);
 	        _this.sendMessage = _this.sendMessage.bind(_this);
+	        _this.displayFlashMessage = _this.displayFlashMessage.bind(_this);
+	        _this.clearTextFields = _this.clearTextFields.bind(_this);
 	        _this.state = {
 	            name: '',
 	            email: '',
@@ -82135,15 +82137,20 @@
 	            this.sendMessage(this.state.name, this.state.email, this.state.subject, this.state.message);
 	        }
 	    }, {
+	        key: 'clearTextFields',
+	        value: function clearTextFields() {
+	            this.setState({ name: '', email: '', subject: '', message: '' });
+	        }
+	    }, {
 	        key: 'displayFlashMessage',
 	        value: function displayFlashMessage(message, messageType) {
-	            this.setState({ "messageType": messageType,
-	                "flashMessage": message,
-	                "displayFlashMessage": "block"
+	            this.setState({ messageType: messageType,
+	                flashMessage: message,
+	                displayFlashMessage: "block"
 	            });
 	            setTimeout(function () {
-	                this.setState({ "flashMessage": "",
-	                    "displayFlashMessage": "none" });
+	                this.setState({ flashMessage: "",
+	                    displayFlashMessage: "none" });
 	            }.bind(this), 3000);
 	        }
 	    }, {
@@ -82155,6 +82162,7 @@
 	                'message': message }).end(function (err, result) {
 	                if (result.status === 201) {
 	                    _this2.displayFlashMessage(result.body.message, "success");
+	                    _this2.clearTextFields();
 	                } else {
 	                    _this2.displayFlashMessage("Unable to send message", "danger");
 	                }
@@ -82177,7 +82185,7 @@
 	                        _react2.default.createElement(
 	                            'h1',
 	                            { className: 'page-title' },
-	                            'Contact us now ',
+	                            'Contact us ',
 	                            _react2.default.createElement(
 	                                'small',
 	                                null,
@@ -82218,7 +82226,7 @@
 	                                    _react2.default.createElement(
 	                                        _reactBootstrap.Col,
 	                                        { sm: 10 },
-	                                        _react2.default.createElement(_reactBootstrap.FormControl, { type: 'text', required: true, placeholder: 'Enter fullname', name: 'name', onChange: this.handleFieldChange })
+	                                        _react2.default.createElement(_reactBootstrap.FormControl, { type: 'text', required: true, placeholder: 'Enter fullname', name: 'name', value: this.state.name, onChange: this.handleFieldChange })
 	                                    )
 	                                ),
 	                                _react2.default.createElement(
@@ -82232,7 +82240,7 @@
 	                                    _react2.default.createElement(
 	                                        _reactBootstrap.Col,
 	                                        { sm: 10 },
-	                                        _react2.default.createElement(_reactBootstrap.FormControl, { type: 'email', required: true, placeholder: 'john.doe@example.com', name: 'email', onChange: this.handleFieldChange })
+	                                        _react2.default.createElement(_reactBootstrap.FormControl, { type: 'email', required: true, placeholder: 'john.doe@example.com', name: 'email', value: this.state.email, onChange: this.handleFieldChange })
 	                                    )
 	                                ),
 	                                _react2.default.createElement(
@@ -82246,7 +82254,7 @@
 	                                    _react2.default.createElement(
 	                                        _reactBootstrap.Col,
 	                                        { sm: 10 },
-	                                        _react2.default.createElement(_reactBootstrap.FormControl, { type: 'text', placeholder: 'Enter message subject', name: 'subject', onChange: this.handleFieldChange })
+	                                        _react2.default.createElement(_reactBootstrap.FormControl, { type: 'text', placeholder: 'Enter message subject', name: 'subject', value: this.state.subject, onChange: this.handleFieldChange })
 	                                    )
 	                                ),
 	                                _react2.default.createElement(
@@ -82260,7 +82268,7 @@
 	                                    _react2.default.createElement(
 	                                        _reactBootstrap.Col,
 	                                        { sm: 10 },
-	                                        _react2.default.createElement(_reactBootstrap.FormControl, { componentClass: 'textarea', required: true, placeholder: 'Enter your message here', name: 'message', onChange: this.handleFieldChange })
+	                                        _react2.default.createElement(_reactBootstrap.FormControl, { componentClass: 'textarea', required: true, placeholder: 'Enter your message here', name: 'message', value: this.state.message, onChange: this.handleFieldChange })
 	                                    )
 	                                ),
 	                                _react2.default.createElement(
