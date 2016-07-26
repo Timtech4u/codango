@@ -39,7 +39,8 @@ class UserTests(APITestCase):
                                     user, format='json')
         self.assertEqual(response.status_code, 201)
         self.assertEqual(User.objects.count(), 5)
-        self.assertEqual(User.objects.filter(username='stanmd').first().email, 'ndagi@gmail.com')
+        self.assertEqual(User.objects.filter(
+            username='stanmd').first().email, 'ndagi@gmail.com')
 
     def test_login(self):
         """Ensure we can login"""
@@ -137,7 +138,8 @@ class UserTests(APITestCase):
         self.assertNotEqual(auth_response.data, not_found_msg)
         self.assertEqual(auth_response.status_code, 200)
         self.assertEqual(auth_response.data.get('username'), 'stanmd')
-        self.assertEqual(auth_response.data['userprofile'].get('first_name'), 'Stan')
+        self.assertEqual(auth_response.data[
+                         'userprofile'].get('first_name'), 'Stan')
 
     def test_retrieve_specific_user_settings(self):
         """Test Retrieve specific user settings."""
@@ -195,7 +197,9 @@ class UserTests(APITestCase):
 
         # Asserting that the followed is added to the user's data
         confirmation = self.client.get(url_for_one).data
-        self.assertEqual(confirmation.get("userprofile")["followings"][0]["id"], 4)
+        self.assertEqual(confirmation.get("userprofile")
+                         ["followings"][0]["id"], 4)
+
 
 class TestContactUs(APITestCase):
 
@@ -208,6 +212,19 @@ class TestContactUs(APITestCase):
     def test_user_can_contact_the_admin(self):
         """Confirm users can contact the admin"""
         response = self.client.post(reverse('contactus'),
-                                    data={'name': self.name, 'email': self.email, 'subject': self.subject, 'message': self.message}, format='json')
+                                    data={'name': self.name, 'email':
+                                          self.email, 'subject': self.subject,
+                                          'message': self.message}, format='json')
         self.assertEqual(response.status_code, 201)
-        self.assertIn(response.data.get('message'), "Your message has been succesfully sent")
+        self.assertIn(response.data.get('message'),
+                      "Your message has been succesfully sent")
+
+    def test_user_can_contact_the_admin_without_subject(self):
+        """Confirm users can send message without a subject"""
+        response = self.client.post(reverse('contactus'),
+                                    data={'name': self.name, 'email': self.email,
+                                          'subject': '', 'message': self.message},
+                                    format='json')
+        self.assertEqual(response.status_code, 201)
+        self.assertIn(response.data.get('message'),
+                      "Your message has been succesfully sent")
