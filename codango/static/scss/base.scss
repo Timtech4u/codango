@@ -6,6 +6,7 @@ body {
     height: 100%;
     font-family: "Lato", Arial, sans-serif;
     padding-bottom: 20px;
+    overflow-x: hidden !important;
 }
 
 hr {
@@ -16,16 +17,15 @@ hr {
 /* navbar styling */
 
 .navbar-default {
-    background: #fff;
-    box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.1);
-
+    background: rgba(255, 255, 255, 0);
+    border: none;
     .navbar-form {
         padding-top: 15px;
         margin-right:30px;
     }
 
     .navbar-nav {
-        li {
+        &>li {
             &.active {
                 a {
                     background-color: transparent;
@@ -33,7 +33,12 @@ hr {
                     color: #f26521;
                 }
             }
-            a {
+            
+            &>a {
+                color: #fff;
+                &:hover {
+                   color: #f26521;
+                }
                 i {
                     margin-right: 10px;
                 }
@@ -41,6 +46,24 @@ hr {
         }
     }
 }
+
+.slide-container{
+    background-image: url("../img/laptop.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: rgba(0, 0, 0, 0.61);
+    background-blend-mode: overlay;
+    height: 100vh;
+    position: relative;
+    padding-top: 20%;
+
+    .slide-content{
+        margin-left: 7%;
+        height: auto;
+        padding: 10px;
+    }
+}
+
 
 @media (max-width: 768px){
     .navbar-form {
@@ -599,27 +622,15 @@ a.list-group-item:hover {
         }
         &:after {
             border-color: rgba(255, 255, 255, 0);
-<<<<<<< b6688d277c252e573e32aeb9d7516be90d873321
-        	border-bottom-color: #ffffff;
-        	border-width: 10px;
-        	margin-left: -10px;
+            border-bottom-color: #ffffff;
+            border-width: 10px;
+            margin-left: -10px;
         }
         &:before {
             border-color: rgba(31, 57, 71, 0);
-        	border-bottom-color: rgba(0,0, 0, 0.2);
-        	border-width: 11px;
-        	margin-left: -11px;
-=======
-		border-bottom-color: #ffffff;
-		border-width: 10px;
-		margin-left: -10px;
-        }
-        &:before {
-            border-color: rgba(31, 57, 71, 0);
-		border-bottom-color: rgba(0,0, 0, 0.2);
-		border-width: 11px;
-		margin-left: -11px;
->>>>>>> #111583436 UI, CSS Clean Up and Refactor (#132)
+            border-bottom-color: rgba(0,0, 0, 0.2);
+            border-width: 11px;
+            margin-left: -11px;
         }
     }
 

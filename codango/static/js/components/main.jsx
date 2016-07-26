@@ -16,5 +16,3 @@ export default class Main extends Component {
         )
     }
 }
-
-module.exports = Main;

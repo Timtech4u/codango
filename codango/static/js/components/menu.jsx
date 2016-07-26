@@ -1,7 +1,6 @@
-import { render } from 'react-dom'
-import { Router, Route, Link, browserHistory} from 'react-router';
+import { Link } from 'react-router';
 import React, {Component} from 'react';
-import {Nav, Navbar, NavbarHeader, NavItem, Button} from 'react-bootstrap';
+import {Nav, Button} from 'react-bootstrap';
 
 export default class Menu extends Component {
     render() {
@@ -16,13 +15,14 @@ export default class Menu extends Component {
                                 <span className="icon-bar"></span>
                                 <span className="icon-bar"></span>
                             </Button>
-                            <a className="navbar-brand" href="/"><img src="../static/img/codango-logo.png"/></a>
+                            <a className="navbar-brand" href="/"><img src="../static/img/codango-logo-white.png"/></a>
                         </div>
                         <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                             <ul className="nav navbar-nav navbar-right">
-                                <li><Link to="/about">About Us</Link></li>
-                                <li><Link to="/contact">Contact Us</Link></li>
+                                <li><Link to="/about">Features</Link></li>
                                  <li><Link to="/team">Team</Link></li>
+                                <li><Link to="/contact">Contact Us</Link></li>
+                                <li><Link to="/login">Login</Link></li>
                             </ul>
                         </div>
                     </div>
