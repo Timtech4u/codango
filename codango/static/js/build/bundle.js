@@ -82185,7 +82185,7 @@
 	                        _react2.default.createElement(
 	                            'h1',
 	                            { className: 'page-title' },
-	                            'Contact us now ',
+	                            'Contact us ',
 	                            _react2.default.createElement(
 	                                'small',
 	                                null,
