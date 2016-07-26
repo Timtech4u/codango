@@ -1,12 +1,10 @@
 import psycopg2
 
 from rest_framework import generics, permissions
-# from serializers import UserSerializer, UserFollowSerializer, UserSettingsSerializer
 from serializers import UserSerializer, UserFollowSerializer, UserSettingsSerializer
 from serializers import AllUsersSerializer, UserRegisterSerializer, ContactUsSerializer
 from userprofile import serializers, models
 from django.contrib.auth.models import User
-from rest_framework import permissions
 from rest_framework.permissions import AllowAny
 from models import ContactUsModel
 from codango.settings.base import ADMIN_EMAIL
@@ -106,6 +104,7 @@ class ContactUsAPIView(generics.CreateAPIView):
     For api/v1/contactus/ url path
     To enable user send message to the admin
     """
+    
     permission_classes = (AllowAny,)
     serializer_class = ContactUsSerializer
 
@@ -117,7 +116,7 @@ class ContactUsAPIView(generics.CreateAPIView):
         message = request.data.get('message')
         email_compose = SendGrid.compose(
             sender='{0} <{1}>'.format(name, email),
-            recipient="hassan.oyeboade@andela.com",
+            recipient=ADMIN_EMAIL,
             subject=subject,
             text=message,
             html=None

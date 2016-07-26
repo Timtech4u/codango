@@ -6,13 +6,15 @@ from userprofile.serializers import UserProfileSerializer, NotificationSerialize
 from userprofile.serializers import FollowSerializer
 from models import ContactUsModel
 
+
 class AllUsersSerializer(serializers.ModelSerializer):
     """Serializer for User model having only the field required for all users"""
 
     class Meta:
         model = User
 
-        # Note that id is non-updatable, therefore not required in the read-only fields
+        # Note that id is non-updatable, therefore not required in the
+        # read-only fields
         fields = ('id', 'username',)
 
 
@@ -26,7 +28,8 @@ class UserRegisterSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
 
-        # Note that id is non-updatable, therefore not required in the read-only fields
+        # Note that id is non-updatable, therefore not required in the
+        # read-only fields
         fields = ('id', 'username', 'password', 'confirm_password', 'email',)
 
     def create(self, validated_data):
@@ -41,7 +44,8 @@ class UserRegisterSerializer(serializers.ModelSerializer):
             user.save()
             UserSettings.objects.create(user_id=user.id)
             return user
-        raise serializers.ValidationError("Password and confirm_password don't tally")
+        raise serializers.ValidationError(
+            "Password and confirm_password don't tally")
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -123,8 +127,9 @@ class UserFollowSerializer(serializers.ModelSerializer):
         # therefore not required in the read-only fields
         fields = ('id', 'following')
 
+
 class ContactUsSerializer(serializers.ModelSerializer):
-    """ContactSerializer to be used in /api/v1/contactus/"""
+    """ContactUsSerializer to be used in /api/v1/contactus/"""
 
     class Meta:
         model = ContactUsModel
