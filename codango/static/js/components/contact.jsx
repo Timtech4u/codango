@@ -2,6 +2,7 @@ import ReactDOM from 'react-dom';
 import React, {Component} from 'react';
 import request from 'superagent';
 import {
+    Alert,
     Col,
     form,
     Form,
@@ -25,7 +26,10 @@ class Contact extends Component {
         name: '',
         email: '',
         subject: '',
-        message: ''
+        message: '',
+        flashMessage: '',
+        displayFlashMessage: 'none',
+        messageType: 'success'
         }
     }
 
@@ -40,7 +44,19 @@ class Contact extends Component {
 
     handleSubmit(event) {
       event.preventDefault();
-      this.sendMessage(this.state.name, this.state.email, this.state.subject, this.state.message)
+      this.sendMessage(this.state.name, this.state.email,
+        this.state.subject, this.state.message)
+    }
+
+    displayFlashMessage(message, messageType) {
+      this.setState({"messageType": messageType,
+                      "flashMessage": message,
+                      "displayFlashMessage": "block",
+                    });
+      setTimeout(function(){
+        this.setState({"flashMessage": "",
+                        "displayFlashMessage": "none"});
+      }.bind(this), 3000);
     }
 
     sendMessage(name, email, subject, message) {
@@ -50,11 +66,12 @@ class Contact extends Component {
                'message': message })
         .end((err, result) => {
           if (result.status === 201) {
-            console.log(result.body.message)
+            this.displayFlashMessage(result.body.message, "success")
           }
           else {
-            console.log(result.body.message)
+            this.displayFlashMessage("Unable to send message", "danger")
           }
+
         });
     }
   render() {
@@ -62,13 +79,16 @@ class Contact extends Component {
             <div>
               <div className="row">
                 <div className="col-sm-12 col-lg-12">
-                    <h1 className="page-title">Contact us <small><em>We'd love to hear from you</em></small></h1>
+                    <h1 className="page-title">Contact us now <small><em>We'd love to hear from you</em></small></h1>
                 </div>
               </div>
               <div className="row">
                   <div className="col-md-8">
                     <div  className="well  well-sm">
                       <Form horizontal action="post" onSubmit={this.handleSubmit} className="Contact">
+                          <Alert bsStyle={this.state.messageType} style={{"display": this.state.displayFlashMessage}}>
+                            {this.state.flashMessage}
+                          </Alert>
                           <FormGroup controlId="formControlsText">
                               <Col componentClass={ControlLabel} sm={2}>Name</Col>
                                <Col sm={10}>
