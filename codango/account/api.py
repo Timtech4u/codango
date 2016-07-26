@@ -88,7 +88,6 @@ class UserFollowAPIView(generics.CreateAPIView):
                 'You have already followed this person')
 
 
-
 class UserSettingsAPIView(generics.RetrieveUpdateAPIView):
     """
     For api/v1/users/<>/settings/ url path
@@ -101,6 +100,7 @@ class UserSettingsAPIView(generics.RetrieveUpdateAPIView):
     serializer_class = UserSettingsSerializer
     permission_classes = (IsOwner,)
 
+
 class ContactUsAPIView(generics.CreateAPIView):
     """
     For api/v1/contactus/ url path
@@ -112,7 +112,8 @@ class ContactUsAPIView(generics.CreateAPIView):
     def post(self, request):
         name = request.data.get('name')
         email = request.data.get('email')
-        subject = request.data.get('subject')
+        subject = request.data.get('subject') if request.data.get(
+            'subject') else 'No subject'
         message = request.data.get('message')
         email_compose = SendGrid.compose(
             sender='{0} <{1}>'.format(name, email),
@@ -127,6 +128,8 @@ class ContactUsAPIView(generics.CreateAPIView):
 
         # Inform the user if mail sent was successful or not
         if response == 200:
-            return Response({"message": "Your message has been succesfully sent"}, status=status.HTTP_201_CREATED)
+            return Response({"message": "Your message has been succesfully sent"},
+                            status=status.HTTP_201_CREATED)
         else:
-            return Response({"message": "Message not sent"}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"message": "Message not sent"},
+                            status=status.HTTP_400_BAD_REQUEST)
