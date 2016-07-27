@@ -241,7 +241,7 @@ button.btn {
       text-transform: uppercase;
       color: #fff; }
 
-.powered-by-firepad {
+a.powered-by-firepad {
   display: none; }
 
 /* team end */
