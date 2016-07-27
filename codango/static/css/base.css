@@ -3,7 +3,7 @@ body {
   background: #e9eaed;
   background-size: cover;
   height: 100%;
-  font-family: AvenirNext-Regular, "Lato", Arial, sans-serif;
+  font-family: AvenirNext-UltraLight, "Lato", Arial, sans-serif;
   padding-bottom: 20px;
   overflow-x: hidden !important; }
 
@@ -44,8 +44,8 @@ hr {
   .slide-container .overlay {
     height: 100%; }
   .slide-container .carousel-caption {
-    left: 10%;
-    top: 40%;
+    left: 12%;
+    top: 35%;
     padding-bottom: 30px;
     text-align: left; }
     .slide-container .carousel-caption h3 {
@@ -54,10 +54,20 @@ hr {
       color: #FEB490;
       letter-spacing: 0px; }
     .slide-container .carousel-caption p {
-      font-family: AvenirNext-Regular;
       font-size: 18px;
       letter-spacing: 0px;
       width: 513px; }
+    .slide-container .carousel-caption .get-stated-btn {
+      background-color: transparent;
+      border: 1px solid #fff;
+      text-align: center;
+      color: #fff;
+      margin-top: 2em;
+      padding-left: 2em;
+      padding-right: 2em;
+      outline: none; }
+      .slide-container .carousel-caption .get-stated-btn .mdi {
+        padding-left: 5px; }
 
 @media (max-width: 768px) {
   .navbar-form {
