@@ -3,7 +3,7 @@ body {
   background: #e9eaed;
   background-size: cover;
   height: 100%;
-  font-family: "Lato", Arial, sans-serif;
+  font-family: AvenirNext-Regular, "Lato", Arial, sans-serif;
   padding-bottom: 20px;
   overflow-x: hidden !important; }
 
@@ -19,28 +19,45 @@ hr {
     margin-right: 30px; }
   .navbar-default .navbar-nav > li.active a {
     background-color: transparent;
-    border-bottom: solid 4px #f26521;
-    color: #f26521; }
+    border-bottom: solid 4px #FEB490;
+    color: #FEB490; }
   .navbar-default .navbar-nav > li > a {
     color: #fff; }
     .navbar-default .navbar-nav > li > a:hover {
-      color: #f26521; }
+      color: #FEB490; }
     .navbar-default .navbar-nav > li > a i {
       margin-right: 10px; }
 
 .slide-container {
-  background-image: url("../img/laptop.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-color: rgba(0, 0, 0, 0.61);
-  background-blend-mode: overlay;
+  background-color: black;
   height: 100vh;
   position: relative;
-  padding-top: 20%; }
+  overflow: hidden; }
   .slide-container .slide-content {
     margin-left: 7%;
     height: auto;
     padding: 10px; }
+  .slide-container img {
+    width: 100%;
+    opacity: 0.4;
+    filter: alpha(opacity=50); }
+  .slide-container .overlay {
+    height: 100%; }
+  .slide-container .carousel-caption {
+    left: 10%;
+    top: 40%;
+    padding-bottom: 30px;
+    text-align: left; }
+    .slide-container .carousel-caption h3 {
+      font-family: AvenirNext-DemiBold;
+      font-size: 5.5em;
+      color: #FEB490;
+      letter-spacing: 0px; }
+    .slide-container .carousel-caption p {
+      font-family: AvenirNext-Regular;
+      font-size: 18px;
+      letter-spacing: 0px;
+      width: 513px; }
 
 @media (max-width: 768px) {
   .navbar-form {
