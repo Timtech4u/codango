@@ -116,7 +116,8 @@ class CommunityView(CommunityBaseView):
                 resource.resource_file_size = form.files['resource_file'].size
             except KeyError:
                 pass
-            followers = self.request.user.profile.get_following()
+            # a list of Follow objects
+            user_follow_objs = self.request.user.profile.get_following()
             resource.author = self.request.user
             resource.save()
             response_dict = {
@@ -125,7 +126,7 @@ class CommunityView(CommunityBaseView):
                 "link": "#",
                 "type": "newpost" if not edit else "updatepost",
                 "read": False,
-                "user_id": [follower.follower.id for follower in followers],
+                "user_id": [follow.follower.id for follow in user_follow_objs],
                 "status": "Successfully Posted Your Resource"
                     if not edit else 'Resource Successfully Updated'
             }

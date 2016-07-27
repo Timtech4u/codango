@@ -16,7 +16,6 @@ var realTime;
 var eventListeners;
 var invitedUsers = [];
 var inviteToSession;
-var BASE_FIREBASE_URL = "https://project-8667655276128018284.firebaseio.com/"
 
 
 if(userid){
@@ -210,8 +209,6 @@ function deleteResource(resource_id){
           })
         },
         error:function(error){
-             alert('error')
-             console.log(error)
             $('#preloader').hide();
         },
         complete:function(){
@@ -856,7 +853,6 @@ shareResource = {
       let resourcePage = location.protocol + '//' + location.host +
                           '/resource/post/'+resourceId;
       let content = $('#rcomments-'+resourceId).siblings('h1').text();
-      console.log(title)
       if(title === "Facebook"){
         FB.ui({
           method: 'feed',

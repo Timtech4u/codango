@@ -599,7 +599,6 @@ a.list-group-item:hover {
         }
         &:after {
             border-color: rgba(255, 255, 255, 0);
-<<<<<<< b6688d277c252e573e32aeb9d7516be90d873321
         	border-bottom-color: #ffffff;
         	border-width: 10px;
         	margin-left: -10px;
@@ -609,17 +608,6 @@ a.list-group-item:hover {
         	border-bottom-color: rgba(0,0, 0, 0.2);
         	border-width: 11px;
         	margin-left: -11px;
-=======
-		border-bottom-color: #ffffff;
-		border-width: 10px;
-		margin-left: -10px;
-        }
-        &:before {
-            border-color: rgba(31, 57, 71, 0);
-		border-bottom-color: rgba(0,0, 0, 0.2);
-		border-width: 11px;
-		margin-left: -11px;
->>>>>>> #111583436 UI, CSS Clean Up and Refactor (#132)
         }
     }
 

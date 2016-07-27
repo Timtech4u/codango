@@ -1,17 +1,17 @@
+import json
 from django.contrib.auth.models import User
 from django.views.generic import View, TemplateView
 from django.shortcuts import render, redirect
 from django.template import RequestContext
 from django.contrib import messages
-from django.http import JsonResponse
+from django.http import JsonResponse, QueryDict
 from django.core.urlresolvers import reverse
 from django.db import IntegrityError
-import json
+from django.conf import settings
 from account.emails import SendGrid
 from pairprogram.models import Session, Participant
 from pairprogram.forms import SessionForm
 from resources.views import LoginRequiredMixin
-from django.conf import settings
 
 class StartPairView(LoginRequiredMixin, TemplateView):
     template_name = 'pairprogram/sessions.html'
@@ -137,7 +137,6 @@ class PairSessionView(LoginRequiredMixin, View):
             {'response': result})
 
     def put(self, request, *args, **kwargs):
-        from django.http import QueryDict
         data = QueryDict(request.body)
         language = data.get('language', 'python')
         session = Session.objects.get(id=kwargs['session_id'])
