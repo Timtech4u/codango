@@ -28,12 +28,12 @@ class UserProfile(models.Model):
         return User.objects.get(id=self.user_id)
 
     def get_followers(self):
-        followers = self.user.follower.all()
-        return [follower for follower in followers]
+        # return a list of users following this instance
+        return self.user.follower.all()
 
     def get_following(self):
-        followings = self.user.following.all()
-        return [following for following in followings]
+        # return a list of users followed by this instance
+        return self.user.following.all()
 
     @property
     def followings(self):

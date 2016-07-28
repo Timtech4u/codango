@@ -19,8 +19,14 @@ $(document).ready(function () {
   var app = {
     init: function (selectedLanguage, selectedTheme) {
       // Set defaults for the theme and language
-      var theme = selectedTheme || 'monokai';
-      var language = selectedLanguage || 'javascript';
+
+      save_theme = localStorage.getItem('theme')
+      if(save_theme){
+        $('#theme').val(save_theme);
+      }
+      var theme = selectedTheme || save_theme || 'cobalt';
+      var language = selectedLanguage || 'python';
+
       // Get current session firebase ref
       editor = ace.edit('firepad-container');
       session = editor.getSession();
@@ -35,18 +41,36 @@ $(document).ready(function () {
     bindEvents: function () {
       // Language change event handler
       $('#language').change(function () {
-        changeEditorOption($(this).val(), $('#theme').val());
+        var lang = $(this).val();
+        var theme = $('#theme').val();
+        changeEditorOption(lang, theme);
+        app.updateSession(lang);
       });
 
       // Theme change event handler
       $('#theme').change(function () {
-        changeEditorOption($('#language').val(), $(this).val());
+        var theme = $(this).val();
+        var lang = $('#language').val();
+        changeEditorOption(lang, theme);
+
+        localStorage.setItem('theme', theme)
       });
     },
     getPageRef: function () {
       var firepadRef = new Firebase(FIRBASE_URL);
       var sessionId = $('#session-id').val();
       return firepadRef.child('session/' + sessionId);
+    },
+    updateSession: function (lang) {
+      // Update the programming language of session
+      var sessionId = $('#session-id').val();
+      $.ajax({
+        url: '/pair/'+sessionId,
+        type: 'PUT',
+        data: {
+          'language': lang
+        }
+      });
     }
   };
  app.init();

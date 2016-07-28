@@ -16,7 +16,6 @@ var realTime;
 var eventListeners;
 var invitedUsers = [];
 var inviteToSession;
-var BASE_FIREBASE_URL = "https://project-8667655276128018284.firebaseio.com/"
 
 
 if(userid){
@@ -210,8 +209,6 @@ function deleteResource(resource_id){
           })
         },
         error:function(error){
-             alert('error')
-             console.log(error)
             $('#preloader').hide();
         },
         complete:function(){
@@ -703,6 +700,10 @@ inviteToSession = {
       if (!inviteToSession.isEmailInList(email)) {
         return inviteToSession.validationError('Email is already in the list');
       }
+
+      if (invitedUsers.length >= 4) {
+        return inviteToSession.validationError('You cannot add more than 4 users');
+      }
       // Reset the error message paragraph tag
       $(inviteToSession.config.validateDiv).html('');
 
@@ -852,7 +853,6 @@ shareResource = {
       let resourcePage = location.protocol + '//' + location.host +
                           '/resource/post/'+resourceId;
       let content = $('#rcomments-'+resourceId).siblings('h1').text();
-      console.log(title)
       if(title === "Facebook"){
         FB.ui({
           method: 'feed',

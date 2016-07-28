@@ -230,3 +230,26 @@ SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 SESSION_COOKIE_AGE = TIME    # change expired session
 SESSION_IDLE_TIMEOUT = TIME  # logout
+
+EDITOR_LANGUAGE = {
+    'Python':'python',
+    'JavaScript':'javascript',
+    'Ruby':'ruby',
+    'PHP':'PHP',
+    'Java':'java',
+    'CSS':'css',
+    'HTML':'html'
+}
+EDITOR_THEME = {
+    'Cobalt':'cobalt',
+    'Dreamweaver':'dreamweaver',
+    'Textmate':'textmate',
+    'Terminal':'terminal',
+    'Chaos':'chaos',
+    'Clouds':'clouds',
+    'Dawn':'dawn',
+    'Github':'github',
+    'Eclipse':'eclipse',
+    'iPlastic':'iplastic',
+    'Monokai':'monokai'
+}

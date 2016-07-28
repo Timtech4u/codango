@@ -1,17 +1,17 @@
+import json
 from django.contrib.auth.models import User
 from django.views.generic import View, TemplateView
 from django.shortcuts import render, redirect
 from django.template import RequestContext
 from django.contrib import messages
-from django.http import JsonResponse
+from django.http import JsonResponse, QueryDict
 from django.core.urlresolvers import reverse
 from django.db import IntegrityError
-
+from django.conf import settings
 from account.emails import SendGrid
 from pairprogram.models import Session, Participant
 from pairprogram.forms import SessionForm
 from resources.views import LoginRequiredMixin
-
 
 class StartPairView(LoginRequiredMixin, TemplateView):
     template_name = 'pairprogram/sessions.html'
@@ -65,9 +65,11 @@ class PairSessionView(LoginRequiredMixin, View):
         result = any(self.request.user == row.participant
                      for row in participants)
         context['profile'] = self.request.user.profile
-        context['session_name'] = Session.objects.get(
-            id=context['session_id']).session_name
+        context['session'] = Session.objects.get(
+            id=context['session_id'])
         context['sessionform'] = self.form_class()
+        context['themes'] = settings.EDITOR_THEME.iteritems()
+        context['languages'] = settings.EDITOR_LANGUAGE.iteritems()
 
         if not result:
             messages.add_message(self.request, messages.ERROR,
@@ -83,6 +85,7 @@ class PairSessionView(LoginRequiredMixin, View):
             try:
                 Participant.objects.create(
                     participant=user, session=session)
+
             except IntegrityError:
                 pass
             url = 'http://%s%s' % (
@@ -116,18 +119,39 @@ class PairSessionView(LoginRequiredMixin, View):
             response_dict['email'] = email
             response_dict['status'] = "error"
             if request.user.email != email:
-                response = self.send_invites(email, session, request)
-                response_dict['message'] = "Successfully sent" \
-                    if response == 200 else "There was an error"
-                response_dict['status'] = "success" \
-                    if response == 200 else "error"
-
+                participants = Participant.objects.filter(session=session)
+                if len(participants) < 5:
+                    response = self.send_invites (email, session, request)
+                    response_dict['message'] = "Successfully sent" \
+                        if response == 200 else "There was an error"
+                    response_dict['status'] = "success" \
+                        if response == 200 else "error"
+                else:
+                    response_dict[
+                    'message'] = "A session cannot hold more than 5 users"
             else:
                 response_dict[
                     'message'] = "You can't send an invite to yourself"
             result.append(response_dict)
         return JsonResponse(
             {'response': result})
+
+    def put(self, request, *args, **kwargs):
+        data = QueryDict(request.body)
+        language = data.get('language', 'python')
+        session = Session.objects.get(id=kwargs['session_id'])
+        response_dict = {}
+        if session:
+            session.language = language
+            session.save()
+            response_dict[
+                    'message'] = "Session updated successfully"
+        else:
+            response_dict[
+                    'message'] = "Session unable to updated"
+
+        return JsonResponse(
+            {'response': response_dict})
 
 
 class DeleteSessionView(LoginRequiredMixin, View):
