@@ -14,6 +14,7 @@ from pairprogram.forms import SessionForm
 from resources.views import LoginRequiredMixin
 from pyfirebase import Firebase
 
+
 class StartPairView(LoginRequiredMixin, TemplateView):
     template_name = 'pairprogram/sessions.html'
     form_class = SessionForm
