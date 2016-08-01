@@ -102,14 +102,14 @@ class PairSessionView(LoginRequiredMixin, View):
                 request.get_host(), reverse('index'), session.id)
 
         message = SendGrid.compose(
-            sender='Codango user {} <{}>'.format(
-                request.user.username, request.user.email),
+            sender='Codango-user {} <{}>'.format(
+                request.user.username.upper(), request.user.email),
             recipient=email,
-            subject="Join Codango session {}".format(session.session_name),
+            subject="Join session in Codango",
             html=loader.get_template(
                 'emails/session-invite.html'
             ).render(Context({
-                'subject': 'Start Pairing now',
+                'subject': 'Let\'s Start Pairing now!',
                 'url': url,
                 'session_name': session.session_name
             }))
