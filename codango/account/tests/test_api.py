@@ -3,6 +3,9 @@ from rest_framework.test import APITestCase
 
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
+from account.emails import SendGrid
+from mock import patch
+
 
 # DRY variables to be used repeatedly
 user = {'username': 'stanmd', 'email': 'ndagi@gmail.com',
@@ -201,30 +204,23 @@ class UserTests(APITestCase):
                          ["followings"][0]["id"], 4)
 
 
-class TestContactUs(APITestCase):
+class TestContact(APITestCase):
 
     def setUp(self):
         self.name = "Margaret"
         self.email = "margaret.ochieng@andela.com"
         self.subject = "Testing Contact API Endpoint"
         self.message = "Confirming that the Contact endpoint actually works"
+        self.data = {'name': self.name, 'email':
+                     self.email, 'subject': self.subject,
+                     'message': self.message}
 
-    def test_user_can_contact_the_admin(self):
-        """Confirm users can contact the admin"""
-        response = self.client.post(reverse('contactus'),
-                                    data={'name': self.name, 'email':
-                                          self.email, 'subject': self.subject,
-                                          'message': self.message}, format='json')
-        self.assertEqual(response.status_code, 201)
-        self.assertIn(response.data.get('message'),
-                      "Your message has been succesfully sent")
+    def test_send_email_to_admin(self):
+        with patch.object(SendGrid, 'send', return_value=200) as send_mock_method:
+            response = self.client.post(reverse('contact'), self.data)
+            self.assertEqual(response.status_code, 201)
+            send_mock_method.assert_called()
+            self.assertEqual(send_mock_method.return_value, 200)
 
-    def test_user_can_contact_the_admin_without_subject(self):
-        """Confirm users can send message without a subject"""
-        response = self.client.post(reverse('contactus'),
-                                    data={'name': self.name, 'email': self.email,
-                                          'subject': '', 'message': self.message},
-                                    format='json')
-        self.assertEqual(response.status_code, 201)
-        self.assertIn(response.data.get('message'),
-                      "Your message has been succesfully sent")
+
+
