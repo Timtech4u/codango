@@ -1,0 +1,4 @@
+{{ subject }}
+I have invited you to join this session: {{ session_name }}
+Join session on this link: {{ url }}
+Thanks, Codango Team.

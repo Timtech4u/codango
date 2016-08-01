@@ -94,25 +94,30 @@ class PairSessionView(LoginRequiredMixin, View):
 
             except IntegrityError:
                 pass
-            url = 'http://%s%s' % (
+            url = 'http://{}{}'.format(
                 request.get_host(), reverse(
                     'pair_program', kwargs={'session_id': session.id}))
         else:
-            url = 'http://%s%s?session_id=%s' % (
+            url = 'http://{}{}?session_id={}'.format(
                 request.get_host(), reverse('index'), session.id)
+
+        email_context = {
+            'subject': 'Let\'s Start Pairing now!',
+            'url': url,
+            'session_name': session.session_name
+        }
 
         message = SendGrid.compose(
             sender='Codango-user {} <{}>'.format(
                 request.user.username.upper(), request.user.email),
             recipient=email,
             subject="Join session in Codango",
+            text=loader.get_template(
+                'emails/session-invite.txt'
+            ).render(Context(email_context)),
             html=loader.get_template(
                 'emails/session-invite.html'
-            ).render(Context({
-                'subject': 'Let\'s Start Pairing now!',
-                'url': url,
-                'session_name': session.session_name
-            }))
+            ).render(Context(email_context))
         )
         # send email
         response = SendGrid.send(message)
