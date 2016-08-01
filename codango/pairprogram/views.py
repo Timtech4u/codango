@@ -1,6 +1,8 @@
-import json
-
 from django.conf import settings
+from django.contrib.auth.models import User
+from django.views.generic import View, TemplateView
+from django.shortcuts import render, redirect
+from django.template import RequestContext, loader, Context
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
@@ -99,19 +101,21 @@ class PairSessionView(LoginRequiredMixin, View):
             url = 'http://%s%s?session_id=%s' % (
                 request.get_host(), reverse('index'), session.id)
 
-        message = "You've been invited to join this session please click on this <a href='{}'\
-            />link </a> to join {}".format(url, session.session_name)
-
-        email_compose = SendGrid.compose(
-            sender='{} <{}>'.format(
+        message = SendGrid.compose(
+            sender='Codango user {} <{}>'.format(
                 request.user.username, request.user.email),
             recipient=email,
-            subject="Join {}".format(session.session_name),
-            html=message,
-            text=None
+            subject="Join Codango session {}".format(session.session_name),
+            html=loader.get_template(
+                'emails/session-invite.html'
+            ).render(Context({
+                'subject': 'Start Pairing now',
+                'url': url,
+                'session_name': session.session_name
+            }))
         )
         # send email
-        response = SendGrid.send(email_compose)
+        response = SendGrid.send(message)
         return response
 
     def post(self, request, *args, **kwargs):
