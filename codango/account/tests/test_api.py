@@ -1,11 +1,10 @@
+from django.contrib.auth.models import User
+from django.core.urlresolvers import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
 
-from django.core.urlresolvers import reverse
-from django.contrib.auth.models import User
 from account.emails import SendGrid
 from mock import patch
-
 
 # DRY variables to be used repeatedly
 user = {'username': 'stanmd', 'email': 'ndagi@gmail.com',
@@ -207,13 +206,10 @@ class UserTests(APITestCase):
 class TestContact(APITestCase):
 
     def setUp(self):
-        self.name = "Margaret"
-        self.email = "margaret.ochieng@andela.com"
-        self.subject = "Testing Contact API Endpoint"
-        self.message = "Confirming that the Contact endpoint actually works"
-        self.data = {'name': self.name, 'email':
-                     self.email, 'subject': self.subject,
-                     'message': self.message}
+        self.data = {"name": "Margaret",
+                     "email": "margaret.ochieng@andela.com",
+                     "subject": "Testing Contact API Endpoint",
+                     "message": "Confirming that the Contact endpoint actually works"}
 
     def test_send_email_to_admin(self):
         with patch.object(SendGrid, 'send', return_value=200) as send_mock_method:
@@ -221,6 +217,3 @@ class TestContact(APITestCase):
             self.assertEqual(response.status_code, 201)
             send_mock_method.assert_called()
             self.assertEqual(send_mock_method.return_value, 200)
-
-
-
