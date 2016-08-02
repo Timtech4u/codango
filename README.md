@@ -1,8 +1,8 @@
 # Codango
 
-[![Coverage Status](https://coveralls.io/repos/github/andela/codango/badge.svg?branch=ch-add-badges-122549741)](https://coveralls.io/github/andela/codango?branch=ch-add-badges-122549741)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/andela/codango/badges/quality-score.png?b=ch-add-badges-122549741)](https://scrutinizer-ci.com/g/andela/codango/?branch=ch-add-badges-122549741)
-[![CircleCI](https://circleci.com/gh/andela/codango/tree/ch-add-badges-122549741.svg?style=svg)](https://circleci.com/gh/andela/codango/tree/ch-add-badges-122549741)
+[![Coverage Status](https://coveralls.io/repos/github/andela/codango/badge.svg?branch=develop)](https://coveralls.io/github/andela/codango?branch=develop)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/andela/codango/badges/quality-score.png?b=develop)](https://scrutinizer-ci.com/g/andela/codango/?branch=develop)
+[![CircleCI](https://circleci.com/gh/andela/codango/tree/develop.svg?style=svg)](https://circleci.com/gh/andela/codango/tree/develop)
 
 ## Description
 Codango is a Resource Sharing Social Network for Coders.
