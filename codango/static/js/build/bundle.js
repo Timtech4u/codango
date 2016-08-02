@@ -82098,222 +82098,222 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	var Contact = function (_Component) {
-	    _inherits(Contact, _Component);
+	  _inherits(Contact, _Component);
 
-	    function Contact() {
-	        _classCallCheck(this, Contact);
+	  function Contact() {
+	    _classCallCheck(this, Contact);
 
-	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Contact).call(this));
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Contact).call(this));
 
-	        _this.handleSubmit = _this.handleSubmit.bind(_this);
-	        _this.handleFieldChange = _this.handleFieldChange.bind(_this);
-	        _this.sendMessage = _this.sendMessage.bind(_this);
-	        _this.displayFlashMessage = _this.displayFlashMessage.bind(_this);
-	        _this.clearTextFields = _this.clearTextFields.bind(_this);
-	        _this.state = {
-	            name: '',
-	            email: '',
-	            subject: '',
-	            message: '',
-	            flashMessage: '',
-	            displayFlashMessage: 'none',
-	            messageType: 'success'
-	        };
-	        return _this;
+	    _this.handleSubmit = _this.handleSubmit.bind(_this);
+	    _this.handleFieldChange = _this.handleFieldChange.bind(_this);
+	    _this.sendMessage = _this.sendMessage.bind(_this);
+	    _this.displayFlashMessage = _this.displayFlashMessage.bind(_this);
+	    _this.clearTextFields = _this.clearTextFields.bind(_this);
+	    _this.state = {
+	      name: '',
+	      email: '',
+	      subject: '',
+	      message: '',
+	      flashMessage: '',
+	      displayFlashMessage: 'none',
+	      messageType: 'success'
+	    };
+	    return _this;
+	  }
+
+	  _createClass(Contact, [{
+	    key: 'handleFieldChange',
+	    value: function handleFieldChange(event) {
+	      event.preventDefault();
+	      var key = event.target.name;
+	      var value = event.target.value;
+	      this.setState(_defineProperty({}, key, value));
 	    }
+	  }, {
+	    key: 'handleSubmit',
+	    value: function handleSubmit(event) {
+	      event.preventDefault();
+	      this.sendMessage(this.state.name, this.state.email, this.state.subject, this.state.message);
+	    }
+	  }, {
+	    key: 'clearTextFields',
+	    value: function clearTextFields() {
+	      this.setState({ name: '', email: '', subject: '', message: '' });
+	    }
+	  }, {
+	    key: 'displayFlashMessage',
+	    value: function displayFlashMessage(message, messageType) {
+	      this.setState({ messageType: messageType,
+	        flashMessage: message,
+	        displayFlashMessage: "block"
+	      });
+	      setTimeout(function () {
+	        this.setState({ flashMessage: "",
+	          displayFlashMessage: "none" });
+	      }.bind(this), 3000);
+	    }
+	  }, {
+	    key: 'sendMessage',
+	    value: function sendMessage(name, email, subject, message) {
+	      var _this2 = this;
 
-	    _createClass(Contact, [{
-	        key: 'handleFieldChange',
-	        value: function handleFieldChange(event) {
-	            event.preventDefault();
-	            var key = event.target.name;
-	            var value = event.target.value;
-	            this.setState(_defineProperty({}, key, value));
+	      _superagent2.default.post('/api/v1/contact/').type('form').send({ 'name': name, 'email': email, 'subject': subject,
+	        'message': message }).end(function (err, result) {
+	        if (err || !(result.status === 201)) {
+	          _this2.displayFlashMessage("Message not sent", "danger");
+	        } else {
+	          _this2.displayFlashMessage("Your message has been successfully sent", "success");
+	          _this2.clearTextFields();
 	        }
-	    }, {
-	        key: 'handleSubmit',
-	        value: function handleSubmit(event) {
-	            event.preventDefault();
-	            this.sendMessage(this.state.name, this.state.email, this.state.subject, this.state.message);
-	        }
-	    }, {
-	        key: 'clearTextFields',
-	        value: function clearTextFields() {
-	            this.setState({ name: '', email: '', subject: '', message: '' });
-	        }
-	    }, {
-	        key: 'displayFlashMessage',
-	        value: function displayFlashMessage(message, messageType) {
-	            this.setState({ messageType: messageType,
-	                flashMessage: message,
-	                displayFlashMessage: "block"
-	            });
-	            setTimeout(function () {
-	                this.setState({ flashMessage: "",
-	                    displayFlashMessage: "none" });
-	            }.bind(this), 3000);
-	        }
-	    }, {
-	        key: 'sendMessage',
-	        value: function sendMessage(name, email, subject, message) {
-	            var _this2 = this;
+	      });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _React$createElement;
 
-	            _superagent2.default.post('/api/v1/contactus/').send({ 'name': name, 'email': email, 'subject': subject,
-	                'message': message }).end(function (err, result) {
-	                if (result.status === 201) {
-	                    _this2.displayFlashMessage(result.body.message, "success");
-	                    _this2.clearTextFields();
-	                } else {
-	                    _this2.displayFlashMessage("Unable to send message", "danger");
-	                }
-	            });
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            var _React$createElement;
-
-	            return _react2.default.createElement(
-	                'div',
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'row' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'col-sm-12 col-lg-12' },
+	            _react2.default.createElement(
+	              'h1',
+	              { className: 'page-title' },
+	              'Contact us ',
+	              _react2.default.createElement(
+	                'small',
 	                null,
 	                _react2.default.createElement(
-	                    'div',
-	                    { className: 'row' },
-	                    _react2.default.createElement(
-	                        'div',
-	                        { className: 'col-sm-12 col-lg-12' },
-	                        _react2.default.createElement(
-	                            'h1',
-	                            { className: 'page-title' },
-	                            'Contact us ',
-	                            _react2.default.createElement(
-	                                'small',
-	                                null,
-	                                _react2.default.createElement(
-	                                    'em',
-	                                    null,
-	                                    'We\'d love to hear from you'
-	                                )
-	                            )
-	                        )
-	                    )
+	                  'em',
+	                  null,
+	                  'We\'d love to hear from you'
+	                )
+	              )
+	            )
+	          )
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'row' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'col-md-8' },
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'well  well-sm' },
+	              _react2.default.createElement(
+	                _reactBootstrap.Form,
+	                { horizontal: true, action: 'post', onSubmit: this.handleSubmit, className: 'Contact' },
+	                _react2.default.createElement(
+	                  _reactBootstrap.Alert,
+	                  { bsStyle: this.state.messageType, style: { "display": this.state.displayFlashMessage } },
+	                  this.state.flashMessage
 	                ),
 	                _react2.default.createElement(
-	                    'div',
-	                    { className: 'row' },
+	                  _reactBootstrap.FormGroup,
+	                  { controlId: 'formControlsText' },
+	                  _react2.default.createElement(
+	                    _reactBootstrap.Col,
+	                    { componentClass: _reactBootstrap.ControlLabel, sm: 2 },
+	                    'Name'
+	                  ),
+	                  _react2.default.createElement(
+	                    _reactBootstrap.Col,
+	                    { sm: 10 },
+	                    _react2.default.createElement(_reactBootstrap.FormControl, { type: 'text', required: true, placeholder: 'Enter fullname', name: 'name', value: this.state.name, onChange: this.handleFieldChange })
+	                  )
+	                ),
+	                _react2.default.createElement(
+	                  _reactBootstrap.FormGroup,
+	                  { controlId: 'formControlsText' },
+	                  _react2.default.createElement(
+	                    _reactBootstrap.Col,
+	                    { componentClass: _reactBootstrap.ControlLabel, sm: 2 },
+	                    'Email'
+	                  ),
+	                  _react2.default.createElement(
+	                    _reactBootstrap.Col,
+	                    { sm: 10 },
+	                    _react2.default.createElement(_reactBootstrap.FormControl, { type: 'email', required: true, placeholder: 'john.doe@example.com', name: 'email', value: this.state.email, onChange: this.handleFieldChange })
+	                  )
+	                ),
+	                _react2.default.createElement(
+	                  _reactBootstrap.FormGroup,
+	                  { controlId: 'formControlsText' },
+	                  _react2.default.createElement(
+	                    _reactBootstrap.Col,
+	                    { componentClass: _reactBootstrap.ControlLabel, sm: 2 },
+	                    'Subject'
+	                  ),
+	                  _react2.default.createElement(
+	                    _reactBootstrap.Col,
+	                    { sm: 10 },
+	                    _react2.default.createElement(_reactBootstrap.FormControl, { type: 'text', placeholder: 'Enter message subject', name: 'subject', value: this.state.subject, onChange: this.handleFieldChange })
+	                  )
+	                ),
+	                _react2.default.createElement(
+	                  _reactBootstrap.FormGroup,
+	                  { controlId: 'formControlsText' },
+	                  _react2.default.createElement(
+	                    _reactBootstrap.Col,
+	                    { componentClass: _reactBootstrap.ControlLabel, sm: 2 },
+	                    'Message'
+	                  ),
+	                  _react2.default.createElement(
+	                    _reactBootstrap.Col,
+	                    { sm: 10 },
+	                    _react2.default.createElement(_reactBootstrap.FormControl, { componentClass: 'textarea', required: true, placeholder: 'Enter your message here', name: 'message', value: this.state.message, onChange: this.handleFieldChange })
+	                  )
+	                ),
+	                _react2.default.createElement(
+	                  _reactBootstrap.FormGroup,
+	                  { controlId: 'formControlsText' },
+	                  _react2.default.createElement(
+	                    _reactBootstrap.Col,
+	                    { smOffset: 2, sm: 2 },
 	                    _react2.default.createElement(
-	                        'div',
-	                        { className: 'col-md-8' },
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'well  well-sm' },
-	                            _react2.default.createElement(
-	                                _reactBootstrap.Form,
-	                                { horizontal: true, action: 'post', onSubmit: this.handleSubmit, className: 'Contact' },
-	                                _react2.default.createElement(
-	                                    _reactBootstrap.Alert,
-	                                    { bsStyle: this.state.messageType, style: { "display": this.state.displayFlashMessage } },
-	                                    this.state.flashMessage
-	                                ),
-	                                _react2.default.createElement(
-	                                    _reactBootstrap.FormGroup,
-	                                    { controlId: 'formControlsText' },
-	                                    _react2.default.createElement(
-	                                        _reactBootstrap.Col,
-	                                        { componentClass: _reactBootstrap.ControlLabel, sm: 2 },
-	                                        'Name'
-	                                    ),
-	                                    _react2.default.createElement(
-	                                        _reactBootstrap.Col,
-	                                        { sm: 10 },
-	                                        _react2.default.createElement(_reactBootstrap.FormControl, { type: 'text', required: true, placeholder: 'Enter fullname', name: 'name', value: this.state.name, onChange: this.handleFieldChange })
-	                                    )
-	                                ),
-	                                _react2.default.createElement(
-	                                    _reactBootstrap.FormGroup,
-	                                    { controlId: 'formControlsText' },
-	                                    _react2.default.createElement(
-	                                        _reactBootstrap.Col,
-	                                        { componentClass: _reactBootstrap.ControlLabel, sm: 2 },
-	                                        'Email'
-	                                    ),
-	                                    _react2.default.createElement(
-	                                        _reactBootstrap.Col,
-	                                        { sm: 10 },
-	                                        _react2.default.createElement(_reactBootstrap.FormControl, { type: 'email', required: true, placeholder: 'john.doe@example.com', name: 'email', value: this.state.email, onChange: this.handleFieldChange })
-	                                    )
-	                                ),
-	                                _react2.default.createElement(
-	                                    _reactBootstrap.FormGroup,
-	                                    { controlId: 'formControlsText' },
-	                                    _react2.default.createElement(
-	                                        _reactBootstrap.Col,
-	                                        { componentClass: _reactBootstrap.ControlLabel, sm: 2 },
-	                                        'Subject'
-	                                    ),
-	                                    _react2.default.createElement(
-	                                        _reactBootstrap.Col,
-	                                        { sm: 10 },
-	                                        _react2.default.createElement(_reactBootstrap.FormControl, { type: 'text', placeholder: 'Enter message subject', name: 'subject', value: this.state.subject, onChange: this.handleFieldChange })
-	                                    )
-	                                ),
-	                                _react2.default.createElement(
-	                                    _reactBootstrap.FormGroup,
-	                                    { controlId: 'formControlsText' },
-	                                    _react2.default.createElement(
-	                                        _reactBootstrap.Col,
-	                                        { componentClass: _reactBootstrap.ControlLabel, sm: 2 },
-	                                        'Message'
-	                                    ),
-	                                    _react2.default.createElement(
-	                                        _reactBootstrap.Col,
-	                                        { sm: 10 },
-	                                        _react2.default.createElement(_reactBootstrap.FormControl, { componentClass: 'textarea', required: true, placeholder: 'Enter your message here', name: 'message', value: this.state.message, onChange: this.handleFieldChange })
-	                                    )
-	                                ),
-	                                _react2.default.createElement(
-	                                    _reactBootstrap.FormGroup,
-	                                    { controlId: 'formControlsText' },
-	                                    _react2.default.createElement(
-	                                        _reactBootstrap.Col,
-	                                        { smOffset: 2, sm: 2 },
-	                                        _react2.default.createElement(
-	                                            _reactBootstrap.Button,
-	                                            (_React$createElement = { type: 'submit', id: 'contact' }, _defineProperty(_React$createElement, 'type', 'submit'), _defineProperty(_React$createElement, 'className', 'btn btn-primary'), _React$createElement),
-	                                            'Send Message'
-	                                        )
-	                                    )
-	                                )
-	                            )
-	                        )
-	                    ),
-	                    _react2.default.createElement(
-	                        'div',
-	                        { className: 'col-md-4' },
-	                        _react2.default.createElement(
-	                            'address',
-	                            null,
-	                            _react2.default.createElement(
-	                                'strong',
-	                                null,
-	                                'Codango, Inc.'
-	                            ),
-	                            _react2.default.createElement('br', null),
-	                            '55 Moleye Street',
-	                            _react2.default.createElement('br', null),
-	                            'Sabo, Yaba',
-	                            _react2.default.createElement('br', null),
-	                            'Nigeria',
-	                            _react2.default.createElement('br', null),
-	                            '0800-codango'
-	                        )
+	                      _reactBootstrap.Button,
+	                      (_React$createElement = { type: 'submit', id: 'contact' }, _defineProperty(_React$createElement, 'type', 'submit'), _defineProperty(_React$createElement, 'className', 'btn btn-primary'), _React$createElement),
+	                      'Send Message'
 	                    )
+	                  )
 	                )
-	            );
-	        }
-	    }]);
+	              )
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'col-md-4' },
+	            _react2.default.createElement(
+	              'address',
+	              null,
+	              _react2.default.createElement(
+	                'strong',
+	                null,
+	                'Codango, Inc.'
+	              ),
+	              _react2.default.createElement('br', null),
+	              '55 Moleye Street',
+	              _react2.default.createElement('br', null),
+	              'Sabo, Yaba',
+	              _react2.default.createElement('br', null),
+	              'Nigeria',
+	              _react2.default.createElement('br', null),
+	              '0800-codango'
+	            )
+	          )
+	        )
+	      );
+	    }
+	  }]);
 
-	    return Contact;
+	  return Contact;
 	}(_react.Component);
 
 	;
