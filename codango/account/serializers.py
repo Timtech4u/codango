@@ -1,10 +1,10 @@
+from django.contrib.auth.models import User
 from rest_framework import serializers
 
-from django.contrib.auth.models import User
-from userprofile.models import UserProfile, UserSettings
-from userprofile.serializers import UserProfileSerializer, NotificationSerializer
-from userprofile.serializers import FollowSerializer
 from models import ContactModel
+from userprofile.models import UserProfile, UserSettings
+from userprofile.serializers import (FollowSerializer, NotificationSerializer,
+                                     UserProfileSerializer)
 
 
 class AllUsersSerializer(serializers.ModelSerializer):
@@ -129,12 +129,13 @@ class UserFollowSerializer(serializers.ModelSerializer):
 
 
 class ContactSerializer(serializers.ModelSerializer):
-    """ContactUsSerializer to be used in /api/v1/contactus/"""
+    """ContactUsSerializer to be used in /api/v1/contact/"""
 
     class Meta:
         model = ContactModel
 
         # Note that id is non-updatable,
         # therefore not required in the read-only fields
-        fields = ('id','name', 'email', 'subject', 'message', 'date_sent')
-        read_only_fields =('id','date_sent')
+        fields = ('id', 'name', 'email', 'subject', 'message', 'date_sent')
+
+        read_only_fields = ('date_sent')
