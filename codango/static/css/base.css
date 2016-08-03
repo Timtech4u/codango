@@ -178,6 +178,13 @@ button .btn {
 
 /* end of navbar styling */
 /* Home page */
+.resource {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-top: 10px;
+  margin-left: 10px;
+  background: #fff; }
+
 .main {
   margin-top: 100px; }
 

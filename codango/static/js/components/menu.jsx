@@ -10,7 +10,7 @@ export default class Menu extends Component {
                   <Navbar.Brand>
                     <a href="/"><img src="../static/img/codango-logo-white.png"/></a>
                   </Navbar.Brand>
-                   <Navbar.Toggle />
+                  <Navbar.Toggle />
                 </Navbar.Header>
                 <Navbar.Collapse>
                  <Nav pullRight>
