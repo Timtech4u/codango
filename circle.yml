@@ -21,8 +21,10 @@ test:
     - python codango/manage.py migrate --settings=codango.settings.test
     - python codango/manage.py test codango --settings=codango.settings.test
     - cd codango && coverage run manage.py test
-    - coveralls
-    - .. && npm test
+    - COVERALLS_REPO_TOKEN=0fhSY0Iu3oC2m9GUuFP7RR62iS3AKa5mn coveralls
+    - cd ..
+    - ls
+    - npm test
 deployment:
   staging:
     branch: develop
