@@ -1,6 +1,6 @@
 [report]
 omit =
-   ​*/python?.?/*​
-   ​*/site-packages/*​
-   ​*__init__*​
-   */Users/*
+    */python?.?/*
+    */site-packages/*
+    *__init__*
+    */migrations/*
