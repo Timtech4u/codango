@@ -82160,12 +82160,24 @@
 
 	      _superagent2.default.post('/api/v1/contact/').type('form').send({ 'name': name, 'email': email, 'subject': subject,
 	        'message': message }).end(function (err, result) {
-	        if (err || !(result.status === 201)) {
-	          _this2.displayFlashMessage("Message not sent", "danger");
+	        if (err) {
+	          return _this2.displayFlashMessage("An error occured. Ensure you supply a valid email", "danger");
 	        } else {
-	          _this2.displayFlashMessage("Your message has been successfully sent", "success");
-	          _this2.clearTextFields();
+	          if (result.status === 201) {
+	            _this2.clearTextFields();
+	            return _this2.displayFlashMessage("Your message has been successfully sent", "success");
+	          }
+	          return _this2.displayFlashMessage("Message not sent", "danger");
 	        }
+
+	        /**
+	        if(err || !(result.status === 201)) {
+	          this.displayFlashMessage("Message not sent", "danger")
+	        } else {
+	          this.displayFlashMessage("Your message has been successfully sent", "success")
+	          this.clearTextFields()
+	        }
+	        **/
 	      });
 	    }
 	  }, {

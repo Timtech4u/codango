@@ -72,11 +72,15 @@ class Contact extends Component {
       .send({'name': name, 'email': email, 'subject': subject,
              'message': message })
       .end((err, result) => {
-        if(err || !(result.status === 201)) {
-          this.displayFlashMessage("Message not sent", "danger")
-        } else {
-          this.displayFlashMessage("Your message has been successfully sent", "success")
-          this.clearTextFields()
+        if (err) {
+          return this.displayFlashMessage("An error occured. Ensure you supply a valid email", "danger")
+        }
+        else {
+          if (result.status === 201) {
+            this.clearTextFields()
+            return this.displayFlashMessage("Your message has been successfully sent", "success")
+          }
+          return this.displayFlashMessage("Message not sent", "danger")
         }
       });
   }
