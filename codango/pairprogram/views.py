@@ -1,18 +1,21 @@
 import json
-from django.contrib.auth.models import User
-from django.views.generic import View, TemplateView
-from django.shortcuts import render, redirect
-from django.template import RequestContext
+
+from django.conf import settings
 from django.contrib import messages
-from django.http import JsonResponse, QueryDict
+from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.db import IntegrityError
-from django.conf import settings
+from django.http import JsonResponse, QueryDict
+from django.shortcuts import redirect, render
+from django.template import RequestContext
+from django.views.generic import TemplateView, View
+
 from account.emails import SendGrid
-from pairprogram.models import Session, Participant
 from pairprogram.forms import SessionForm
-from resources.views import LoginRequiredMixin
+from pairprogram.models import Participant, Session
 from pyfirebase import Firebase
+from resources.views import LoginRequiredMixin
+
 
 class StartPairView(LoginRequiredMixin, TemplateView):
     template_name = 'pairprogram/sessions.html'
@@ -122,14 +125,14 @@ class PairSessionView(LoginRequiredMixin, View):
             if request.user.email != email:
                 participants = Participant.objects.filter(session=session)
                 if len(participants) < 5:
-                    response = self.send_invites (email, session, request)
+                    response = self.send_invites(email, session, request)
                     response_dict['message'] = "Successfully sent" \
                         if response == 200 else "There was an error"
                     response_dict['status'] = "success" \
                         if response == 200 else "error"
                 else:
                     response_dict[
-                    'message'] = "A session cannot hold more than 5 users"
+                        'message'] = "A session cannot hold more than 5 users"
             else:
                 response_dict[
                     'message'] = "You can't send an invite to yourself"
@@ -146,10 +149,10 @@ class PairSessionView(LoginRequiredMixin, View):
             session.language = language
             session.save()
             response_dict[
-                    'message'] = "Session updated successfully"
+                'message'] = "Session updated successfully"
         else:
             response_dict[
-                    'message'] = "Session unable to updated"
+                'message'] = "Session unable to updated"
 
         return JsonResponse(
             {'response': response_dict})
