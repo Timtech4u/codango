@@ -15,12 +15,14 @@ var FirepadUserList = (function() {
     this.firebaseOn_(ref.root().child('.info/connected'), 'value', function(s) {
       if (s.val() === true && self.displayName_) {
         var nameRef = ref.child(self.userId_).child('name');
-        nameRef.onDisconnect().remove();
+        var statusRef = ref.child(self.userId_).child('status');
+        statusRef.onDisconnect().set('offline');
         nameRef.set(self.displayName_);
+        statusRef.set('online');
       }
     });
 
-    this.userList_ = this.makeUserList_()
+    this.userList_ = this.makeUserList_();
     place.appendChild(this.userList_);
   }
 
@@ -39,7 +41,7 @@ var FirepadUserList = (function() {
       this.makeHeading_(),
       elt('div', [
         this.makeUserEntryForSelf_(),
-        this.makeUserEntriesForOthers_()
+        this.makeUserEntriesForOthers_(),
       ], { 'class': 'firepad-userlist-users' })
     ], { 'class': 'firepad-userlist' });
   };
@@ -51,7 +53,7 @@ var FirepadUserList = (function() {
     });
 
     return elt('div', [
-      elt('span', 'ONLINE ('),
+      elt('span', 'Participants ('),
       counterSpan,
       elt('span', ')')
     ], { 'class': 'firepad-userlist-heading' });
@@ -68,27 +70,15 @@ var FirepadUserList = (function() {
       }
     });
 
-    var nameInput = elt('input', null, { type: 'text', 'class': 'firepad-userlist-name-input' });
-    nameInput.value = this.displayName_;
 
-    var nameHint = elt('div', 'ENTER YOUR NAME', { 'class': 'firepad-userlist-name-hint' });
-    if (this.hasName_) nameHint.style.display = 'none';
+    var nameInput = elt('h5', null, {'class': 'firepad-userlist-name-input' });
+    nameInput.innerHTML = this.displayName_+(' (you)');
 
-    // Update Firebase when name changes.
-    var self = this;
-    on(nameInput, 'change', function(e) {
-      var name = nameInput.value || "Guest " + Math.floor(Math.random() * 1000);
-      myUserRef.child('name').onDisconnect().remove();
-      myUserRef.child('name').set(name);
-      nameHint.style.display = 'none';
-      nameInput.blur();
-      self.displayName_ = name;
-      stopEvent(e);
-    });
+    var statusDiv = elt('div', {'class': 'firepad-user-status'});
 
-    var nameDiv = elt('div', [nameInput, nameHint]);
+    var nameDiv = elt('div', [nameInput]);
 
-    return elt('div', [colorDiv, nameDiv], {
+    return elt('div', [colorDiv, nameDiv, statusDiv], {
       'class': 'firepad-userlist-user ' + 'firepad-user-' + this.userId_
     });
   };
@@ -96,6 +86,7 @@ var FirepadUserList = (function() {
   FirepadUserList.prototype.makeUserEntriesForOthers_ = function() {
     var self = this;
     var userList = elt('div');
+    var offlineUserList = elt('div');
     var userId2Element = {};
 
     function updateChild(userSnapshot, prevChildName) {
@@ -109,17 +100,22 @@ var FirepadUserList = (function() {
       if (typeof name !== 'string') { name = 'Guest'; }
       name = name.substring(0, 20);
 
-      var color = userSnapshot.child('color').val();
-      if (!isValidColor(color)) {
-        color = "#ffb"
+      var status = userSnapshot.child('status').val();
+      var statusDiv = elt('div', status, {'class': 'firepad-user-status'});
+
+      var nameElement = elt('a', name || 'Guest', { 'class': 'firepad-userlist-name', 'href': '/user/'+name });
+
+      var color = "#008000";
+      if (status == "offline") {
+        color = "#afafaf";
+        nameElement.style.fontStyle = 'italic';
+        nameElement.style.color = "#888";
       }
 
       var colorDiv = elt('div', null, { 'class': 'firepad-userlist-color-indicator' });
       colorDiv.style.backgroundColor = color;
 
-      var nameDiv = elt('div', name || 'Guest', { 'class': 'firepad-userlist-name' });
-
-      var userDiv = elt('div', [colorDiv, nameDiv], {
+      var userDiv = elt('div', [colorDiv, nameElement], {
         'class': 'firepad-userlist-user ' + 'firepad-user-' + userId
       });
       userId2Element[userId] = userDiv;
@@ -129,9 +125,11 @@ var FirepadUserList = (function() {
         // But don't show it.
         userDiv.style.display = 'none';
       }
-
-      var nextElement = prevChildName ? userId2Element[prevChildName].nextSibling : userList.firstChild;
-      userList.insertBefore(userDiv, nextElement);
+      if(status == 'offline') {
+        userList.appendChild(userDiv);
+      } else {
+        userList.insertBefore(userDiv, userList.firstChild);
+     }
     }
 
     this.firebaseOn_(this.ref_, 'child_added', updateChild);
