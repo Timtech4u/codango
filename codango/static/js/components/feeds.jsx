@@ -4,7 +4,7 @@ import {Media} from 'react-bootstrap';
 export default class Menu extends Component {
     render() {
         return (
-            <div className="row">
+            <div className="row" style={{marginTop:'10px'}}>
                 <div className="col-md-8">
                     <div className="col-md-11 resource">
                         <Media>
@@ -12,7 +12,8 @@ export default class Menu extends Component {
                             <img width={64} height={64} src="/assets/thumbnail.png" className="img-circle"/>
                             <hr/>
                             <p>
-                                left
+                               <b><span className="glyphicon glyphicon-thumbs-up"></span> 30 </b>
+                               <b><span className="glyphicon glyphicon-thumbs-down"></span> 10 </b>
                             </p>
                           </Media.Left>
                           <Media.Body>

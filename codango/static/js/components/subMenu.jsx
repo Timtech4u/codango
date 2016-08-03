@@ -5,7 +5,7 @@ export default class Menu extends Component {
     render() {
         return (
             <Navbar className="search-bar">
-             <form className="row search-form">
+             <form className="search-form">
                  <div className="col-md-6">
                      <div className="form-group">
                         <input type="text" className="form-control search-field h50" placeholder="Search" />

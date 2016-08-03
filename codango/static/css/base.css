@@ -3,8 +3,8 @@ body {
   height: 100%;
   padding-bottom: 20px;
   overflow-x: hidden !important;
-  font-family: AvenirNext-UltraLight, "Lato", Arial, sans-serif;
-  background: #e9eaed;
+  font-family: AvenirNext-Regular, "Lato", Arial, sans-serif;
+  background: #fff;
   background-size: cover; }
 
 hr {
@@ -99,17 +99,73 @@ hr {
   background-size: cover;
   background-blend-mode: overlay; }
 
-.container:nth-of-type(2) {
-  margin-top: 50px; }
+.container h4 {
+  font-weight: 600; }
+
+.container .row {
+  margin-top: 80px; }
+
+.contact {
+  text-align: center; }
+  .contact h3 {
+    display: inline-block;
+    padding-bottom: 20px;
+    font-family: AvenirNext-DemiBold;
+    font-size: 50px;
+    color: #9b9b9b;
+    border-bottom: 5px solid #feb490; }
+  .contact input.form-control,
+  .contact textarea.form-control {
+    display: block;
+    height: 5em;
+    box-sizing: padding-box;
+    border: 0;
+    border: none;
+    border-bottom: .1rem solid #d1d1d1;
+    border-radius: 0;
+    background-color: transparent;
+    box-shadow: none !important; }
+  .contact textarea.form-control {
+    height: 10em; }
+  .contact .form-control,
+  .contact input[type=text],
+  .contact textarea {
+    width: 100%;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #666;
+    outline: 0; }
+  .contact .btn {
+    padding: 10px 35px;
+    margin-top: 20px;
+    color: #feb490;
+    border: 1px solid #feb490;
+    border-radius: 3px;
+    background-color: #fff; }
+    .contact .btn:focus, .contact .btn:hover {
+      color: #fff;
+      border: 1px solid #feb490;
+      outline: 0;
+      background-color: #feb490; }
 
 .flaticon {
   display: block;
   padding: 10px;
   font-family: "Flaticon";
-  font-size: 64px;
+  font-size: 80px;
   line-height: 1; }
 
 @media (max-width: 768px) {
+  .team {
+    width: 100%;
+    min-height: 550px;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin: 150px 0 0 0;
+    background-image: url("../img/team-background.png");
+    background-size: cover; }
+  .static-footer {
+    background-color: #3d3d3d; }
   .navbar-form {
     display: none; } }
 
@@ -183,7 +239,10 @@ button .btn {
   padding-bottom: 10px;
   margin-top: 10px;
   margin-left: 10px;
-  background: #fff; }
+  background: #fff;
+  box-shadow: 0 0 1px 0; }
+  .resource b {
+    font-size: 10px; }
 
 .main {
   margin-top: 100px; }
