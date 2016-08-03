@@ -110,10 +110,10 @@ class ContactAPIView(generics.CreateAPIView):
 
     def perform_create(self, serializer):
         if serializer.is_valid():
-            name = self.request.data.get('name')
-            email = self.request.data.get('email')
-            subject = self.request.data.get('subject')
-            message = self.request.data.get('message')
+            name = serializer.validated_data.get('name')
+            email = serializer.validated_data.get('email')
+            subject = serializer.validated_data.get('subject')
+            message = serializer.validated_data.get('message')
             email_compose = SendGrid.compose(
                 sender='{0} <{1}>'.format(name, email),
                 recipient=ADMIN_EMAIL,
@@ -128,8 +128,6 @@ class ContactAPIView(generics.CreateAPIView):
             # Inform the user if mail sent was successful or not
             if response == 200:
                 serializer.save()
-                return Response(serializer.data,
-                                status=status.HTTP_201_CREATED)
             else:
                 return Response({"message": "Message not sent"},
                                 status=status.HTTP_400_BAD_REQUEST)
