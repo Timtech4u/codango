@@ -1,9 +1,9 @@
 /* body styling */
 body {
-  background: #e9eaed;
+  background: #fff;
   background-size: cover;
   height: 100%;
-  font-family: AvenirNext-UltraLight, "Lato", Arial, sans-serif;
+  font-family: AvenirNext-Regular, "Lato", Arial, sans-serif;
   padding-bottom: 20px;
   overflow-x: hidden !important; }
 
@@ -79,15 +79,67 @@ hr {
   min-height: 350px;
   width: 100%; }
 
-.container:nth-of-type(2) {
-  margin-top: 50px; }
+.container h4 {
+  font-weight: 600; }
+
+.container .row {
+  margin-top: 80px; }
+
+.contact {
+  text-align: center; }
+  .contact h3 {
+    font-family: AvenirNext-DemiBold;
+    font-size: 50px;
+    color: #9B9B9B;
+    padding-bottom: 20px;
+    border-bottom: 5px solid #FEB490;
+    display: inline-block; }
+  .contact input.form-control, .contact textarea.form-control {
+    background-color: transparent;
+    display: block;
+    border: 0;
+    border: none;
+    border-bottom: .1rem solid #d1d1d1;
+    border-radius: 0;
+    box-shadow: none !important;
+    box-sizing: padding-box;
+    height: 5em; }
+  .contact textarea.form-control {
+    height: 10em; }
+  .contact .form-control, .contact input[type=text], .contact textarea {
+    width: 100%;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #666;
+    outline: 0; }
+  .contact .btn {
+    margin-top: 20px;
+    border: 1px solid #FEB490;
+    border-radius: 3px;
+    background-color: #fff;
+    color: #FEB490;
+    padding: 10px 35px; }
+    .contact .btn:focus, .contact .btn:hover {
+      background-color: #FEB490;
+      outline: 0;
+      color: #fff;
+      border: 1px solid #FEB490; }
 
 .flaticon {
   padding: 10px;
   display: block;
   font-family: "Flaticon";
-  font-size: 64px;
+  font-size: 80px;
   line-height: 1; }
+
+.team {
+  background-image: url("../img/team-background.png");
+  background-size: cover;
+  min-height: 550px;
+  margin: 150px 0 0 0;
+  width: 100%;
+  padding-left: 15px;
+  padding-right: 15px; }
 
 @media (max-width: 768px) {
   .navbar-form {
