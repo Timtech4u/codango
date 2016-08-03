@@ -104,7 +104,7 @@ class ContactAPIView(generics.CreateAPIView):
     For api/v1/contact/ url path
     To enable user send message to the admin
     """
-    
+
     permission_classes = (AllowAny,)
     serializer_class = ContactSerializer
 
