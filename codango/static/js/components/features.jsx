@@ -6,6 +6,7 @@ export default class Features extends Component {
     return (
       <Row className="show-grid" >
         <Col md={4} >
+          <span className="flaticon flaticon-viral-marketing" />
           <h4 >
             Community
           </h4>
@@ -14,6 +15,7 @@ export default class Features extends Component {
           </p>
         </Col>
         <Col md={4} >
+          <span className="flaticon flaticon-viral-marketing" />
           <h4 >
             Share Resource
           </h4>
@@ -22,6 +24,7 @@ export default class Features extends Component {
           </p>
         </Col>
         <Col md={4} >
+          <span className="flaticon flaticon-shared-folder" />
           <h4 >
             Pair Programming
           </h4>
