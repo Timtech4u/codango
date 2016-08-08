@@ -171,12 +171,38 @@ hr {
 
 .team {
   width: 100%;
-  min-height: 550px;
-  padding-right: 15px;
-  padding-left: 15px;
+  min-height: 560px;
+  padding: 100px 15px 10px;
   margin: 150px 0 0 0;
   background-image: url("../img/team-background.png");
   background-size: cover; }
+  .team .slick-slider {
+    margin-left: 60px;
+    margin-right: 60px;
+    color: #FFFFFF;
+    letter-spacing: 0px; }
+    .team .slick-slider img {
+      border: 5px solid #FFFFFF;
+      box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.5); }
+    .team .slick-slider a h3 {
+      font-size: 17px;
+      color: #FFFFFF; }
+    .team .slick-slider a:hover {
+      color: #feb490; }
+    .team .slick-slider p {
+      font-family: AvenirNext-UltraLight;
+      font-size: 17px; }
+    .team .slick-slider .slide-after {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: none;
+      color: #FFF; }
+    .team .slick-slider img:hover {
+      display: block;
+      background: rgba(0, 0, 0, 0.6); }
 
 .flaticon {
   display: block;

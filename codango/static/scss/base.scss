@@ -152,7 +152,6 @@ hr {
     background-repeat: no-repeat;
     background-position: 20%;
     background-size: cover;
-
     background-blend-mode: overlay;
 }
 
@@ -201,7 +200,6 @@ hr {
         display: block;
         height: 5em;
         box-sizing: padding-box;
-
         border: 0;
         border: none;
         border-bottom: .1rem solid #d1d1d1;
@@ -218,17 +216,14 @@ hr {
     input[type=text],
     textarea {
         width: 100%;
-
         font-size: 14px;
         line-height: 1.42857143;
-
         color: #666;
         outline: 0;
     }
     .btn {
         padding: 10px 35px;
         margin-top: 20px;
-
         color: #feb490;
         border: 1px solid #feb490;
         border-radius: 3px;
@@ -244,22 +239,54 @@ hr {
 
 .team {
     width: 100%;
-    min-height: 550px;
-    padding-right: 15px;
-    padding-left: 15px;
+    min-height: 560px;
+    padding: 100px 15px 10px;
     margin: 150px 0 0 0;
-
     background-image: url("../img/team-background.png");
     background-size: cover;
 
-    .row {
+    .slick-slider {
+        margin-left: 60px;
+        margin-right: 60px;
+        color: #FFFFFF;
+        letter-spacing: 0px;
+        img {
+            border: 5px solid #FFFFFF;
+            box-shadow: 0px 3px 6px 0px rgba(0,0,0,0.50);
+        }
+        a {
+            h3 {
+                font-size: 17px;
+                color: #FFFFFF;
+            }
+            &:hover {
+                color: #feb490;
+            }
+        }
+        p {
+            font-family: AvenirNext-UltraLight;
+            font-size: 17px;
+        }
+        .slide-after {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: none;
+            color: #FFF;
+        }
+        img:hover {
+            display: block;
+            background: rgba(0, 0, 0, .6);
+        }
     }
+
 }
 
 .flaticon {
     display: block;
     padding: 10px;
-
     font-family: "Flaticon";
     font-size: 80px;
     line-height: 1;
@@ -273,7 +300,6 @@ hr {
 
 .navbar {
     margin-bottom: 0;
-
     border-radius: 0;
 }
 
@@ -292,10 +318,8 @@ hr {
     & > li {
         & > a {
             position: relative;
-
             height: 70px;
             padding: 0 15px;
-
             line-height: 75px;
         }
     }
@@ -556,10 +580,8 @@ button.btn {
         position: absolute;
         bottom: 0;
         left: auto;
-
         width: 100%;
         padding: 0 20px;
-
         -webkit-transition: opacity .3s;
            -moz-transition: opacity .3s;
             -ms-transition: opacity .3s;
@@ -567,31 +589,23 @@ button.btn {
                 transition: opacity .3s;
         -webkit-transform: translate3d(0, 10%, 0);
                 transform: translate3d(0, 10%, 0);
-
         opacity: 0;
         color: #fff;
-
         a:hover {
             color: #f26521;
         }
-
         h4 {
             margin: 0 0 10px;
-
             font-size: 22px;
             font-weight: 600;
-
             color: #fff;
         }
 
         span {
             display: block;
-
             font-size: 13px;
             font-weight: 600;
-
             text-transform: uppercase;
-
             color: #fff;
         }
     }
@@ -609,11 +623,8 @@ button.btn {
 .section-header {
     padding-bottom: 10px;
     margin: 0 0 20px;
-
     font-size: .9em;
-
     text-transform: uppercase;
-
     color: #bec1c9;
     border-bottom: solid 1px #dedede;
 }
