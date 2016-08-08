@@ -1,7 +1,6 @@
 /* body styling */
 body {
   height: 100%;
-  padding-bottom: 20px;
   overflow-x: hidden !important;
   font-family: AvenirNext-Regular, "Lato", Arial, sans-serif;
   background: #fff;
@@ -89,6 +88,12 @@ hr {
       .slide-container .carousel-caption .get-stated-btn .mdi {
         padding-left: 5px; }
 
+.container h4 {
+  font-weight: 600; }
+
+.container .row {
+  margin-top: 80px; }
+
 .header {
   width: 100%;
   min-height: 350px;
@@ -99,11 +104,27 @@ hr {
   background-size: cover;
   background-blend-mode: overlay; }
 
-.container h4 {
-  font-weight: 600; }
-
-.container .row {
-  margin-top: 80px; }
+.static-footer {
+  background-color: #3d3d3d;
+  margin-top: 50px;
+  color: #fff; }
+  .static-footer .row {
+    margin: 30px; }
+  .static-footer a {
+    color: #fff; }
+  .static-footer .btn, .static-footer .btn:hover, .static-footer .btn:focus {
+    outline: 0;
+    color: #fff;
+    background-color: #feb490;
+    border: 1px solid #feb490; }
+  .static-footer .mdi {
+    font-size: 24px;
+    margin-left: 5px; }
+  .static-footer .reserved {
+    border-top: 1px solid #f2f2f2;
+    margin-top: 10px;
+    text-align: center;
+    padding-top: 10px; }
 
 .contact {
   text-align: center; }
@@ -148,6 +169,15 @@ hr {
       outline: 0;
       background-color: #feb490; }
 
+.team {
+  width: 100%;
+  min-height: 550px;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin: 150px 0 0 0;
+  background-image: url("../img/team-background.png");
+  background-size: cover; }
+
 .flaticon {
   display: block;
   padding: 10px;
@@ -156,16 +186,6 @@ hr {
   line-height: 1; }
 
 @media (max-width: 768px) {
-  .team {
-    width: 100%;
-    min-height: 550px;
-    padding-right: 15px;
-    padding-left: 15px;
-    margin: 150px 0 0 0;
-    background-image: url("../img/team-background.png");
-    background-size: cover; }
-  .static-footer {
-    background-color: #3d3d3d; }
   .navbar-form {
     display: none; } }
 

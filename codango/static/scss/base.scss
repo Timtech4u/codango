@@ -2,7 +2,6 @@
 
 body {
     height: 100%;
-    padding-bottom: 20px;
     overflow-x: hidden !important;
 
     font-family: AvenirNext-Regular, "Lato", Arial, sans-serif;
@@ -59,7 +58,6 @@ hr {
 }
 .search-bar {
     padding-top: 10px;
-
     background-color: #fff !important;
     box-shadow: 0 0 3px 0;
 
@@ -110,25 +108,19 @@ hr {
         h3 {
             font-family: AvenirNext-DemiBold;
             font-size: 5.5em;
-
             letter-spacing: 0;
-
             color: #feb490;
         }
         p {
             width: 513px;
-
             font-size: 18px;
-
             letter-spacing: 0;
         }
         .get-stated-btn {
             padding-right: 2em;
             padding-left: 2em;
             margin-top: 2em;
-
             text-align: center;
-
             color: #fff;
             border: 1px solid #fff;
             outline: none;
@@ -138,6 +130,16 @@ hr {
                 padding-left: 5px;
             }
         }
+    }
+}
+
+.container {
+    h4 {
+        font-weight: 600;
+    }
+
+    .row {
+        margin-top: 80px;
     }
 }
 
@@ -154,13 +156,32 @@ hr {
     background-blend-mode: overlay;
 }
 
-.container {
-    h4 {
-        font-weight: 600;
+.static-footer {
+    background-color: #3d3d3d;
+    margin-top: 50px;
+    color: #fff;
+    .row {
+        margin: 30px;
+    }
+    a {
+        color: #fff;
+    }
+    .btn, .btn:hover, .btn:focus {
+        outline: 0;
+        color: #fff;
+        background-color: #feb490;
+        border: 1px solid #feb490
+    }
+    .mdi {
+        font-size: 24px;
+        margin-left: 5px;
     }
 
-    .row {
-        margin-top: 80px;
+    .reserved {
+        border-top: 1px solid #f2f2f2;
+        margin-top: 10px;
+        text-align: center;
+        padding-top: 10px;
     }
 }
 
@@ -169,10 +190,8 @@ hr {
     h3 {
         display: inline-block;
         padding-bottom: 20px;
-
         font-family: AvenirNext-DemiBold;
         font-size: 50px;
-
         color: #9b9b9b;
         border-bottom: 5px solid #feb490;
     }
@@ -214,13 +233,26 @@ hr {
         border: 1px solid #feb490;
         border-radius: 3px;
         background-color: #fff;
-        &:focus,
-        &:hover {
+        &:focus, &:hover {
             color: #fff;
             border: 1px solid #feb490;
             outline: 0;
             background-color: #feb490;
         }
+    }
+}
+
+.team {
+    width: 100%;
+    min-height: 550px;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin: 150px 0 0 0;
+
+    background-image: url("../img/team-background.png");
+    background-size: cover;
+
+    .row {
     }
 }
 
@@ -234,23 +266,6 @@ hr {
 }
 
 @media (max-width: 768px) {
-    .team {
-        width: 100%;
-        min-height: 550px;
-        padding-right: 15px;
-        padding-left: 15px;
-        margin: 150px 0 0 0;
-
-        background-image: url("../img/team-background.png");
-        background-size: cover;
-
-        .row {
-        }
-    }
-
-    .static-footer {
-        background-color: #3d3d3d;
-    }
     .navbar-form {
         display: none;
     }
