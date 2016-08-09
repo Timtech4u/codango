@@ -1,12 +1,17 @@
 import psycopg2
-
-from rest_framework import generics, permissions
-# from serializers import UserSerializer, UserFollowSerializer, UserSettingsSerializer
-from serializers import UserSerializer, UserFollowSerializer, UserSettingsSerializer
-from serializers import AllUsersSerializer, UserRegisterSerializer
-from userprofile import serializers, models
 from django.contrib.auth.models import User
-from rest_framework import permissions
+from rest_framework import generics, permissions, status
+from rest_framework.permissions import AllowAny
+from rest_framework.response import Response
+from rest_framework.views import APIView
+
+from codango.settings.base import ADMIN_EMAIL
+from emails import SendGrid
+from models import ContactModel
+from serializers import (AllUsersSerializer, ContactSerializer,
+                         UserFollowSerializer, UserRegisterSerializer,
+                         UserSerializer, UserSettingsSerializer)
+from userprofile import models, serializers
 
 
 class IsOwner(permissions.BasePermission):
@@ -81,7 +86,6 @@ class UserFollowAPIView(generics.CreateAPIView):
                 'You have already followed this person')
 
 
-
 class UserSettingsAPIView(generics.RetrieveUpdateAPIView):
     """
     For api/v1/users/<>/settings/ url path
@@ -93,3 +97,39 @@ class UserSettingsAPIView(generics.RetrieveUpdateAPIView):
     queryset = models.UserSettings.objects.all()
     serializer_class = UserSettingsSerializer
     permission_classes = (IsOwner,)
+
+
+class ContactAPIView(generics.CreateAPIView):
+    """
+    For api/v1/contact/ url path
+    To enable user send message to the admin
+    """
+
+    permission_classes = (AllowAny,)
+    serializer_class = ContactSerializer
+
+    def perform_create(self, serializer):
+        if serializer.is_valid():
+            name = serializer.validated_data.get('name')
+            email = serializer.validated_data.get('email')
+            subject = serializer.validated_data.get('subject')
+            message = serializer.validated_data.get('message')
+            email_compose = SendGrid.compose(
+                sender='{0} <{1}>'.format(name, email),
+                recipient=ADMIN_EMAIL,
+                subject=subject or "No Subject",
+                text=message,
+                html=None
+            )
+
+            # Send email
+            response = SendGrid.send(email_compose)
+
+            # Inform the user if mail sent was successful or not
+            if response == 200:
+                serializer.save()
+            else:
+                return Response({"message": "Message not sent"},
+                                status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

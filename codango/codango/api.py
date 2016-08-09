@@ -11,7 +11,7 @@ from pairprogram.api import SessionDetailAPIView, SessionListAPIView,\
     ParticipantDetailAPIView, ParticipantListAPIView
 from account.api import UserRegisterAPIView, UserLogoutAPIView
 from account.api import UserListAPIView, UserDetailAPIView, UserFollowAPIView
-from account.api import UserSettingsAPIView
+from account.api import UserSettingsAPIView, ContactAPIView
 
 
 urlpatterns = [
@@ -47,5 +47,7 @@ urlpatterns = [
     url(r'^users/$', UserListAPIView.as_view()),
     url(r'^users/(?P<pk>[0-9]+)$', UserDetailAPIView.as_view()),
     url(r'^users/(?P<pk>[0-9]+)/follow/', UserFollowAPIView.as_view()),
-    url(r'^users/(?P<pk>[0-9]+)/settings/', UserSettingsAPIView.as_view())
+    url(r'^users/(?P<pk>[0-9]+)/settings/', UserSettingsAPIView.as_view()),
+    url(r'^contact/$', ContactAPIView.as_view(), name='contact')
+
 ]

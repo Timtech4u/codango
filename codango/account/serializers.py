@@ -1,9 +1,10 @@
+from django.contrib.auth.models import User
 from rest_framework import serializers
 
-from django.contrib.auth.models import User
+from models import ContactModel
 from userprofile.models import UserProfile, UserSettings
-from userprofile.serializers import UserProfileSerializer, NotificationSerializer
-from userprofile.serializers import FollowSerializer
+from userprofile.serializers import (FollowSerializer, NotificationSerializer,
+                                     UserProfileSerializer)
 
 
 class AllUsersSerializer(serializers.ModelSerializer):
@@ -12,7 +13,8 @@ class AllUsersSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
 
-        # Note that id is non-updatable, therefore not required in the read-only fields
+        # Note that id is non-updatable, therefore not required in the
+        # read-only fields
         fields = ('id', 'username',)
 
 
@@ -26,7 +28,8 @@ class UserRegisterSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
 
-        # Note that id is non-updatable, therefore not required in the read-only fields
+        # Note that id is non-updatable, therefore not required in the
+        # read-only fields
         fields = ('id', 'username', 'password', 'confirm_password', 'email',)
 
     def create(self, validated_data):
@@ -41,7 +44,8 @@ class UserRegisterSerializer(serializers.ModelSerializer):
             user.save()
             UserSettings.objects.create(user_id=user.id)
             return user
-        raise serializers.ValidationError("Password and confirm_password don't tally")
+        raise serializers.ValidationError(
+            "Password and confirm_password don't tally")
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -122,3 +126,16 @@ class UserFollowSerializer(serializers.ModelSerializer):
         # Note that id is non-updatable,
         # therefore not required in the read-only fields
         fields = ('id', 'following')
+
+
+class ContactSerializer(serializers.ModelSerializer):
+    """ContactUsSerializer to be used in /api/v1/contact/"""
+
+    class Meta:
+        model = ContactModel
+
+        # Note that id is non-updatable,
+        # therefore not required in the read-only fields
+        fields = ('id', 'name', 'email', 'subject', 'message', 'date_sent')
+
+        read_only_fields = ('date_sent')
