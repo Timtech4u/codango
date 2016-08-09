@@ -29,9 +29,14 @@ def send_recent_posts(frequency):
         recipient=None,
         subject="Top Posts on Codango",
         recipients=recipients,
-        text=None,
+        text=loader.get_template(
+            'emails/popular-post-updates.txt'
+        ).render(Context({
+            'popular_posts': popular_posts,
+            'codango_url': codango_url
+        })),
         html=loader.get_template(
-            'resources/popular-post-updates.html'
+            'emails/popular-post-updates.html'
         ).render(Context({
             'popular_posts': popular_posts,
             'codango_url': codango_url
@@ -80,9 +85,9 @@ def send_notification(author, resource_link, settings_link):
         author.email,
         'Codango: Notification',
         None,
-        loader.get_template('notifications/notification-email.txt'
+        loader.get_template('emails/notification.txt'
                             ).render(resource_email_context),
-        loader.get_template('notifications/notification-email.html'
+        loader.get_template('emails/notification.html'
                             ).render(resource_email_context),
     )
 

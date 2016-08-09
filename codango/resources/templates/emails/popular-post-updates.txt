@@ -1,0 +1,13 @@
+Hi,
+Here are some top posts you may have missed on Codango.
+{% for resource in popular_posts %}
+      {% if resource.snippet_text %}
+            {{ resource.snippet_text }}
+      {% endif %} 
+            {{resource.date_added}}
+            {{ resource.author }}
+      {% empty %}
+            No Popular Posts Today
+{% endfor %}
+Click to view: {{ codango_url }}
+Thanks, Codango Team.
