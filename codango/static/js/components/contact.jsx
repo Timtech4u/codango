@@ -14,7 +14,7 @@ export default class Contact extends Component {
 
   render() {
     return (
-      <Grid >
+      <Grid id="contact">
         <Row className="show-grid contact" >
           <Form action="post" onSubmit={this.handleSubmit} className="Contact">
             <Col md={12} >

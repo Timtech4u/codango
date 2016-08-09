@@ -14,9 +14,9 @@ export default class Menu extends Component {
                 </Navbar.Header>
                 <Navbar.Collapse>
                  <Nav pullRight>
-                    <li><Link to="/about">Features</Link></li>
-                    <li><Link to="/team">Team</Link></li>
-                    <li><Link to="/contact">Contact Us</Link></li>
+                    <li><Link to="/about#features">Features</Link></li>
+                    <li><Link to="/about#team">Team</Link></li>
+                    <li><Link to="/about#contact">Contact Us</Link></li>
                     <li><Link to="/login">Login</Link></li>
                   </Nav>
                 </Navbar.Collapse>
