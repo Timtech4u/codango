@@ -31,6 +31,7 @@ export default class Footer extends Component {
                 </FormGroup>
               </Form>
             </Col>
+            
           </Row>
           <Row className="reserved" >
               <p> ©2016 All Right reserved. Codango </p>

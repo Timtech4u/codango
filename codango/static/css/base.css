@@ -126,6 +126,11 @@ hr {
     margin-top: 10px;
     text-align: center;
     padding-top: 10px; }
+  .static-footer .mdi-map-marker {
+    font-size: 15px;
+    margin-left: 0; }
+  .static-footer .address {
+    width: 60%; }
 
 .contact {
   text-align: center; }
@@ -246,6 +251,54 @@ hr {
     text-align: center; }
   #team .tab-content {
     margin-top: 100px; }
+
+.post {
+  background: #FFFFFF;
+  box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.3);
+  padding: 10px;
+  border-radius: 2px; }
+  .post img {
+    border-radius: 100%; }
+  .post .rating-icons, .post .share {
+    padding: 0px;
+    margin-top: 20px;
+    border-top: 1px solid rgba(151, 151, 151, 0.5);
+    padding-top: 8px;
+    display: inline-block; }
+    .post .rating-icons a, .post .share a {
+      padding-left: 5px;
+      color: #9B9B9B; }
+      .post .rating-icons a:hover, .post .share a:hover {
+        text-decoration: none; }
+  .post .mdi-comment {
+    font-size: 60px;
+    color: #9B9B9B; }
+  .post .mdi-share-variant {
+    margin-right: 10px; }
+  .post .comment {
+    display: inline-block;
+    position: relative; }
+  .post .comment-count {
+    position: absolute;
+    top: 12px;
+    left: 1px;
+    font-size: 20px;
+    color: #fff;
+    padding-left: 30%; }
+  .post .col-sm-2, .post .col-xs-2 {
+    text-align: center; }
+  .post .col-xs-8 {
+    border: 1px solid rgba(151, 151, 151, 0.5);
+    padding-left: 30px;
+    padding-right: 30px;
+    border-top: none;
+    border-bottom: none; }
+    .post .col-xs-8 p {
+      text-align: justify;
+      font-size: 18px;
+      letter-spacing: 0px; }
+  .post.row {
+    margin-top: 20px; }
 
 .flaticon {
   display: block;

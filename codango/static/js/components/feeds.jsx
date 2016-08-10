@@ -1,45 +1,58 @@
 import React, {Component} from 'react';
-import {Media} from 'react-bootstrap';
+import {Col, Row, Media, Grid} from 'react-bootstrap';
 
-export default class Menu extends Component {
+export default class Feeds extends Component {
     render() {
         return (
-            <div className="row" style={{marginTop:'10px'}}>
-                <div className="col-md-8">
-                    <div className="col-md-11 resource">
-                        <Media>
-                         <Media.Left>
-                            <img width={64} height={64} src="/assets/thumbnail.png" className="img-circle"/>
-                            <hr/>
-                            <p>
-                               <b><span className="glyphicon glyphicon-thumbs-up"></span> 30 </b>
-                               <b><span className="glyphicon glyphicon-thumbs-down"></span> 10 </b>
-                            </p>
-                          </Media.Left>
-                          <Media.Body>
-                            <Media.Heading>Media Heading</Media.Heading>
-                            <p>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.</p>
-                          </Media.Body>
-                        </Media>
-                    </div>
-                    <div className="col-md-11 resource">
-                        <Media>
-                         <Media.Left>
-                            <img width={64} height={64} src="/assets/thumbnail.png" className="img-circle"/>
-                          </Media.Left>
-                          <Media.Body>
-                            <Media.Heading>Media Heading</Media.Heading>
-                            <p>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.</p>
-                          </Media.Body>
-                        </Media>
-                    </div>
-                </div>
-                <div className="col-md-4">
-                    hed
-                </div>
-            </div>
+          <Grid >
+            <Row className="show-grid" >
+              <Col md={8} >
+                <Post />
+                <Post />
+                <Post />
+                <Post />
+              </Col>
+              <Col md={4} >
 
+              </Col>
+            </Row>
+          </Grid>
         )
     }
 }
-module.exports = Menu;
+
+
+class Post extends Component {
+  render() {
+    return (
+      <Row className="show-grid post" >
+        <Col xs={3} sm={2}>
+          <img src="#" width={60} height={60} />
+          <span className="rating-icons">
+            <a href="#"><i className="mdi mdi-thumb-up"></i> 20</a>
+            <a href="#"><i className="mdi mdi-thumb-down"></i> 20</a>
+          </span>
+        </Col>
+        <Col xs={7} sm={8} >
+          <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+          eiusmod tempor </p>
+          <div className="snippet" >
+            <pre class="prettyprint linenums">
+              response = redirect('/')
+              response.delete_cookie('userid')
+            </pre>
+          </div>
+        </Col>
+        <Col xs={2} >
+          <div className="comment" >
+            <i className="mdi mdi-comment"></i>
+            <p className="comment-count">20</p>
+          </div>
+          <div className="share" >
+            <a href="#" ><i className="mdi mdi-share-variant"></i>Share</a>
+          </div>
+        </Col>
+      </Row>
+    )
+  }
+}
