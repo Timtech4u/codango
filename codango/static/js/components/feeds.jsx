@@ -2,23 +2,31 @@ import React, {Component} from 'react';
 import {Col, Row, Media, Grid} from 'react-bootstrap';
 
 export default class Feeds extends Component {
-    render() {
-        return (
-          <Grid >
-            <Row className="show-grid" >
-              <Col md={8} >
-                <Post />
-                <Post />
-                <Post />
-                <Post />
-              </Col>
-              <Col md={4} >
-
-              </Col>
-            </Row>
-          </Grid>
-        )
-    }
+  render() {
+    return (
+      <Grid >
+        <Row className="show-grid" >
+          <Col md={8} >
+            <Post />
+            <Post />
+            <Post />
+            <Post />
+          </Col>
+          <Col md={3} mdOffset={1}>
+            <div className="community-list-section">
+              <h3 className="section-header">Communities</h3>
+              <div className="list-group" id="community">
+                <a href="#" className="list-group-item active"><i className="mdi mdi-view-list"></i> All Feeds</a>
+                <a href="#" className="list-group-item"><i className="mdi mdi-language-python"></i> Python</a>
+                <a href="/resource/ajax/community/android" className="list-group-item"><i className="mdi mdi-android"></i> Android</a>
+                <a href="/resource/ajax/community/javascript" className="list-group-item"><i className="mdi mdi-language-javascript"></i> Javascript</a>
+              </div>
+            </div>
+          </Col>
+        </Row>
+      </Grid>
+    )
+  }
 }
 
 
