@@ -66,17 +66,16 @@
     </nav>
     {% endblock navbar %}
     <!--content-->
-     {% block body %}
     <div class="container">
         <div class="main row">
-
+            {% block body %}
             <!-- for page body structure overide -->
             {% block mobile-sidebar %}{% endblock mobile-sidebar %} {% block sidebar %} {% endblock sidebar %}
             <div class="col-sm-9 col-xs-12">
                 {% block content %}{% endblock content %}
             </div>
         </div>
-
+        {% endblock body %}
     </div>
     <div id="new-notifications">
         <div class="panel panel-danger">
@@ -84,9 +83,6 @@
             <div class="panel-body" id="notifcation-panel"></div>
         </div>
     </div>
-    {% endblock body %}
-
-    {% block script %}
     <script src="{% static 'lib/bootstrap/dist/js/bootstrap.min.js' %}"></script>
     <script src='https://cdn.firebase.com/js/client/2.3.2/firebase.js'></script>
     <script type="text/javascript" src="{% static 'lib/js-cookie/src/js.cookie.js' %}"></script>
