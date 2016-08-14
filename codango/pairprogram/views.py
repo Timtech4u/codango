@@ -11,13 +11,12 @@ from django.http import JsonResponse, QueryDict
 from django.shortcuts import redirect, render
 from django.template import RequestContext
 from django.views.generic import TemplateView, View
-
 from account.emails import SendGrid
 from pairprogram.forms import SessionForm
 from pairprogram.models import Participant, Session
 from pyfirebase import Firebase
 from resources.views import LoginRequiredMixin
-
+from django.conf import settings
 
 class StartPairView(LoginRequiredMixin, TemplateView):
     template_name = 'pairprogram/sessions.html'
@@ -135,6 +134,7 @@ class PairSessionView(LoginRequiredMixin, View):
                 participants = Participant.objects.filter(session=session)
                 if len(participants) < 5:
                     response = self.send_invites(email, session, request)
+                    response = self.send_invites (email, session, request)
                     response_dict['message'] = "Successfully sent" \
                         if response == 200 else "There was an error"
                     response_dict['status'] = "success" \
