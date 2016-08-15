@@ -258,7 +258,9 @@ hr {
   padding: 10px;
   border-radius: 2px; }
   .post img {
-    border-radius: 100%; }
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 150%; }
   .post .rating-icons, .post .share {
     padding: 0px;
     margin-top: 20px;
@@ -289,14 +291,14 @@ hr {
     text-align: center; }
   .post .col-sm-8 {
     border: 1px solid rgba(151, 151, 151, 0.5);
-    padding-left: 30px;
-    padding-right: 30px;
     border-top: none;
     border-bottom: none; }
     .post .col-sm-8 p {
       text-align: justify;
-      font-size: 18px;
+      font-size: 16px;
       letter-spacing: 0px; }
+    .post .col-sm-8 pre {
+      font-size: 11px; }
   .post.row {
     margin-top: 0;
     margin-bottom: 20px; }

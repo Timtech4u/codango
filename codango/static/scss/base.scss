@@ -353,7 +353,9 @@ hr {
     padding: 10px;
     border-radius: 2px;
     img {
-        border-radius: 100%;
+        border-radius: 50%;
+        -webkit-border-radius: 50%;
+    	-moz-border-radius: 150%;
     }
     .rating-icons, .share {
         padding: 0px;
@@ -393,14 +395,15 @@ hr {
     }
     .col-sm-8 {
         border: 1px solid rgba(151, 151, 151, 0.5);
-        padding-left: 30px;
-        padding-right: 30px;
         border-top: none;
         border-bottom: none;
         p {
             text-align: justify;
-            font-size: 18px;
+            font-size: 16px;
             letter-spacing: 0px;
+        }
+        pre {
+            font-size: 11px;
         }
     }
     &.row {

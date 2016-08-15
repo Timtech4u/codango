@@ -35,7 +35,7 @@ class Post extends Component {
     return (
       <Row className="show-grid post" >
         <Col xs={3} sm={2}>
-          <img src="#" width={60} height={60} />
+          <img src="http://res.cloudinary.com/codangofile/image/upload/c_fill,h_70,w_70/v1443782603/vqr7n59zfxyeybttleug.gif" width={60} height={60} />
           <span className="rating-icons">
             <a href="#"><i className="mdi mdi-thumb-up"></i> 20</a>
             <a href="#"><i className="mdi mdi-thumb-down"></i> 20</a>
@@ -45,7 +45,7 @@ class Post extends Component {
           <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
           eiusmod tempor </p>
           <div className="snippet" >
-            <pre class="prettyprint linenums">
+            <pre className="prettyprint linenums">
               response = redirect('/')
               response.delete_cookie('userid')
             </pre>
