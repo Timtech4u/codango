@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Col, Row, Media, Grid} from 'react-bootstrap';
+import {Col, Row, Media, Grid, Popover, OverlayTrigger} from 'react-bootstrap';
 
 export default class Feeds extends Component {
   render() {
@@ -26,8 +26,8 @@ export default class Feeds extends Component {
             <div className="popular-block">
               <h3 className="section-header">Popular Resources</h3>
               <div className="list-group" id="popular">
-              <Popular />
-              <Popular />
+                <Popular />
+                <Popular />
               </div>
             </div>
           </Col>
@@ -39,7 +39,17 @@ export default class Feeds extends Component {
 
 
 class Post extends Component {
+  handleClick(event) {
+      event.preventDefault()
+  }
   render() {
+    let share = (
+      <Popover id="share" >
+          <a className="facebook" data-id={4} title="Facebook"><span className="mdi mdi-facebook-box">&nbsp;&nbsp;</span></a>
+          <a className="twitter" data-id={4} title="Twitter"><span className="mdi mdi-twitter-box">&nbsp;&nbsp;</span></a>
+          <a className="gplus" data-id={4} title="Google+"><span className="mdi mdi-google-plus-box">&nbsp;&nbsp;</span></a>
+      </Popover>
+    )
     return (
       <Row className="show-grid post" >
         <Col xs={3} sm={2}>
@@ -65,7 +75,9 @@ class Post extends Component {
             <p className="comment-count">20</p>
           </div>
           <div className="share" >
-            <a href="#" ><i className="mdi mdi-share-variant"></i>Share</a>
+            <OverlayTrigger trigger="focus" placement="top" overlay={share}>
+              <a href="#" onClick={this.handleClick}><i className="mdi mdi-share-variant"></i>Share</a>
+            </OverlayTrigger>
           </div>
         </Col>
       </Row>

@@ -366,8 +366,9 @@ hr {
         a {
             padding-left: 5px;
             color: #9B9B9B;
-            &:hover {
+            &:hover, &:active, &:focus {
                 text-decoration: none;
+                outline: 0;
             }
         }
     }
@@ -410,6 +411,22 @@ hr {
     &.row {
         margin-top: 0;
         margin-bottom: 20px;
+    }
+}
+
+#share {
+    font-size: 19px;
+    a {
+        cursor: pointer;
+    }
+    .facebook {
+        color: #3b5998;
+    }
+    .twitter {
+        color: #4099ff;
+    }
+    .gplus {
+        color: #d34836;
     }
 }
 
@@ -841,7 +858,7 @@ textarea {
     padding: 25px 35px;
 
     background: #fff;
-    box-shadow: 0 1px 6px 0 rgba(0,0,0,.1);
+    box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.3);
 
     .pair-button {
         margin-bottom: 10px;
@@ -851,7 +868,6 @@ textarea {
 .popular-block {
     padding: 15px;
     margin: 40px 0;
-
     @extend .content-block;
 }
 
