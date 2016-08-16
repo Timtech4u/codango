@@ -27,8 +27,20 @@ hr {
     color: #fff; }
     .navbar-default .navbar-nav > li > a:hover {
       color: #feb490; }
+    .navbar-default .navbar-nav > li > a:focus {
+      color: #fff; }
     .navbar-default .navbar-nav > li > a i {
       margin-right: 10px; }
+  .navbar-default .navbar-nav > li .btn {
+    padding-right: 20px;
+    padding-left: 20px;
+    margin-top: 20px;
+    text-align: center;
+    color: #fff;
+    border: 1px solid #fff;
+    border-radius: 0;
+    outline: none;
+    background-color: transparent; }
 
 .h50 {
   height: 40px; }
@@ -324,26 +336,81 @@ hr {
     padding-left: 45px;
     padding-right: 45px;
     padding-bottom: 0; }
-  .submenu .login-btn {
-    transition: all .3s;
-    border-radius: 4px;
-    box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.1);
-    color: #fff;
-    background-color: #78C598;
-    border-color: #78C598;
-    padding-left: 30px;
-    padding-right: 30px; }
   .submenu input.form-control {
     display: block;
     box-sizing: padding-box;
     border-radius: 0;
-    border: 1px solid #d1d1d1;
+    border: 0;
+    border: none;
+    border-bottom: .1rem solid #d1d1d1;
     background-color: transparent;
     box-shadow: none !important; }
 
 .community-list-section {
   padding: 25px 35px;
   box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.3); }
+
+.signin-modal .modal-dialog {
+  text-align: left;
+  width: 450px;
+  color: #9E9E9E; }
+  .signin-modal .modal-dialog .social-login {
+    margin-bottom: 60px;
+    margin-top: 30px;
+    text-align: center; }
+  .signin-modal .modal-dialog .modal-body {
+    padding: 50px; }
+  .signin-modal .modal-dialog .round-btn {
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    color: #fff;
+    font-size: 30px;
+    margin-right: 30px; }
+  .signin-modal .modal-dialog .facebook-btn {
+    background-color: #3F51B5; }
+  .signin-modal .modal-dialog .gplus-btn {
+    background-color: #D0021B; }
+  .signin-modal .modal-dialog .or-divider {
+    width: 100%;
+    text-align: center;
+    border-bottom: 1px solid #ccc;
+    line-height: 2px;
+    margin: 10px 0 20px;
+    font-size: 30px;
+    margin-bottom: 60px; }
+    .signin-modal .modal-dialog .or-divider span {
+      background: #fff;
+      padding: 0 40px; }
+  .signin-modal .modal-dialog .form-group {
+    margin-bottom: 50px; }
+  .signin-modal .modal-dialog input.form-control {
+    display: block;
+    box-sizing: padding-box;
+    border-radius: 0;
+    border: 0;
+    border: none;
+    border-bottom: .1rem solid #d1d1d1;
+    background-color: transparent;
+    box-shadow: none !important; }
+  .signin-modal .modal-dialog .login-btn {
+    transition: all .3s;
+    border-radius: 4px;
+    box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.1);
+    color: #fff;
+    background-color: #78C598;
+    border-color: #78C598;
+    margin-top: 20px;
+    padding: 15px; }
+    .signin-modal .modal-dialog .login-btn:focus {
+      outline: 0; }
+  .signin-modal .modal-dialog .form-control-feedback {
+    left: 0;
+    margin-left: -14px;
+    margin-top: 8px;
+    font-size: 16px; }
+  .signin-modal .modal-dialog .account-message {
+    margin-top: 20px; }
 
 .flaticon {
   display: block;

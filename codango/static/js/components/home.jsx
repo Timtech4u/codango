@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Slider from './slider'
 import SubMenu from './subMenu'
 import Feeds from './feeds'
+import Login from './login.jsx'
 
 export default class Home extends Component {
   render() {
@@ -10,9 +11,7 @@ export default class Home extends Component {
       <Slider />
       <SubMenu />
       <Feeds />
-
       </div>
     );
   }
 }
-

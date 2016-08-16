@@ -6,84 +6,64 @@ import {
     form,
     FormGroup,
     FormControl,
+    Form,
+    Link,
+    Modal,
+    Col
 } from 'react-bootstrap';
-import request from 'superagent';
-const Cookies = require('js-cookie');
 
-class LoginForm extends Component {
-  constructor() {
-    super();
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleFieldChange = this.handleFieldChange.bind(this);
+
+export default class Login extends Component {
+  constructor(props) {
+    super(props);
     this.state = {
-      username: '',
-      password: '',
-      token: '',
+      showModal: false
     };
+    this.open = this.open.bind(this);
+    this.close = this.close.bind(this);
   }
-
-  handleSubmit(event) {
-    event.preventDefault();
-    this.loginUser(this.state.username, this.state.password);
+  close() {
+    this.setState({ showModal: false });
   }
-
-  handleFieldChange(event) {
-    event.preventDefault();
-    const key = event.target.name;
-    const value = event.target.value;
-    this.setState({
-      [key]: value,
-    });
+  open() {
+    this.setState({ showModal: true });
   }
-
-  loginUser(username, password) {
-    request
-      .post('/login')
-      .type('form')
-      .set('X-CSRFToken', Cookies.get('csrftoken'))
-      .send({ username, password })
-      .end((err, result) => {
-        window.location.href = '/home';
-      });
-  }
-
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <FormGroup controlId="formControlsText">
-          <ControlLabel>Username</ControlLabel>
-          <FormControl type="text"
-            placeholder="Username"
-            name="username"
-            onChange={this.handleFieldChange}
-          />
-        </FormGroup>
-        <FormGroup controlId="formControlsPassword" >
-          <ControlLabel>Password</ControlLabel>
-          <FormControl
-            type="password"
-            placeholder="Password"
-            name="password"
-            onChange={this.handleFieldChange}
-          />
-        </FormGroup>
-        <Checkbox>Remember me </Checkbox>
-        <FormGroup>
-          <Button type="submit" className="btn btn-primary">Login</Button>
-        </FormGroup>
-        <FormGroup>
-          <a href="/login/facebook/?next=/" className="btn btn-primary">
-            Login with Facebook
-          </a>
-          {' '}
-          <a href="/login/google-oauth2/?next=/" className="btn btn-danger">
-            Login with Google
-          </a>
-        </FormGroup>
-        <p>Forgot password? <a href="/recovery">Reset</a></p>
-      </form>
+      <div>
+      <Button bsStyle="primary" onClick={this.open}>
+        Login / Sign Up
+      </Button>
+        <Modal show={this.state.showModal} onHide={this.close} className="signin-modal">
+          <Modal.Body>
+            <h4 >Login with</h4>
+            <div className="social-login" >
+              <Button className="round-btn facebook-btn" ><i className="mdi mdi-facebook"></i></Button>
+              <Button className="round-btn gplus-btn" ><i className="mdi mdi-google-plus"></i></Button>
+            </div>
+            <p className="or-divider"><span>or</span></p>
+            <Form >
+              <FormGroup >
+                <FormControl.Feedback>
+                  <i className="mdi mdi-account"></i>
+                </FormControl.Feedback>
+                <FormControl type="text" placeholder="Username" />
+              </FormGroup>
+              <FormGroup >
+                <FormControl.Feedback>
+                  <i className="mdi mdi-lock"></i>
+                </FormControl.Feedback>
+                <FormControl type="password" placeholder="Password" />
+              </FormGroup>
+              <Checkbox>Remember me</Checkbox>
+              <Button type="submit" block className="login-btn">
+                Login
+              </Button>
+            </Form>
+            <p className="account-message" >Don't have an account? <a href="#">Sign Up</a></p>  
+          </Modal.Body>
+        </Modal>
+      </div>
     );
   }
 }
-
-module.exports = LoginForm;

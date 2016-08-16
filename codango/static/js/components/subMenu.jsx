@@ -5,7 +5,7 @@ export default class SubMenu extends Component {
   render() {
     return (
         <Row className="submenu" >
-          <Col md={2} >
+          <Col md={4} >
             <DropdownButton title="Filter Post" id="bg-nested-dropdown">
               <MenuItem eventKey="1">All</MenuItem>
               <MenuItem eventKey="2">Newest</MenuItem>
@@ -22,9 +22,6 @@ export default class SubMenu extends Component {
                 </FormControl.Feedback>
               </FormGroup>
             </form>
-          </Col>
-          <Col md={2} >
-            <Button className="login-btn pull-right">Login</Button>
           </Col>
         </Row>
     )

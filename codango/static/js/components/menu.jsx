@@ -1,6 +1,7 @@
 import { Link } from 'react-router';
 import React, {Component} from 'react';
 import {Nav, Navbar, NavItem, NavDropdown, MenuItem} from 'react-bootstrap';
+import Login from './login.jsx';
 
 export default class Menu extends Component {
     render() {
@@ -17,7 +18,7 @@ export default class Menu extends Component {
                     <li><Link to="/about#features">Features</Link></li>
                     <li><Link to="/about#team">Team</Link></li>
                     <li><Link to="/about#contact">Contact Us</Link></li>
-                    <li><Link to="/login">Login</Link></li>
+                    <li><Login /></li>
                   </Nav>
                 </Navbar.Collapse>
               </Navbar>
