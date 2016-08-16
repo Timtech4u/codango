@@ -412,6 +412,18 @@ hr {
   .signin-modal .modal-dialog .account-message {
     margin-top: 20px; }
 
+.signin-modal .tab-content .navbar-nav > li > a {
+  display: inline;
+  outline: 0;
+  line-height: 55px; }
+  .signin-modal .tab-content .navbar-nav > li > a:active, .signin-modal .tab-content .navbar-nav > li > a:focus, .signin-modal .tab-content .navbar-nav > li > a:hover {
+    background-color: transparent; }
+  .signin-modal .tab-content .navbar-nav > li > a .tab-nav-text {
+    color: #9E9E9E; }
+
+.signin-modal .nav li.active {
+  display: none; }
+
 .flaticon {
   display: block;
   padding: 10px;

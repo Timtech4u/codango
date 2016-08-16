@@ -547,6 +547,22 @@ hr {
             margin-top: 20px;
         }
     }
+    .tab-content {
+        .navbar-nav > li > a {
+            display: inline;
+            outline: 0;
+            line-height: 55px;
+            &:active, &:focus, &:hover {
+                background-color: transparent;
+            }
+            .tab-nav-text {
+                color: #9E9E9E;
+            }
+        }
+    }
+    .nav li.active{
+        display: none;
+    }
 }
 
 .flaticon {
