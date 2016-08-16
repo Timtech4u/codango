@@ -2,112 +2,75 @@ import React, { Component } from 'react';
 import {
     Button,
     Checkbox,
-    ControlLabel,
-    form,
     FormGroup,
     FormControl,
-    Form,
-    Link,
-    Modal,
-    Col,
-    Nav,
-    NavItem,
-    Tab
+    Form
 } from 'react-bootstrap';
+import request from 'superagent';
+const Cookies = require('js-cookie');
 
-
-export default class Login extends Component {
-  constructor(props) {
-    super(props);
+export default class LoginForm extends Component {
+  constructor() {
+    super();
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleFieldChange = this.handleFieldChange.bind(this);
     this.state = {
-      showModal: false
+      username: '',
+      password: '',
+      token: '',
     };
-    this.open = this.open.bind(this);
-    this.close = this.close.bind(this);
   }
-  close() {
-    this.setState({ showModal: false });
+
+  handleSubmit(event) {
+    event.preventDefault();
+    this.loginUser(this.state.username, this.state.password);
   }
-  open() {
-    this.setState({ showModal: true });
+
+  handleFieldChange(event) {
+    event.preventDefault();
+    const key = event.target.name;
+    const value = event.target.value;
+    this.setState({
+      [key]: value,
+    });
+  }
+
+  loginUser(username, password) {
+    request
+      .post('/login')
+      .type('form')
+      .set('X-CSRFToken', Cookies.get('csrftoken'))
+      .send({ username, password })
+      .end((err, result) => {
+        window.location.href = '/home';
+      });
   }
   render() {
-    return (
-      <div>
-        <Button bsStyle="primary" onClick={this.open}>
-          Login / Sign Up
+    return(
+      <Form onSubmit={this.handleSubmit}>
+        <FormGroup >
+          <FormControl.Feedback>
+            <i className="mdi mdi-account"></i>
+          </FormControl.Feedback>
+          <FormControl type="text"
+            placeholder="Username"
+            name="username"
+            onChange={this.handleFieldChange} />
+        </FormGroup>
+        <FormGroup >
+          <FormControl.Feedback>
+            <i className="mdi mdi-lock"></i>
+          </FormControl.Feedback>
+          <FormControl type="password"
+            placeholder="Password"
+            name="password"
+            onChange={this.handleFieldChange} />
+        </FormGroup>
+        <Checkbox>Remember me</Checkbox>
+        <Button type="submit" block className="login-btn">
+          Login
         </Button>
-        <Modal show={this.state.showModal} onHide={this.close} className="signin-modal">
-          <Modal.Body>
-            <h4 >Login with</h4>
-            <div className="social-login" >
-              <Button className="round-btn facebook-btn" ><i className="mdi mdi-facebook"></i></Button>
-              <Button className="round-btn gplus-btn" ><i className="mdi mdi-google-plus"></i></Button>
-            </div>
-            <p className="or-divider"><span>or</span></p>
-            <Tab.Container id="login-tab" defaultActiveKey="login">
-              <Tab.Content animation>
-                <Tab.Pane eventKey="login">
-                <Form >
-                  <FormGroup >
-                    <FormControl.Feedback>
-                      <i className="mdi mdi-account"></i>
-                    </FormControl.Feedback>
-                    <FormControl type="text" placeholder="Username" />
-                  </FormGroup>
-                  <FormGroup >
-                    <FormControl.Feedback>
-                      <i className="mdi mdi-lock"></i>
-                    </FormControl.Feedback>
-                    <FormControl type="password" placeholder="Password" />
-                  </FormGroup>
-                  <Checkbox>Remember me</Checkbox>
-                  <Button type="submit" block className="login-btn">
-                    Login
-                  </Button>
-                </Form>
-                </Tab.Pane>
-
-                <Tab.Pane eventKey="signup">
-                <Form >
-                  <FormGroup >
-                    <FormControl.Feedback>
-                      <i className="mdi mdi-account"></i>
-                    </FormControl.Feedback>
-                    <FormControl type="text" placeholder="Username" />
-                  </FormGroup>
-                  <FormGroup >
-                    <FormControl.Feedback>
-                      <i className="mdi mdi-email-outline"></i>
-                    </FormControl.Feedback>
-                    <FormControl type="text" placeholder="Email" />
-                  </FormGroup>
-                  <FormGroup >
-                    <FormControl.Feedback>
-                      <i className="mdi mdi-lock"></i>
-                    </FormControl.Feedback>
-                    <FormControl type="password" placeholder="Password" />
-                  </FormGroup>
-                  <FormGroup >
-                    <FormControl.Feedback>
-                      <i className="mdi mdi-lock"></i>
-                    </FormControl.Feedback>
-                    <FormControl type="password" placeholder="Confim Password" />
-                  </FormGroup>
-                  <Button type="submit" block className="login-btn">
-                    Sign Up
-                  </Button>
-                </Form>
-                </Tab.Pane>
-                <Nav >
-                  <NavItem eventKey="signup"><span className="tab-nav-text">Don't have an account? </span>Sign Up</NavItem>
-                  <NavItem eventKey="login"><span className="tab-nav-text">Already have an account? </span>Login</NavItem>
-                </Nav>
-              </Tab.Content>
-            </Tab.Container>
-          </Modal.Body>
-        </Modal>
-      </div>
-    );
+      </Form>
+    )
   }
 }

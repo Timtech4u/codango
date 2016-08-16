@@ -366,7 +366,8 @@ hr {
     height: 60px;
     color: #fff;
     font-size: 30px;
-    margin-right: 30px; }
+    margin-right: 30px;
+    line-height: 50px; }
   .signin-modal .modal-dialog .facebook-btn {
     background-color: #3F51B5; }
   .signin-modal .modal-dialog .gplus-btn {

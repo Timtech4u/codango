@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {
   Button,
   ControlLabel,
-  form,
+  Form,
   FormControl,
   FormGroup
 } from 'react-bootstrap';
@@ -52,32 +52,47 @@ class RegisterForm extends Component {
 
   render() {
     return  (
-      <form onSubmit={this.handleSubmit}>
-        <FormGroup controlId="formControlsText">
-          <ControlLabel>Username</ControlLabel>
-          <FormControl type="text" placeholder="Username" name="username"
-                       onChange={this.handleFieldChange}/>
+      <Form onSubmit={this.handleSubmit}>
+        <FormGroup >
+          <FormControl.Feedback>
+            <i className="mdi mdi-account"></i>
+          </FormControl.Feedback>
+          <FormControl type="text"
+           placeholder="Username"
+           name="username"
+           onChange={this.handleFieldChange} />
         </FormGroup>
-        <FormGroup controlId="formControlsEmail">
-          <ControlLabel>E-mail</ControlLabel>
-          <FormControl type="email" placeholder="Email" name="email"
-                       onChange={this.handleFieldChange}/>
+        <FormGroup >
+          <FormControl.Feedback>
+            <i className="mdi mdi-email-outline"></i>
+          </FormControl.Feedback>
+          <FormControl type="text"
+          placeholder="Email"
+          name="email"
+          onChange={this.handleFieldChange} />
         </FormGroup>
-          <FormGroup controlId="formControlsPassword">
-          <ControlLabel>Password</ControlLabel>
-          <FormControl type="password" placeholder="Password" name="password"
-                       onChange={this.handleFieldChange}/>
+        <FormGroup >
+          <FormControl.Feedback>
+            <i className="mdi mdi-lock"></i>
+          </FormControl.Feedback>
+          <FormControl type="password"
+          placeholder="Password"
+          name="password"
+          onChange={this.handleFieldChange} />
         </FormGroup>
-        <FormGroup controlId="formControlsPassword">
-          <ControlLabel>Verify Password</ControlLabel>
-          <FormControl type="password" placeholder="Password"
-                       name="confirm_password"
-                       onChange={this.handleFieldChange}/>
+        <FormGroup >
+          <FormControl.Feedback>
+            <i className="mdi mdi-lock"></i>
+          </FormControl.Feedback>
+          <FormControl type="password"
+          placeholder="Confim Password"
+          name="confirm_password"
+          onChange={this.handleFieldChange}/>
         </FormGroup>
-        <FormGroup>
-          <Button type="submit" className="btn btn-primary">Register</Button>
-        </FormGroup>
-      </form>
+        <Button type="submit" block className="login-btn">
+          Sign Up
+        </Button>
+      </Form>
     )
   }
 }
