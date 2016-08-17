@@ -42,7 +42,7 @@
     "babelify": "^7.3.0",
     "browserify": "^13.1.0",
     "dots": "^0.1.0",
-    "enzyme": "^2.3.0",
+    "enzyme": "^2.4.1",
     "eslint": "^1.10.3",
     "eslint-config-airbnb": "^3.1.0",
     "eslint-config-google": "^0.3.0",

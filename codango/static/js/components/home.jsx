@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import Slider from './slider'
-import SubMenu from './subMenu'
-import Feeds from './feeds'
+import Slider from './slider.jsx'
+import SubMenu from './subMenu.jsx'
+import Feeds from './feeds.jsx'
 import { StickyContainer, Sticky } from 'react-sticky';
 
 export default class Home extends Component {
