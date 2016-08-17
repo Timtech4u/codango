@@ -19,7 +19,7 @@ class IndexViewTest(StaticLiveServerTestCase):
         self.browser.get(self.live_server_url)
 
         body = self.browser.find_element_by_tag_name('body')
-        self.assertIn('Codango', body.text)
+        self.assertIn('Collaborate', body.text)
 
         # open login modal
         self.browser.find_element_by_css_selector('button[role="login"]') \
@@ -64,7 +64,7 @@ class StaticPages(StaticLiveServerTestCase):
         # about us page
         self.browser.find_element_by_link_text('Features').click()
         body = self.browser.find_element_by_tag_name('body')
-        self.assertIn('About us', body.text)
+        self.assertIn('Community', body.text)
 
         # contact us page
         self.browser.find_element_by_link_text('Contact Us').click()

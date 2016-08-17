@@ -25,7 +25,7 @@ class PairProgramTest(StaticLiveServerTestCase):
         self.browser.get(self.live_server_url)
 
         body = self.browser.find_element_by_tag_name('body')
-        self.assertIn('Codango', body.text)
+        self.assertIn('Collaborate', body.text)
 
         # open login modal
         self.browser.find_element_by_css_selector('button[role="login"]') \
