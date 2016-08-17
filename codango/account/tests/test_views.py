@@ -21,6 +21,10 @@ class IndexViewTest(StaticLiveServerTestCase):
         body = self.browser.find_element_by_tag_name('body')
         self.assertIn('Codango', body.text)
 
+        # open login modal
+        self.browser.find_element_by_css_selector('button[role="login"]') \
+            .click()
+
         # logging in username and password
         username_field = self.browser.find_element_by_name('username')
         username_field.send_keys('lade')
@@ -37,7 +41,7 @@ class IndexViewTest(StaticLiveServerTestCase):
         self.browser.find_element_by_link_text('lade').click()
         self.browser.find_element_by_link_text('LogOut').click()
         body = self.browser.find_element_by_tag_name('body')
-        self.assertIn('Join Our Community', body.text)
+        self.assertIn('Collaborate', body.text)
 
 
 class StaticPages(StaticLiveServerTestCase):
@@ -55,20 +59,20 @@ class StaticPages(StaticLiveServerTestCase):
 
         # index page
         body = self.browser.find_element_by_tag_name('body')
-        self.assertIn('Join Our Community', body.text)
+        self.assertIn('Collaborate', body.text)
 
         # about us page
-        self.browser.find_element_by_link_text('About Us').click()
+        self.browser.find_element_by_link_text('Features').click()
         body = self.browser.find_element_by_tag_name('body')
         self.assertIn('About us', body.text)
 
         # contact us page
         self.browser.find_element_by_link_text('Contact Us').click()
         body = self.browser.find_element_by_tag_name('body')
-        self.assertIn('Contact us', body.text)
+        self.assertIn('Get In Touch', body.text)
 
         # team page
         self.browser.find_element_by_link_text('Team').click()
         body = self.browser.find_element_by_tag_name('body')
-        self.assertIn('Our Awesome Team', body.text)
+        self.assertIn('Team Members', body.text)
         self.assertIn('Hall Of Fame', body.text)

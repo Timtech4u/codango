@@ -17,6 +17,10 @@ class CreateResource(StaticLiveServerTestCase):
     def test_can_create_resource(self):
         self.browser.get(self.live_server_url)
 
+        # open login modal
+        self.browser.find_element_by_css_selector('button[role="login"]') \
+            .click()
+
         # logging in username and password
         username_field = self.browser.find_element_by_name('username')
         username_field.send_keys('lade')

@@ -33,7 +33,7 @@ export default class LoginModal extends Component {
   render() {
     return (
       <div>
-        <Button onClick={this.open}>
+        <Button onClick={this.open} role="login">
           {this.props.children}
         </Button>
         <Modal show={this.state.showModal} onHide={this.close} className="signin-modal">
