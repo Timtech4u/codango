@@ -66,7 +66,7 @@
                     <p class="text-center">
                         <a href="/user/{{ profile.user.username }}/following">
                             <small>
-                            {% if profile.get_followers|length > 1 %}Following{% else %}Follower{% endif %}
+                            {% if profile.get_followers|length >= 1 %}Following{% else %}Follower{% endif %}
                             </small>
                         </a>
                     </p>
