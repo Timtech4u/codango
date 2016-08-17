@@ -28,6 +28,10 @@ class UserProfileTest(StaticLiveServerTestCase):
         self.user.set_password('shuaib')
         self.user.save()
         self.login = self.client.login(username='jubril', password='shuaib')
+
+        # open login modal
+        self.browser.find_element_by_css_selector('button[role="login"]') \
+            .click()
         username_field = self.browser.find_element_by_name('username')
         username_field.send_keys('lade')
         self.notification = Notification.objects.create(

@@ -1,4 +1,4 @@
-from django.test import TestCase, Client
+from django.test import TransactionTestCase, Client
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from mock import patch
@@ -6,7 +6,7 @@ from pairprogram.models import Session, Participant
 from account.emails import SendGrid
 
 
-class PairTestCase(TestCase):
+class PairTestCase(TransactionTestCase):
     def setUp(self):
         self.client = Client()
         self.initiator = User.objects.create_user(

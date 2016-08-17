@@ -42,10 +42,7 @@ export default class LoginForm extends Component {
       .set('X-CSRFToken', Cookies.get('csrftoken'))
       .send({ username, password })
       .end((err, result) => {
-        if(result.accepted){
-            console.log('succesful')
-        }
-        console.log(result)
+        window.location.href = '/home';
       });
   }
   render() {

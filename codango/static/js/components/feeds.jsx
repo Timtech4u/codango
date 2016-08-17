@@ -37,7 +37,6 @@ export default class Feeds extends Component {
   }
 }
 
-
 class Post extends Component {
   handleClick(event) {
       event.preventDefault()
