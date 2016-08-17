@@ -1,12 +1,23 @@
 import React, {Component} from 'react';
 import {Grid, Row, Col, FormGroup, Glyphicon, Button, FormControl, DropdownButton, MenuItem} from 'react-bootstrap';
+import LoginModal from "./loginmodal.jsx"
 
 export default class SubMenu extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      showLogin: false
+    }
+  }
+  componentWillReceiveProps(props){
+    this.setState({showLogin: props.showLogin})
+    console.log("I'm receiving props")
+  }
   render() {
     return (
         <Row className="submenu" >
-          <Col md={4} >
-            <DropdownButton title="Filter Post" id="bg-nested-dropdown">
+          <Col md={2} >
+            <DropdownButton title="Filter Posts" id="bg-nested-dropdown">
               <MenuItem eventKey="1">All</MenuItem>
               <MenuItem eventKey="2">Newest</MenuItem>
               <MenuItem eventKey="3">Most Rated</MenuItem>
@@ -22,6 +33,9 @@ export default class SubMenu extends Component {
                 </FormControl.Feedback>
               </FormGroup>
             </form>
+          </Col>
+          <Col md={2} >
+            { this.state.showLogin ? <LoginModal >Login / Sigin Up </LoginModal> : null }
           </Col>
         </Row>
     )

@@ -21,15 +21,14 @@ hr {
 }
 
 
-.navbar-default {
+.static-nav.navbar-default {
     border: none;
-    background: rgba(0, 0, 0, .5) !important;
-    .navbar-form {
-        padding-top: 15px;
-        margin-right: 30px;
-    }
-
-
+    background-color: transparent;
+    position: absolute;
+    top: 0;
+    left: 15px;
+    z-index: 1000;
+    border: none;
     .navbar-nav {
         & > li {
             &.active {
@@ -62,6 +61,37 @@ hr {
                 border-radius: 0;
                 outline: none;
                 background-color: transparent;
+                &:hover, &:focus {
+                    color:#feb490;
+                    border-color: #feb490;
+                }
+            }
+        }
+    }
+}
+
+.navbar-default {
+    background: #fff;
+    box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.1);
+
+    .navbar-form {
+        padding-top: 15px;
+        margin-right:30px;
+    }
+
+    .navbar-nav {
+        li {
+            &.active {
+                a {
+                    background-color: transparent;
+                    border-bottom: solid 4px #f26521;
+                    color: #f26521;
+                }
+            }
+            a {
+                i {
+                    margin-right: 10px;
+                }
             }
         }
     }
@@ -91,7 +121,6 @@ hr {
 }
 .slide-container {
     position: relative;
-
     height: 70vh;
     overflow: hidden;
 
@@ -464,6 +493,32 @@ hr {
         background-color: transparent;
         box-shadow: none !important;
     }
+    .btn {
+        background-color: #78C598;
+        outline: 0;
+        box-shadow: none;
+        border-color: #78C598;
+        color: #fff;
+        padding-right: 20px;
+        padding-left: 20px;
+        &:active, &:hover {
+            outline: 0;
+            background-color: #78C598;
+            border-color: #78C598;
+            color: #fff;
+        }
+    }
+    .dropdown button, .open.dropdown button{
+        background-color: #fff;
+        color: #9B9B9B;
+        border: none;
+        box-shadow: none;
+        &:active, &:focus, &:hover {
+            background-color: #fff;
+            color: #9B9B9B;
+            border:none;
+        }
+    }
 }
 
 .community-list-section {
@@ -566,6 +621,10 @@ hr {
     }
 }
 
+.sticky {
+    z-index: 2000;
+    background: #fff;
+}
 .flaticon {
     display: block;
     padding: 10px;

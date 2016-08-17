@@ -6,7 +6,7 @@ import LoginModal from './loginmodal.jsx';
 export default class Menu extends Component {
     render() {
         return (
-            <Navbar fixedTop={true}>
+            <Navbar className="static-nav">
                 <Navbar.Header>
                   <Navbar.Brand>
                     <a href="/"><img src="../static/img/codango-logo-white.png"/></a>
