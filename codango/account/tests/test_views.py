@@ -19,7 +19,7 @@ class IndexViewTest(StaticLiveServerTestCase):
         self.browser.get(self.live_server_url)
 
         body = self.browser.find_element_by_tag_name('body')
-        self.assertIn('Collaborate', body.text)
+        self.assertIn('Share', body.text)
 
         # open login modal
         self.browser.find_element_by_css_selector('button[role="login"]') \
@@ -41,7 +41,7 @@ class IndexViewTest(StaticLiveServerTestCase):
         self.browser.find_element_by_link_text('lade').click()
         self.browser.find_element_by_link_text('LogOut').click()
         body = self.browser.find_element_by_tag_name('body')
-        self.assertIn('Collaborate', body.text)
+        self.assertIn('Share', body.text)
 
 
 class StaticPages(StaticLiveServerTestCase):
@@ -59,7 +59,7 @@ class StaticPages(StaticLiveServerTestCase):
 
         # index page
         body = self.browser.find_element_by_tag_name('body')
-        self.assertIn('Collaborate', body.text)
+        self.assertIn('Share', body.text)
 
         # about us page
         self.browser.find_element_by_link_text('Features').click()
