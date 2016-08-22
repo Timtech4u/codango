@@ -1,18 +1,13 @@
 import React, {Component} from 'react';
 import {Col, Row, Media, Grid, Popover, OverlayTrigger} from 'react-bootstrap';
+import Post from './post.jsx';
 
 export default class Feeds extends Component {
   render() {
     return (
       <Grid >
         <Row className="show-grid" >
-          <Col md={8} >
-            <Post />
-            <Post />
-            <Post />
-            <Post />
-          </Col>
-          <Col md={3} mdOffset={1}>
+          <Col md={3}>
             <div className="community-list-section">
               <h3 className="section-header">Communities</h3>
               <div className="list-group" id="community">
@@ -31,55 +26,11 @@ export default class Feeds extends Component {
               </div>
             </div>
           </Col>
+          <Col md={8} mdOffset={1}>
+          {/* Post Goes here */}
+          </Col>
         </Row>
       </Grid>
-    )
-  }
-}
-
-class Post extends Component {
-  handleClick(event) {
-      event.preventDefault()
-  }
-  render() {
-    let share = (
-      <Popover id="share" >
-          <a className="facebook" data-id={4} title="Facebook"><span className="mdi mdi-facebook-box">&nbsp;&nbsp;</span></a>
-          <a className="twitter" data-id={4} title="Twitter"><span className="mdi mdi-twitter-box">&nbsp;&nbsp;</span></a>
-          <a className="gplus" data-id={4} title="Google+"><span className="mdi mdi-google-plus-box">&nbsp;&nbsp;</span></a>
-      </Popover>
-    )
-    return (
-      <Row className="show-grid post" >
-        <Col xs={3} sm={2}>
-          <img src="http://res.cloudinary.com/codangofile/image/upload/c_fill,h_70,w_70/v1443782603/vqr7n59zfxyeybttleug.gif" width={60} height={60} />
-          <span className="rating-icons">
-            <a href="#"><i className="mdi mdi-thumb-up"></i> 20</a>
-            <a href="#"><i className="mdi mdi-thumb-down"></i> 20</a>
-          </span>
-        </Col>
-        <Col xs={7} sm={8} >
-          <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-          eiusmod tempor </p>
-          <div className="snippet" >
-            <pre className="prettyprint linenums">
-              response = redirect('/')
-              response.delete_cookie('userid')
-            </pre>
-          </div>
-        </Col>
-        <Col xs={2} >
-          <div className="comment" >
-            <i className="mdi mdi-comment"></i>
-            <p className="comment-count">20</p>
-          </div>
-          <div className="share" >
-            <OverlayTrigger trigger="focus" placement="top" overlay={share}>
-              <a href="#" onClick={this.handleClick}><i className="mdi mdi-share-variant"></i>Share</a>
-            </OverlayTrigger>
-          </div>
-        </Col>
-      </Row>
     )
   }
 }

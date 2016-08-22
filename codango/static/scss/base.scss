@@ -175,7 +175,7 @@ hr {
     }
 }
 
-.container {
+#react .container {
     h4 {
         font-weight: 600;
     }
@@ -473,7 +473,7 @@ hr {
 }
 
 .submenu {
-    box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 1px 0px 0px rgba(0, 0, 0, 0.2);
     &.row {
         margin-top: 0;
         height: 70px;
