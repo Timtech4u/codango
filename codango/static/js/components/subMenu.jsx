@@ -35,7 +35,7 @@ export default class SubMenu extends Component {
             </form>
           </Col>
           <Col md={2} >
-            { this.state.showLogin ? <LoginModal >Login / Sigin Up </LoginModal> : null }
+            { this.state.showLogin ? <LoginModal active="login">Login / Sigin Up </LoginModal> : null }
           </Col>
         </Row>
     )

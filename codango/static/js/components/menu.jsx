@@ -18,7 +18,7 @@ export default class Menu extends Component {
                     <li><Link to="/about#features">Features</Link></li>
                     <li><Link to="/about#team">Team</Link></li>
                     <li><Link to="/about#contact">Contact Us</Link></li>
-                    <li><LoginModal >Login / Sign Up</LoginModal></li>
+                    <li><LoginModal active="login">Login / Sign Up</LoginModal></li>
                   </Nav>
                 </Navbar.Collapse>
               </Navbar>

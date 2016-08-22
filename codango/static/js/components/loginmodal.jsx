@@ -33,7 +33,7 @@ export default class LoginModal extends Component {
   render() {
     return (
       <div>
-        <Button onClick={this.open} role="login">
+        <Button onClick={this.open} role="login" className={this.props.type}>
           {this.props.children}
         </Button>
         <Modal show={this.state.showModal} onHide={this.close} className="signin-modal">
@@ -44,7 +44,7 @@ export default class LoginModal extends Component {
               <a href="/login/google-oauth2/?next=/" className="btn round-btn gplus-btn" ><i className="mdi mdi-google-plus"></i></a>
             </div>
             <p className="or-divider"><span>or</span></p>
-            <Tab.Container id="login-tab" defaultActiveKey="login">
+            <Tab.Container id="login-tab" defaultActiveKey={this.props.active}>
               <Tab.Content animation>
                 <Tab.Pane eventKey="login">
                   <LoginForm />

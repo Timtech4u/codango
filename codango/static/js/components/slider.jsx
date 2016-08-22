@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Carousel, Button} from 'react-bootstrap';
+import LoginModal from "./loginmodal.jsx"
 
 export default class Slider extends Component {
     render() {
@@ -10,9 +11,9 @@ export default class Slider extends Component {
                 <Carousel.Caption>
                     <h3>Share</h3>
                     <p>Reach out to our awesome community</p>
-                    <Button  bsSize="large" className="get-stated-btn">
-                        Get Started today<i className="mdi mdi-trending-neutral"></i>
-                    </Button>
+                    <LoginModal type="get-stated-btn btn-lg" active="signup">
+                        Start Sharing today<i className="mdi mdi-trending-neutral"></i>
+                    </LoginModal>
                 </Carousel.Caption>
                 </Carousel.Item>
                 <Carousel.Item>
@@ -20,9 +21,9 @@ export default class Slider extends Component {
                 <Carousel.Caption>
                     <h3>Collaborate</h3>
                     <p>Work with multiple members of your team at the same time in one code editor.</p>
-                    <Button  bsSize="large" className="get-stated-btn">
+                    <LoginModal type="get-stated-btn btn-lg" active="signup">
                         Get Started today<i className="mdi mdi-trending-neutral"></i>
-                    </Button>
+                    </LoginModal>
                 </Carousel.Caption>
                 </Carousel.Item>
                 <Carousel.Item>
@@ -30,9 +31,9 @@ export default class Slider extends Component {
                 <Carousel.Caption>
                     <h3>Community</h3>
                     <p>Create a community and find other users with the same interest</p>
-                    <Button  bsSize="large" className="get-stated-btn">
-                        Get Started today<i className="mdi mdi-trending-neutral"></i>
-                    </Button>
+                    <LoginModal type="get-stated-btn btn-lg" active="signup">
+                        Join the Community<i className="mdi mdi-trending-neutral"></i>
+                    </LoginModal>
                 </Carousel.Caption>
                 </Carousel.Item>
             </Carousel>
