@@ -58,6 +58,7 @@ hr {
     }
   }
 }
+
 .navbar-default {
   background: #fff;
   box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.1);
@@ -78,6 +79,56 @@ hr {
         i {
           margin-right: 10px;
         }
+      }
+    }
+  }
+}
+
+.slide-container {
+  position: relative;
+  height: 70vh;
+  overflow: hidden;
+  background-color: rgba(0, 0, 0, 1);
+  .slide-content {
+    height: auto;
+    padding: 10px;
+    margin-left: 7%;
+  }
+  img {
+    width: 100%;
+    opacity: 0.4;
+    filter: alpha(opacity=50);
+  }
+  .overlay {
+    height: 100%;
+  }
+  .carousel-caption {
+    top: 10%;
+    left: 12%;
+    padding-bottom: 30px;
+    text-align: left;
+    h3 {
+      font-family: AvenirNext-DemiBold;
+      font-size: 5.5em;
+      letter-spacing: 0;
+      color: #feb490;
+    }
+    p {
+      width: 513px;
+      font-size: 18px;
+      letter-spacing: 0;
+    }
+    .get-stated-btn {
+      padding-right: 2em;
+      padding-left: 2em;
+      margin-top: 2em;
+      text-align: center;
+      color: #fff;
+      border: 1px solid #fff;
+      outline: none;
+      background-color: transparent;
+      .mdi {
+        padding-left: 5px;
       }
     }
   }

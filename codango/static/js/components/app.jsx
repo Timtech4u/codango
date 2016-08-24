@@ -19,7 +19,7 @@ const routes = (
       <Route path="/contact" component={Contact}/>
     </Route>
     <Route path="/new-homepage" component={MainNew}>
-      <IndexRoute component={Home} history={browserHistory}/>
+      <IndexRoute component={HomeNew} history={browserHistory}/>
     </Route>
   </Router>
 );

@@ -57,6 +57,47 @@ hr {
   .navbar-default .navbar-nav li a i {
     margin-right: 10px; }
 
+.slide-container {
+  position: relative;
+  height: 70vh;
+  overflow: hidden;
+  background-color: black; }
+  .slide-container .slide-content {
+    height: auto;
+    padding: 10px;
+    margin-left: 7%; }
+  .slide-container img {
+    width: 100%;
+    opacity: 0.4;
+    filter: alpha(opacity=50); }
+  .slide-container .overlay {
+    height: 100%; }
+  .slide-container .carousel-caption {
+    top: 10%;
+    left: 12%;
+    padding-bottom: 30px;
+    text-align: left; }
+    .slide-container .carousel-caption h3 {
+      font-family: AvenirNext-DemiBold;
+      font-size: 5.5em;
+      letter-spacing: 0;
+      color: #feb490; }
+    .slide-container .carousel-caption p {
+      width: 513px;
+      font-size: 18px;
+      letter-spacing: 0; }
+    .slide-container .carousel-caption .get-stated-btn {
+      padding-right: 2em;
+      padding-left: 2em;
+      margin-top: 2em;
+      text-align: center;
+      color: #fff;
+      border: 1px solid #fff;
+      outline: none;
+      background-color: transparent; }
+      .slide-container .carousel-caption .get-stated-btn .mdi {
+        padding-left: 5px; }
+
 @media (max-width: 768px) {
   .navbar-form {
     display: none; } }

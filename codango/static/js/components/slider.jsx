@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {Carousel, Button} from 'react-bootstrap';
-import LoginModal from "./loginmodal.jsx"
 
 export default class Slider extends Component {
     render() {
@@ -11,9 +10,9 @@ export default class Slider extends Component {
                 <Carousel.Caption>
                     <h3>Share</h3>
                     <p>Reach out to our awesome community</p>
-                    <LoginModal type="get-stated-btn btn-lg" active="signup">
+                    <Button className="get-stated-btn btn-lg">
                         Start Sharing today<i className="mdi mdi-trending-neutral"></i>
-                    </LoginModal>
+                    </Button>
                 </Carousel.Caption>
                 </Carousel.Item>
                 <Carousel.Item>
@@ -21,9 +20,9 @@ export default class Slider extends Component {
                 <Carousel.Caption>
                     <h3>Collaborate</h3>
                     <p>Work with multiple members of your team at the same time in one code editor.</p>
-                    <LoginModal type="get-stated-btn btn-lg" active="signup">
+                    <Button className="get-stated-btn btn-lg">
                         Get Started today<i className="mdi mdi-trending-neutral"></i>
-                    </LoginModal>
+                    </Button>
                 </Carousel.Caption>
                 </Carousel.Item>
                 <Carousel.Item>
@@ -31,9 +30,9 @@ export default class Slider extends Component {
                 <Carousel.Caption>
                     <h3>Community</h3>
                     <p>Create a community and find other users with the same interest</p>
-                    <LoginModal type="get-stated-btn btn-lg" active="signup">
+                    <Button className="get-stated-btn btn-lg">
                         Join the Community<i className="mdi mdi-trending-neutral"></i>
-                    </LoginModal>
+                    </Button>
                 </Carousel.Caption>
                 </Carousel.Item>
             </Carousel>
