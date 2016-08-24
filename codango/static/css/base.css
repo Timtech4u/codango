@@ -26,6 +26,7 @@ hr {
 @media (max-width: 768px) {
   .navbar-form {
     display: none; } }
+
 .navbar {
   margin-bottom: 0;
   border-radius: 0px;
@@ -52,7 +53,7 @@ hr {
 .glyphicon.notification-icon {
   position: absolute;
   top: -2%;
-  left: 59%;
+  left: 60%;
   font-size: 20px;
   color: #337ab7; }
 
@@ -75,7 +76,7 @@ hr {
   top: 76%;
   right: -100%; }
   #notifications .notification-icon {
-    margin-top: -10px;
+    margin-top: -13px;
     margin-right: 60px; }
   #notifications .list-group {
     max-height: 400px;
@@ -589,21 +590,6 @@ pre {
   margin-bottom: 0px;
   display: inline-block; }
 
-.session-name {
-    display: inline-block;
-}
-
-#file-info {
-  display: inline-block; }
-
-#file-icon {
-  margin-bottom: 0px;
-  display: inline-block; }
-
-.session-name {
-    display: inline-block;
-}
-
 #file-info {
   display: inline-block; }
 
@@ -691,6 +677,4 @@ li.L0, li.L1, li.L2, li.L3, li.L5, li.L6, li.L7, li.L8 {
   list-style-type: decimal !important; }
 
 /* end of google code-prettify */
-/*# sourceMappingURL=base.css.map */
-
 /*# sourceMappingURL=base.css.map */
