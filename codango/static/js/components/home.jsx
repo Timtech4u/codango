@@ -6,7 +6,7 @@ import FormTabs from './formtabs.jsx';
 class Home extends Component {
   render() {
     return (
-      <Grid>
+      <Grid className="top-margin">
         <Row className="show-grid">
           <Col md={8}>
             <div className="jumbotron">
