@@ -1,8 +1,8 @@
 import {render} from 'react-dom'
 import React, {Component} from 'react';
-import Menu from './menu.jsx'
+import MenuNew from './menu-new.jsx'
 
-export default class Main extends Component {
+export default class MainNew extends Component {
   constructor() {
     super();
   }
@@ -10,7 +10,7 @@ export default class Main extends Component {
   render() {
     return (
       <div>
-        <Menu/> {this.props.children}
+        <MenuNew/> {this.props.children}
       </div>
     )
   }
