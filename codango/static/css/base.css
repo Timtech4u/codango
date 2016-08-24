@@ -111,6 +111,15 @@ hr {
   background-size: cover;
   background-blend-mode: overlay; }
 
+#features {
+  margin-top: 80px; }
+  #features .flaticon {
+    display: block;
+    padding: 10px;
+    font-family: "Flaticon";
+    font-size: 80px;
+    line-height: 1; }
+
 @media (max-width: 768px) {
   .navbar-form {
     display: none; } }
