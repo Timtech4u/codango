@@ -1,40 +1,45 @@
-import React, {Component} from 'react';
+import React, {Component, PropTypes} from 'react';
 import {Carousel, Button} from 'react-bootstrap';
 
 export default class Slider extends Component {
   render() {
+    let carouselCaptions = [
+      {
+        key: 1,
+        title: "Share",
+        imageSrc: "static/img/laptop.jpg",
+        caption: "Reach out to our awesome community",
+        buttonText: "Start Sharing today"
+      }, {
+        key: 2,
+        title: "Collaborate",
+        imageSrc: "static/img/collaborate.png",
+        caption: "Work with multiple members of your team at the same time in one code editor",
+        buttonText: "Get Started today"
+      }, {
+        key: 3,
+        title: "Community",
+        imageSrc: "static/img/community.png",
+        caption: "Create a community and find other users with the same interest",
+        buttonText: "Join the Community"
+      }
+    ]
     return (
       <Carousel className="slide-container">
-        <Carousel.Item>
-          <img width={900} height={500} alt="900x500" src="static/img/laptop.jpg"/>
-          <Carousel.Caption>
-            <h3>Share</h3>
-            <p>Reach out to our awesome community</p>
-            <Button className="get-stated-btn btn-lg">
-              Start Sharing today<i className="mdi mdi-trending-neutral"></i>
-            </Button>
-          </Carousel.Caption>
-        </Carousel.Item>
-        <Carousel.Item>
-          <img width={900} height={500} alt="900x500" src="static/img/collaborate.png"/>
-          <Carousel.Caption>
-            <h3>Collaborate</h3>
-            <p>Work with multiple members of your team at the same time in one code editor.</p>
-            <Button className="get-stated-btn btn-lg">
-              Get Started today<i className="mdi mdi-trending-neutral"></i>
-            </Button>
-          </Carousel.Caption>
-        </Carousel.Item>
-        <Carousel.Item>
-          <img width={900} height={500} alt="900x500" src="static/img/community.png"/>
-          <Carousel.Caption>
-            <h3>Community</h3>
-            <p>Create a community and find other users with the same interest</p>
-            <Button className="get-stated-btn btn-lg">
-              Join the Community<i className="mdi mdi-trending-neutral"></i>
-            </Button>
-          </Carousel.Caption>
-        </Carousel.Item>
+        {carouselCaptions.map((captions) => {
+          return (
+            <Carousel.Item>
+              <img width={900} height={500} alt="900x500" src={captions.imageSrc}/>
+              <Carousel.Caption>
+                <h3>{captions.title}</h3>
+                <p>{captions.caption}</p>
+                <Button className="get-stated-btn btn-lg">
+                  {captions.buttonText}<i className="mdi mdi-trending-neutral"></i>
+                </Button>
+              </Carousel.Caption>
+            </Carousel.Item>
+          )
+        })}
       </Carousel>
     )
   }
