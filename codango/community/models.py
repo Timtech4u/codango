@@ -1,7 +1,6 @@
+from cloudinary.models import CloudinaryField
 from django.contrib.auth.models import User
 from django.db import models
-
-from cloudinary.models import CloudinaryField
 from multiselectfield import MultiSelectField
 
 group_permissions = (
@@ -43,9 +42,9 @@ class Permission(TimeStampMixin):
 
 class Community(TimeStampMixin):
     VISIBILITY_CHOICE = (
-        ('None', 'None'),
-        ('Partial', 'Partial'),
-        ('Full', 'Full'),
+        ('none', 'None'),
+        ('partial', 'Partial'),
+        ('full', 'Full'),
     )
 
     name = models.CharField(max_length=100)
@@ -55,13 +54,16 @@ class Community(TimeStampMixin):
     private = models.BooleanField(default=False)
     visibility = models.CharField(
         choices=VISIBILITY_CHOICE, max_length=30, default='Partial')
-    user = models.ForeignKey(User, related_name='communities')
+    creator = models.ForeignKey(User, related_name='communities')
     tags = models.ManyToManyField(Tag)
     default_group_permissions = MultiSelectField(
         choices=group_permissions, default='Block members')
 
+    def get_no_of_members(self):
+        return len(self.members.all())
+
     def __str__(self):
-        return self.name
+        return '{}, {} members'.format(self.name, self.get_no_of_members())
 
     class Meta:
         ordering = ['-date_modified']
@@ -69,9 +71,9 @@ class Community(TimeStampMixin):
 
 class CommunityMember(TimeStampMixin):
     STATUS_CHOICE = (
-        ('Pending', 'Pending'),
-        ('Approved', 'Approved'),
-        ('Declined', 'Declined'),
+        ('pending', 'Pending'),
+        ('approved', 'Approved'),
+        ('declined', 'Declined'),
     )
     community = models.ForeignKey(Community, related_name='members')
     user = models.ForeignKey(User, related_name='member')
@@ -90,8 +92,8 @@ class CommunityMember(TimeStampMixin):
 
 class CommunityBlacklist(TimeStampMixin):
     BLACKLIST_CHOICE = (
-        ('Block', 'Block'),
-        ('Suspend', 'Suspend'),
+        ('block', 'Block'),
+        ('suspend', 'Suspend'),
     )
     user = models.ForeignKey(User, related_name='community_blacklist')
     blacklister = models.ForeignKey(User, related_name='community_blacklister')
@@ -100,7 +102,7 @@ class CommunityBlacklist(TimeStampMixin):
     community = models.ForeignKey(Community)
 
     def __str__(self):
-        return self.user.username
+        return '{} {}ed by {} in {}'.format(self.user.username, self.blacklist_type, self.blacklister.username, self.community.name)
 
     class Meta:
         ordering = ['-date_modified']
