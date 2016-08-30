@@ -6,9 +6,10 @@ let Community = require('react-material-icons/icons/social/people');
 let Pair = require('react-material-icons/icons/action/code');
 import {Grid} from 'react-bootstrap';
 
-let Shares = () => (<Share color='#f26500'/>);
-let Communities = () => (<Community color='#f26500'/>);
-let Pairs = () => (<Pair color='#f26500'/>);
+let iconColor = '#f26500';
+let Shares = () => (<Share color={iconColor}/>);
+let Communities = () => (<Community color={iconColor}/>);
+let Pairs = () => (<Pair color={iconColor}/>);
 module.exports = Shares;
 let About = React.createClass({
   getInitialState() {

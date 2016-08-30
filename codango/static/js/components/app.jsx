@@ -18,7 +18,8 @@ function hashLinkScroll() {
     // rendered on the page before trying to getElementById.
     setTimeout(() => {
       const id = hash.replace('#', '');
-      history.pushState("", document.title, window.location.pathname + window.location.search);
+      history.pushState("", document.title, window.location.pathname +
+                                            window.location.search);
       const element = document.getElementById(id);
       if (element) {
         element.scrollIntoView();

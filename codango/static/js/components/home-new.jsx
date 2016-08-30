@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Slider from './slider.jsx'
+import Slider from './slider.jsx';
 
 export default class HomeNew extends Component {
 
