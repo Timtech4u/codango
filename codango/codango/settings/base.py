@@ -12,18 +12,17 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 from __future__ import absolute_import
+
 import datetime
 import os
-import cloudinary
-
-# This will make sure the app is always imported when
-# Django starts so that shared_task will use this app.
-from .celery import app as celery_app
 
 from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS
 from django.contrib.messages import constants as message_constants
+
+import cloudinary
 from celery.schedules import crontab
 
+from .celery import app as celery_app
 
 BASE_DIR = os.path.dirname(
     os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -80,6 +79,7 @@ INSTALLED_APPS = (
     'djcelery',
     'rest_framework',
     'social.apps.django_app.default',
+    'community'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -126,7 +126,8 @@ SOCIAL_AUTH_RAISE_EXCEPTIONS = False
 SOCIAL_AUTH_FACEBOOK_KEY = os.getenv('SOCIAL_AUTH_FACEBOOK_KEY')
 SOCIAL_AUTH_FACEBOOK_SECRET = os.getenv('SOCIAL_AUTH_FACEBOOK_SECRET')
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.getenv('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY')
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.getenv('SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET')
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.getenv(
+    'SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET')
 
 
 WSGI_APPLICATION = 'codango.wsgi.application'
@@ -232,24 +233,24 @@ SESSION_COOKIE_AGE = TIME    # change expired session
 SESSION_IDLE_TIMEOUT = TIME  # logout
 
 EDITOR_LANGUAGE = {
-    'Python':'python',
-    'JavaScript':'javascript',
-    'Ruby':'ruby',
-    'PHP':'PHP',
-    'Java':'java',
-    'CSS':'css',
-    'HTML':'html'
+    'Python': 'python',
+    'JavaScript': 'javascript',
+    'Ruby': 'ruby',
+    'PHP': 'PHP',
+    'Java': 'java',
+    'CSS': 'css',
+    'HTML': 'html'
 }
 EDITOR_THEME = {
-    'Cobalt':'cobalt',
-    'Dreamweaver':'dreamweaver',
-    'Textmate':'textmate',
-    'Terminal':'terminal',
-    'Chaos':'chaos',
-    'Clouds':'clouds',
-    'Dawn':'dawn',
-    'Github':'github',
-    'Eclipse':'eclipse',
-    'iPlastic':'iplastic',
-    'Monokai':'monokai'
+    'Cobalt': 'cobalt',
+    'Dreamweaver': 'dreamweaver',
+    'Textmate': 'textmate',
+    'Terminal': 'terminal',
+    'Chaos': 'chaos',
+    'Clouds': 'clouds',
+    'Dawn': 'dawn',
+    'Github': 'github',
+    'Eclipse': 'eclipse',
+    'iPlastic': 'iplastic',
+    'Monokai': 'monokai'
 }
