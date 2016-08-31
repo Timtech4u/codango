@@ -9,7 +9,7 @@ import About from './about.jsx';
 import Contact from './contact.jsx';
 import MainNew from './main-new.jsx'
 import HomeNew from './home-new.jsx';
-import AboutNew from './about-new.jsx'
+import AboutNew from './about-new.jsx';
 
 
 function hashLinkScroll() {
