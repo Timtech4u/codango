@@ -62,18 +62,13 @@
         </div>
     </nav>
     {% endblock navbar %}
-    <!--content-->
-    <div class="container">
-        <div class="main row">
-            {% block body %}
-            <!-- for page body structure overide -->
-            {% block mobile-sidebar %}{% endblock mobile-sidebar %} {% block sidebar %} {% endblock sidebar %}
-            <div class="col-sm-9 col-xs-12">
-                {% block content %}{% endblock content %}
-            </div>
+        {% block body %}
+        <!-- for page body structure overide -->
+        {% block mobile-sidebar %}{% endblock mobile-sidebar %} {% block sidebar %} {% endblock sidebar %}
+        <div class="col-sm-9 col-xs-12">
+            {% block content %}{% endblock content %}
         </div>
         {% endblock body %}
-    </div>
     <div id="new-notifications">
         <div class="panel panel-danger">
             <div class="panel-heading">New Notifications</div>
