@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { Grid, Row, Col } from 'react-bootstrap';
 
 export default class Features extends Component {
@@ -34,7 +34,7 @@ export default class Features extends Component {
               Pair Programming
             </h4>
             <p >
-              Codango provides a platform where developers can act as mentors to 
+              Codango provides a platform where developers can act as mentors to
               other developers in real time and help grow a community of
               stronger developers.
             </p>
