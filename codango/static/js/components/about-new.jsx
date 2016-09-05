@@ -1,8 +1,8 @@
-import React, {Component} from 'react';
-import {Grid, Row} from 'react-bootstrap';
+import React, { Component } from 'react';
+import { Grid, Row } from 'react-bootstrap';
 import Features from './features.jsx';
 
-export default class AboutNew extends Component {
+class AboutNew extends Component {
   render() {
     return (
       <div>
@@ -12,3 +12,5 @@ export default class AboutNew extends Component {
     )
   }
 }
+
+export default AboutNew;
