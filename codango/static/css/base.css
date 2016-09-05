@@ -101,6 +101,25 @@ hr {
       .slide-container .carousel-caption .get-stated-btn .mdi {
         padding-left: 5px; }
 
+.header {
+  width: 100%;
+  min-height: 350px;
+  background-color: rgba(0, 0, 0, 0.61);
+  background-image: url("../img/header-bg.jpg");
+  background-repeat: no-repeat;
+  background-position: 20%;
+  background-size: cover;
+  background-blend-mode: overlay; }
+
+#features {
+  margin-top: 80px; }
+  #features .flaticon {
+    display: block;
+    padding: 10px;
+    font-family: "Flaticon";
+    font-size: 80px;
+    line-height: 1; }
+
 @media (max-width: 768px) {
   .navbar-form {
     display: none; } }

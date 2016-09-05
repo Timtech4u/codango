@@ -11,6 +11,7 @@
     <link rel="icon" href="{% static 'img/codango-icon.ico' %}" type="image/x-icon">
     <link href="{% static 'lib/mdi/css/materialdesignicons.min.css' %}" type="text/css" rel="stylesheet" />
     <link href="{% static 'css/base.css' %}" type="text/css" rel="stylesheet" />
+    <link href="{% static 'css/flaticon.css' %}" type="text/css" rel="stylesheet" />
     <link href="{% static 'lib/prettify-min/prettify.min.css' %}" type="text/css" rel="stylesheet" /> {% block head %} {% endblock head %}
     <title>{% block title %}Codango{% endblock title %}</title>
     <script src="{% static 'js/config.js' %}"></script>
@@ -63,10 +64,14 @@
     </nav>
     {% endblock navbar %}
         {% block body %}
-        <!-- for page body structure overide -->
-        {% block mobile-sidebar %}{% endblock mobile-sidebar %} {% block sidebar %} {% endblock sidebar %}
-        <div class="col-sm-9 col-xs-12">
-            {% block content %}{% endblock content %}
+        <div class="container">
+            <div class="row top-margin">
+                <!-- for page body structure overide -->
+                {% block mobile-sidebar %}{% endblock mobile-sidebar %} {% block sidebar %} {% endblock sidebar %}
+                <div class="col-sm-9 col-xs-12">
+                    {% block content %}{% endblock content %}
+                </div>
+            </div>
         </div>
         {% endblock body %}
     <div id="new-notifications">

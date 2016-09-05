@@ -9,6 +9,8 @@ import About from './about.jsx';
 import Contact from './contact.jsx';
 import MainNew from './main-new.jsx'
 import HomeNew from './home-new.jsx';
+import AboutNew from './about-new.jsx';
+
 
 function hashLinkScroll() {
   const {hash} = window.location;
@@ -38,6 +40,7 @@ const routes = (
     </Route>
     <Route path="/new-homepage" component={MainNew}>
       <IndexRoute component={HomeNew} history={browserHistory}/>
+      <Route path="/about-new" component={AboutNew}/>
     </Route>
   </Router>
 );

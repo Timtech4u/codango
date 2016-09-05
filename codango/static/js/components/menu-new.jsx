@@ -15,7 +15,7 @@ export default class MenuNew extends Component {
         <Navbar.Collapse>
           <Nav pullRight>
             <li>
-              <Link to="/about#features">Features</Link>
+              <Link to="/about-new#features">Features</Link>
             </li>
             <li>
               <Link to="/about#team">Team</Link>
