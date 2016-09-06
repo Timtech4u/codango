@@ -42,3 +42,13 @@ class CommunityCreateView(LoginRequiredMixin, TemplateView):
 
 class CommunityDetailView(LoginRequiredMixin, TemplateView):
     template_name = 'community/community.html'
+
+
+class CommunityListView(LoginRequiredMixin, TemplateView):
+    template_name = 'community/community_list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(CommunityListView, self).get_context_data(**kwargs)
+        context['communities'] = Community.objects.exclude(
+            visibility='none')
+        return context
