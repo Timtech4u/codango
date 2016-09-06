@@ -8,7 +8,7 @@ describe('<Features />', () => {
   const wrapper = shallow(<Features />);
 
   it('expect Col to be rendered three times', () => {
-    expect(wrapper.find(Col)).to.have.length(3)
+    expect(wrapper.find(Col)).to.have.length(3);
   });
 
   it('render three flaticon element', () => {
@@ -28,6 +28,6 @@ describe('<Features />', () => {
   });
 
   it('contains three paragraph tags', () => {
-    expect(wrapper.find(<p>)).to.have.length(3);
+    expect(wrapper.find('p')).to.have.length(3);
   });
 });
