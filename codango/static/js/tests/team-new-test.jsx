@@ -3,7 +3,7 @@ import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import Team from '../components/team-new.jsx';
 import TeamMember from '../components/team-member.jsx';
-var Slider = require('react-slick');
+const Slider = require('react-slick');
 
 
 describe('<Team />', () => {
