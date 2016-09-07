@@ -14,8 +14,9 @@ class AboutNew extends Component {
         * from that of the new home page
       */
       <div style={{background: '#fff'}}>
-        <Grid className="header"/>
-        <Features/>
+        <Grid className="header" />
+        <Features />
+        <Team />
         <Contact />
       </div>
     )
