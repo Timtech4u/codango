@@ -1,8 +1,8 @@
-import {Link} from 'react-router';
-import React, {Component} from 'react';
-import {Nav, Navbar, NavItem, NavDropdown, MenuItem} from 'react-bootstrap';
+import { Link } from 'react-router';
+import React, { Component } from 'react';
+import { Nav, Navbar, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
 
-export default class MenuNew extends Component {
+class MenuNew extends Component {
   render() {
     return (
       <Navbar className="static-nav">
@@ -18,7 +18,7 @@ export default class MenuNew extends Component {
               <Link to="/about-new#features">Features</Link>
             </li>
             <li>
-              <Link to="/about#team">Team</Link>
+              <Link to="/about-new#team">Team</Link>
             </li>
             <li>
               <Link to="/about#contact">Contact Us</Link>
@@ -29,3 +29,5 @@ export default class MenuNew extends Component {
     )
   }
 }
+
+export default MenuNew;
