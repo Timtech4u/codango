@@ -5,7 +5,6 @@ import Team from '../components/team-new.jsx';
 import TeamMember from '../components/team-member.jsx';
 const Slider = require('react-slick');
 
-
 describe('<Team />', () => {
   const wrapper = shallow(<Team />)
   it('expect Slider to be rendered tow times', () => {

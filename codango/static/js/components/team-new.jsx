@@ -6,7 +6,6 @@ import { settings } from './react-slick-settings.jsx';
 const Slider = require('react-slick');
 
 class Team extends Component {
-
   render() {
     return (
       <Grid id="team">
