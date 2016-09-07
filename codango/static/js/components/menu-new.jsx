@@ -21,7 +21,7 @@ class MenuNew extends Component {
               <Link to="/about-new#team">Team</Link>
             </li>
             <li>
-              <Link to="/about#contact">Contact Us</Link>
+              <Link to="/about-new#contact">Contact Us</Link>
             </li>
           </Nav>
         </Navbar.Collapse>

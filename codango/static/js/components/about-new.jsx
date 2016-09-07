@@ -2,14 +2,21 @@ import React, { Component } from 'react';
 import { Grid, Row } from 'react-bootstrap';
 import Features from './features.jsx';
 import Team from './team-new.jsx';
+import Contact from './contact-new.jsx';
 
 class AboutNew extends Component {
   render() {
     return (
-      <div>
-        <Grid className="header" />
-        <Features />
-        <Team />
+      /*
+        * Inline styling is here pending the time
+        * the new page completes, the background
+        * color on the current home page is different
+        * from that of the new home page
+      */
+      <div style={{background: '#fff'}}>
+        <Grid className="header"/>
+        <Features/>
+        <Contact />
       </div>
     )
   }
