@@ -1,13 +1,9 @@
-from django.contrib.auth.decorators import login_required
-from django.core.urlresolvers import reverse
 from django.shortcuts import redirect, render
-from django.template import RequestContext, loader
-from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
-from django.views.generic.edit import CreateView
 from resources.views import LoginRequiredMixin
 
 from .forms import CommunityForm
+from .models import CommunityMember
 
 
 class CommunityCreateView(LoginRequiredMixin, TemplateView):
@@ -24,17 +20,22 @@ class CommunityCreateView(LoginRequiredMixin, TemplateView):
         return context
 
     def post(self, request, *args, **kwargs):
-        form = self.form_class(request.POST)
+        form = self.form_class(request.POST, request.FILES)
+
         if form.is_valid():
-            form.instance.creator = self.request.user
-            form.save()
+            community = form.save(commit=False)
+            community.creator = self.request.user
+            community.save()
+            CommunityMember.objects.create(community=community, user=self.request.user,
+                                           invitor=self.request.user, status='approved',
+                                           permission=community.default_group_permissions)
             return redirect(
-                '/community/{}'.format(form.instance.id)
+                '/community/{}'.format(community.id)
             )
 
         else:
             context = super(CommunityCreateView,
-                            self).get_context_data(**kwargs)
+                            self).get_context_data(*args, **kwargs)
             context['community_form'] = form
             return render(request, self.template_name, context)
 

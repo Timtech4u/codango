@@ -876,7 +876,35 @@ shareResource = {
   },
 };
 
+handleCommunityVisibilityOptions = {
+  init: function() {
+    $('body').on('click', "#id_private", function(e) {
+      if ($( '#id_private' ).prop( 'checked') ) {
+        $( '#id_visibility' ).prop( 'disabled', false );
+      }
+      else {
+        $( '#id_visibility' ).val('full');
+        $( '#id_visibility' ).prop( 'disabled', true );
+      }
+    });
+    $('#community_form').submit(function (e) {
+      $( '#id_visibility' ).prop('disabled', false);
+    });
+  }
+};
+
+disableBlockMemberSelectField = {
+  init: function() {
+    $('body').on('click', "#id_default_group_permissions_2", function(e) {
+      $("#id_default_group_permissions_2").prop("checked", true);
+    })
+  }
+};
+
+
 $(document).ready(function () {
+  handleCommunityVisibilityOptions.init();
+  disableBlockMemberSelectField.init();
   shareResource.init();
   realTime.init();
   inviteToSession.init();

@@ -309,6 +309,9 @@ button.btn {
   display: none;
   padding-bottom: 20px; }
 
+#create-community .mdi-plus-circle-outline {
+  font-size: 1.5em; }
+
 /* About us */
 .page-title {
   border-bottom: solid 2px #f26521;
@@ -810,6 +813,16 @@ pre {
   background-color: #e9eaed; }
 
 /*End Pairing Style */
+/* Create Community Style */
+#id_default_group_permissions {
+  list-style: none; }
+
+.multiple-checkbox ul {
+  margin-left: -30px; }
+
+/* End Create Community Style */
+/*
+
 /*React components*/
 /*About us static styling*/
 .ReactFlipCard {

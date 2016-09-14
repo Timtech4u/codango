@@ -1,6 +1,5 @@
 import time
 
-from django.contrib.auth.models import User
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.test.utils import setup_test_environment
 from selenium import webdriver
@@ -42,18 +41,28 @@ class TestCreateCommuntity(StaticLiveServerTestCase):
         for button in create_community_buttons:
             if button.is_displayed():
                 button.click()
+                break
         body = self.browser.find_element_by_tag_name('body')
         self.assertIn('Create A New Community', body.text)
 
         # Create a new community
-        self.browser.find_element_by_name('name').send_keys('A New community')
-        self.browser.find_element_by_name(
-            'description').send_keys('This is a new community')
-        self.browser.find_element_by_name('private').send_keys(True)
-        self.browser.find_element_by_name(
-            'visibility').send_keys('None')
-        self.browser.find_element_by_name('default_group_permissions').send_keys(
-            'Send invites, Remove members')
+        name_field = self.browser.find_element_by_name(
+            'name')
+        name_field.send_keys('A New community')
+        description_field = self.browser.find_element_by_name(
+            'description')
+        description_field.send_keys('This is a new community')
+        private_field = self.browser.find_element_by_name(
+            'private')
+        private_field.send_keys(True)
+        visibility_field = self.browser.find_element_by_name(
+            'visibility')
+        self.browser.execute_script(
+            'arguments[0].removeAttribute("disabled");', visibility_field)
+        visibility_field.send_keys('None')
+        default_group_permissions_field = self.browser.find_element_by_name(
+            'default_group_permissions')
+        default_group_permissions_field.send_keys('Send invites')
         self.browser.find_element_by_id('community_submit').click()
         body = self.browser.find_element_by_tag_name('body')
         self.assertNotIn('Create A New Community', body.text)
