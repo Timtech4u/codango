@@ -47,17 +47,19 @@ class Community(TimeStampMixin):
         ('full', 'Full'),
     )
 
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=50)
     logo = CloudinaryField(
         'logo', null=True, blank=True)
-    description = models.TextField()
-    private = models.BooleanField(default=False)
+    description = models.TextField(max_length=1000)
+    private = models.BooleanField(
+        default=False, verbose_name='Private (Default is Public)')
     visibility = models.CharField(
-        choices=VISIBILITY_CHOICE, max_length=30, default='Partial')
+        choices=VISIBILITY_CHOICE, max_length=30, default='full')
     creator = models.ForeignKey(User, related_name='communities')
     tags = models.ManyToManyField(Tag)
     default_group_permissions = MultiSelectField(
-        choices=group_permissions, default='Block members')
+        choices=group_permissions, default=['BLOCK_MEMBER'],
+        verbose_name='Default Members Permissions')
 
     def get_no_of_members(self):
         return len(self.members.all())
@@ -81,7 +83,7 @@ class CommunityMember(TimeStampMixin):
     status = models.CharField(
         choices=STATUS_CHOICE, max_length=20, default='Pending')
     permission = MultiSelectField(
-        choices=group_permissions, default='Block members')
+        choices=group_permissions, default=['BLOCK_MEMBER'])
 
     def __str__(self):
         return '{} ({})'.format(self.user.username, self.community.name)
@@ -102,7 +104,8 @@ class CommunityBlacklist(TimeStampMixin):
     community = models.ForeignKey(Community)
 
     def __str__(self):
-        return '{} {}ed by {} in {}'.format(self.user.username, self.blacklist_type, self.blacklister.username, self.community.name)
+        return '{} {}ed by {} in {}'.format(self.user.username,
+                                            self.blacklist_type, self.blacklister.username, self.community.name)
 
     class Meta:
         ordering = ['-date_modified']
