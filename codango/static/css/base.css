@@ -221,9 +221,7 @@ hr {
     box-shadow: none !important; }
   .contact textarea.form-control {
     height: 10em; }
-  .contact .form-control,
-  .contact input[type=text],
-  .contact textarea {
+  .contact .form-control {
     width: 100%;
     font-size: 14px;
     line-height: 1.42857143;
