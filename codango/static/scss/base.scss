@@ -297,6 +297,61 @@ hr {
     line-height: 1;
   }
 }
+
+.contact {
+  text-align: center;
+
+  h3 {
+    display: inline-block;
+    padding-bottom: 20px;
+    font-family: AvenirNext-DemiBold;
+    font-size: 50px;
+    color: #9b9b9b;
+    border-bottom: 5px solid #feb490;
+  }
+
+  input.form-control,
+  textarea.form-control {
+    display: block;
+    height: 5em;
+    box-sizing: padding-box;
+    border: 0;
+    border: none;
+    border-bottom: 0.1rem solid #d1d1d1;
+    border-radius: 0;
+    background-color: transparent;
+    box-shadow: none !important;
+  }
+
+  textarea.form-control {
+    height: 10em;
+  }
+
+  .form-control {
+    width: 100%;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #666;
+    outline: 0;
+  }
+
+  .btn {
+    padding: 10px 35px;
+    margin-top: 20px;
+    color: #feb490;
+    border: 1px solid #feb490;
+    border-radius: 3px;
+    background-color: #fff;
+
+    &:focus,
+    &:hover {
+      color: #fff;
+      border: 1px solid #feb490;
+      outline: 0;
+      background-color: #feb490;
+    }
+  }
+}
 @media (max-width: 768px) {
   .navbar-form {
     display: none;
