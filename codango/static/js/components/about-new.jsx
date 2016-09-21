@@ -3,6 +3,7 @@ import { Grid, Row } from 'react-bootstrap';
 import Features from './features.jsx';
 import Team from './team-new.jsx';
 import Contact from './contact-new.jsx';
+import Footer from './footer-new.jsx';
 
 class AboutNew extends Component {
   render() {
@@ -18,6 +19,7 @@ class AboutNew extends Component {
         <Features />
         <Team />
         <Contact />
+        <Footer />
       </div>
     )
   }
