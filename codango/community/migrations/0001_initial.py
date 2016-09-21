@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
 from django.db import models, migrations
@@ -13,6 +14,18 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
+        migrations.CreateModel(
+            name='AddOn',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('date_created', models.DateTimeField(auto_now_add=True)),
+                ('date_modified', models.DateTimeField(auto_now=True)),
+                ('name', models.CharField(max_length=50)),
+            ],
+            options={
+                'ordering': ['name'],
+            },
+        ),
         migrations.CreateModel(
             name='Community',
             fields=[
@@ -91,6 +104,11 @@ class Migration(migrations.Migration):
             model_name='community',
             name='tags',
             field=models.ManyToManyField(to='community.Tag'),
+        ),
+        migrations.AddField(
+            model_name='addon',
+            name='communities',
+            field=models.ManyToManyField(to='community.Community'),
         ),
         migrations.AlterUniqueTogether(
             name='communitymember',

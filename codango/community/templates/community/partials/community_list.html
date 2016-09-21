@@ -8,17 +8,17 @@
 <h1>Codango Communities</h1>
 <hr>
 {% if messages %}
-          <div class="row">
-              {% for message in messages %}
-              <div class="alert alert-{{ message.tags }}" role="alert" id="flash-message">
-                  {{ message }}
-              </div>
-              {% endfor %}
-          </div>
+    <div class="row">
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}" role="alert" id="flash-message">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
 {% endif %}
       {% for community in communities %}
-          <div class="row">
-          <div class="col-sm-12">
+<div class="row">
+    <div class="col-sm-12">
           <div class="community-logo col-sm-3">
             {% if community.logo %}
                 {% cloudinary community.logo width=70 height=70 crop="fill" %}
@@ -26,23 +26,22 @@
                 {% cloudinary "vqr7n59zfxyeybttleug.gif" width=64 height=64 crop="fill" %}
             {% endif %}
           </div>
-          <div class="community-name col-sm-9">
             <h3><strong>{{ community.name }}</strong></h3>
             {% if community.private %}
-            <i>Joining this community is restricted </i>
-            {% else %}
-            <i>You free to join this community </i>
-            {% endif %}
-
-           <form action="{% url 'community_detail' community_id=community.pk %}" method="post">
+            <form action="{% url 'community_detail' community_id=community.pk %}" method="post">
                   {% csrf_token %}
-                  <i><input type="submit" value="Join community"></i>
+                  <i><input title="Joining this community is restricted" type="submit" value="Request to join community"></i>
+              </form>
+            {% else %}
+            <form action="{% url 'community_detail' community_id=community.pk %}" method="post">
+                  {% csrf_token %}
+                  <i><input title="You free to join this community" type="submit" value="Join community"></i>
+              </form>
+            {% endif %}
               </form>
 
             <br/>
             {{community.description}}
-
-
       <hr>
       {% empty %}
           No communities yet.

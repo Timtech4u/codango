@@ -15,7 +15,6 @@ from community.models import CommunityMember, Community
 from django.http import HttpResponse, HttpResponseNotFound
 
 
-
 class CommunityCreateView(LoginRequiredMixin, TemplateView):
     template_name = 'community/community-create.html'
     form_class = CommunityForm
@@ -36,8 +35,10 @@ class CommunityCreateView(LoginRequiredMixin, TemplateView):
             community = form.save(commit=False)
             community.creator = self.request.user
             community.save()
-            CommunityMember.objects.create(community=community, user=self.request.user, invitor=self.request.user, status='approved',
-                                           permission=community.default_group_permissions)
+            CommunityMember.objects.create(
+                community=community, user=self.request.user,
+                invitor=self.request.user, status='approved',
+                permission=community.default_group_permissions)
             return redirect(
                 '/community/{}'.format(community.id)
             )
@@ -61,16 +62,23 @@ class CommunityDetailView(LoginRequiredMixin, TemplateView):
             raise Http404("Community does not exist")
         return context
 
-
     def post(self, request, *args, **kwargs):
         community = Community.objects.get(pk=kwargs.get('community_id'))
         members = CommunityMember.objects.get(user)
         context['community_name'] = Community.objects.get(
             pk=kwargs.get('community_id'))
+        context['community_member'] = CommunityMember.objects.filter(
+            community=context['community_id']).all()
+        members = []
+        for member in context['community_member']:
+            members.append(str(member.user.username))
+        if str(self.request.user) in members:
+            context['member'] = True
+            return context
+        context['member'] = False
         return context
 
     def post(self, request, *args, **kwargs):
-        self.template_name = 'community/community_list.html'
         community = Community.objects.get(pk=kwargs.get('community_id'))
         community_members = CommunityMember.objects.filter(
             community=community.id).all()
@@ -79,22 +87,25 @@ class CommunityDetailView(LoginRequiredMixin, TemplateView):
             for members in community_members:
                 member.append(members.user.username)
             if str(self.request.user) in member:
-                return redirect('/community/{}'.format(kwargs.get('community_id')))
+                return redirect('/community/{}'.format(kwargs.get(
+                    'community_id')))
         if self.request.user and not community.private:
             new_member = CommunityMember(community=community,
-                                         user=self.request.user, invitor=community.creator,
+                                         user=self.request.user,
+                                         invitor=community.creator,
                                          status='approved')
             new_member.save()
             messages.add_message(
-                request, messages.SUCCESS, 'Successfully joined ' + community.name + 'community!')
+                request, messages.SUCCESS,
+                'Successfully joined ' + community.name + ' community!')
             return redirect('/community/{}'.format(kwargs.get('community_id')))
         else:
 
             if self.request.user and community.private:
                 messages.add_message(
-                    request, messages.SUCCESS, 'Successfully sent a join community request!')
+                    request, messages.SUCCESS,
+                    'Successfully sent a join community request!')
                 return redirect('/community/')
-
 
 
 class CommunityListView(LoginRequiredMixin, TemplateView):
@@ -116,3 +127,4 @@ class CommunityMemberListView(LoginRequiredMixin, TemplateView):
         context = super(CommunityMemberListView,
                         self).get_context_data(**kwargs)
         context['community_members'] = CommunityMember.objects.all()
+        return context
