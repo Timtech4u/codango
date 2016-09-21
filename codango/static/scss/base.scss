@@ -352,6 +352,51 @@ hr {
     }
   }
 }
+
+.static-footer {
+  background-color: #3d3d3d;
+  margin-top: 50px;
+  color: #fff;
+  font-family: "AvenirNext-UltraLight";
+
+  .row {
+    margin: 30px;
+  }
+
+  a {
+    color: #fff;
+  }
+
+  .btn,
+  .btn:focus,
+  .btn:hover {
+    outline: 0;
+    color: #fff;
+    background-color: #feb490;
+    border: 1px solid #feb490;
+  }
+
+  .mdi {
+    font-size: 24px;
+    margin-left: 5px;
+  }
+
+  .reserved {
+    border-top: 1px solid #f2f2f2;
+    margin-top: 10px;
+    text-align: center;
+    padding-top: 10px;
+  }
+
+  .mdi-map-marker {
+    font-size: 15px;
+    margin-left: 0;
+  }
+
+  .address {
+    width: 60%;
+  }
+}
 @media (max-width: 768px) {
   .navbar-form {
     display: none;
@@ -1165,7 +1210,6 @@ pre {
   background-color: #e9eaed;
 }
 /*End Pairing Style */
-
 /* Create Community Style */
 #id_default_group_permissions {
   list-style: none;
@@ -1177,7 +1221,6 @@ pre {
   }
 }
 /* End Create Community Style */
-
 /*
 
 /*React components*/

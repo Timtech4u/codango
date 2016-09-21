@@ -240,6 +240,36 @@ hr {
       outline: 0;
       background-color: #feb490; }
 
+.static-footer {
+  background-color: #3d3d3d;
+  margin-top: 50px;
+  color: #fff;
+  font-family: "AvenirNext-UltraLight"; }
+  .static-footer .row {
+    margin: 30px; }
+  .static-footer a {
+    color: #fff; }
+  .static-footer .btn,
+  .static-footer .btn:focus,
+  .static-footer .btn:hover {
+    outline: 0;
+    color: #fff;
+    background-color: #feb490;
+    border: 1px solid #feb490; }
+  .static-footer .mdi {
+    font-size: 24px;
+    margin-left: 5px; }
+  .static-footer .reserved {
+    border-top: 1px solid #f2f2f2;
+    margin-top: 10px;
+    text-align: center;
+    padding-top: 10px; }
+  .static-footer .mdi-map-marker {
+    font-size: 15px;
+    margin-left: 0; }
+  .static-footer .address {
+    width: 60%; }
+
 @media (max-width: 768px) {
   .navbar-form {
     display: none; } }
