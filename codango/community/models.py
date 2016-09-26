@@ -109,3 +109,14 @@ class CommunityBlacklist(TimeStampMixin):
 
     class Meta:
         ordering = ['-date_modified']
+
+
+class AddOn(TimeStampMixin):
+    name = models.CharField(max_length=50)
+    communities = models.ManyToManyField(Community)
+
+    def __str__(self):
+        return '{}'.format(self.name)
+
+    class Meta:
+        ordering = ['name']
