@@ -23,7 +23,7 @@ export default class SubMenu extends Component {
   }
   render() {
     return (
-        <Row className="submenu" >
+        <div className="submenu" >
           <Col md={2} >
             <DropdownButton title="Filter Posts" id="bg-nested-dropdown">
               <MenuItem eventKey="1">All</MenuItem>
@@ -45,7 +45,7 @@ export default class SubMenu extends Component {
           <Col md={2} >
             { this.state.showLogin ? <LoginModal active="login">Login / Sigin Up </LoginModal> : null }
           </Col>
-        </Row>
+        </div>
     )
   }
 }

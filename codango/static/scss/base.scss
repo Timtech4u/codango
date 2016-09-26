@@ -493,6 +493,58 @@ hr {
     display: none;
   }
 }
+
+.submenu {
+  box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.2);
+  margin-top: 0;
+  height: 70px;
+  padding-top: 20px;
+
+  input.form-control {
+    display: block;
+    box-sizing: padding-box;
+    border-radius: 0;
+    border: 0;
+    border: none;
+    border-bottom: 0.1rem solid #d1d1d1;
+    background-color: transparent;
+    box-shadow: none !important;
+  }
+
+  .btn {
+    background-color: #78C598;
+    outline: 0;
+    box-shadow: none;
+    border-color: #78C598;
+    color: #fff;
+    padding-right: 20px;
+    padding-left: 20px;
+
+    &:active,
+    &:hover {
+      outline: 0;
+      background-color: #78C598;
+      border-color: #78C598;
+      color: #fff;
+    }
+  }
+
+  .dropdown button,
+  .open.dropdown button {
+    background-color: #fff;
+    color: #9B9B9B;
+    border: none;
+    box-shadow: none;
+
+    &:active,
+    &:focus,
+    &:hover {
+      background-color: #fff;
+      color: #9B9B9B;
+      border: none;
+    }
+  }
+}
 @media (max-width: 768px) {
   .navbar-form {
     display: none;
