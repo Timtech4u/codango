@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import {
-    Button,
-    Checkbox,
-    FormGroup,
-    FormControl,
-    Form
+  Button,
+  Checkbox,
+  FormGroup,
+  FormControl,
+  Form
 } from 'react-bootstrap';
 import request from 'superagent';
 import Cookies from 'js-cookie';

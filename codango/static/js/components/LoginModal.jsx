@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import {
-    Button,
-    FormGroup,
-    FormControl,
-    Form,
-    Link,
-    Modal,
-    Col,
-    Nav,
-    NavItem,
-    Tab
+  Button,
+  FormGroup,
+  FormControl,
+  Form,
+  Link,
+  Modal,
+  Col,
+  Nav,
+  NavItem,
+  Tab
 } from 'react-bootstrap';
 import LoginForm from './LoginForm.jsx';
 import RegisterForm from './RegisterForm.jsx'

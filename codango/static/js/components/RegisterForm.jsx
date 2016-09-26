@@ -4,7 +4,8 @@ import {
   ControlLabel,
   Form,
   FormControl,
-  FormGroup
+  FormGroup,
+  Alert
 } from 'react-bootstrap';
 import request from 'superagent';
 
@@ -13,11 +14,14 @@ class RegisterForm extends Component {
     super();
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleFieldChange = this.handleFieldChange.bind(this);
+    this.registerUser = this.registerUser.bind(this);
     this.state = {
       username: '',
       password: '',
       email: '',
-      confirm_password: ''
+      confirm_password: '',
+      message: '',
+      messageType: ''
     };
   }
 
@@ -26,7 +30,6 @@ class RegisterForm extends Component {
     this.registerUser(this.state.username, this.state.email,
                       this.state.password, this.state.confirm_password);
   }
-
   handleFieldChange(event) {
     event.preventDefault();
     let key = event.target.name;
@@ -42,17 +45,40 @@ class RegisterForm extends Component {
       .send({'username': username, 'password': password, 'email': email,
              'confirm_password': confirm_password })
       .end((err, result) => {
-        this.setState({
-          user: result.body
-        });
-          console.log(`response code is ${result.status}`);
-          console.log(result.body);
+        if(err || !result.ok){
+          let errorMessage = 'Error occured';
+          if(result.body.username){
+            errorMessage = result.body.username[0];
+          } else if(result.body[0]) {
+              errorMessage = result.body[0];
+          }
+          this.setState({
+            message: errorMessage,
+            messageType: 'danger',
+            password: '',
+            confirm_password: '',
+          });
+        } else {
+            this.setState({
+              message: 'Sign Up Successful. You can now Login',
+              messageType: 'success',
+              username: '',
+              password: '',
+              email: '',
+              confirm_password: '',
+            });
+        }
       });
   }
 
   render() {
     return  (
       <Form onSubmit={this.handleSubmit}>
+        {this.state.message ?
+          <Alert bsStyle={this.state.messageType}>
+           {this.state.message}
+          </Alert> : null
+        }
         <FormGroup >
           <FormControl.Feedback>
             <i className="mdi mdi-account"></i>
