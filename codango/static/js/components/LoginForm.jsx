@@ -9,7 +9,7 @@ import {
 import request from 'superagent';
 import Cookies from 'js-cookie';
 
-export default class LoginForm extends Component {
+class LoginForm extends Component {
   constructor() {
     super();
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -55,7 +55,8 @@ export default class LoginForm extends Component {
           <FormControl type="text"
                        placeholder="Username"
                        name="username"
-                       onChange={this.handleFieldChange} />
+                       onChange={this.handleFieldChange}
+          />
         </FormGroup>
         <FormGroup >
           <FormControl.Feedback>
@@ -64,7 +65,8 @@ export default class LoginForm extends Component {
           <FormControl type="password"
                        placeholder="Password"
                        name="password"
-                       onChange={this.handleFieldChange} />
+                       onChange={this.handleFieldChange}
+          />
         </FormGroup>
         <Checkbox>Remember me</Checkbox>
         <Button type="submit" block className="login-btn">
@@ -74,3 +76,5 @@ export default class LoginForm extends Component {
     )
   }
 }
+
+export default LoginForm;

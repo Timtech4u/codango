@@ -12,10 +12,10 @@ import {
   Tab
 } from 'react-bootstrap';
 import LoginForm from './LoginForm.jsx';
-import RegisterForm from './RegisterForm.jsx'
+import RegisterForm from './RegisterForm.jsx';
 
 
-export default class LoginModal extends Component {
+class LoginModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -75,3 +75,5 @@ export default class LoginModal extends Component {
     );
   }
 }
+
+export default LoginModal;
