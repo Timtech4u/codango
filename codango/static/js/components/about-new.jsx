@@ -14,7 +14,7 @@ class AboutNew extends Component {
         * color on the current home page is different
         * from that of the new home page
       */
-      <div style={{background: '#fff'}}>
+      <div style={{"background": '#fff'}}>
         <Grid className="header" />
         <Features />
         <Team />
