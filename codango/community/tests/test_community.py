@@ -37,3 +37,13 @@ class TestCommunity(TestCase):
         self.assertTrue(CommunityMember.objects.exists())
         self.assertTrue(CommunityMember.objects.filter(
             user=self.user, community=Community.objects.get(name='Test Community')))
+
+    def test_communinity_list(self):
+        """Test that users can view list of communities"""
+        self.assertTrue(self.login)
+
+        # Go to Community List Page
+        response = self.client.get('/community/')
+
+        # Test view community list
+        self.assertEqual(response.status_code, 200)
