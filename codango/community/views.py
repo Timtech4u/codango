@@ -3,7 +3,7 @@ from django.views.generic import TemplateView
 from resources.views import LoginRequiredMixin
 
 from .forms import CommunityForm
-from .models import CommunityMember
+from .models import Community, CommunityMember
 
 
 class CommunityCreateView(LoginRequiredMixin, TemplateView):

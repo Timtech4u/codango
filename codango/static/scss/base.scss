@@ -544,6 +544,32 @@ button.btn {
     font-size: 1.5em;
   }
 }
+
+/* List Community styling */
+.list-community {
+  cursor: pointer;
+}
+
+.community-logo {
+   width: 100px;
+   height: 100px
+}
+
+.community-detail {
+   word-break:break-all;
+   padding-left: 110px;
+   margin-top: -120px;
+   display: inline-block;
+   float: left
+}
+
+.community-name {
+  color: black;
+  cursor: pointer;
+}
+
+/* End List Community Styling */
+
 /* About us */
 .page-title {
   border-bottom: solid 2px #f26521;
