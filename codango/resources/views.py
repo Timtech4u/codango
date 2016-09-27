@@ -128,7 +128,7 @@ class CommunityView(CommunityBaseView):
                 "read": False,
                 "user_id": [follow.follower.id for follow in user_follow_objs],
                 "status": "Successfully Posted Your Resource"
-                if not edit else 'Resource Successfully Updated'
+                if not edit else 'Resource Successfully Updated',
             }
             response_json = json.dumps(response_dict)
             return HttpResponse(response_json, content_type="application/json")

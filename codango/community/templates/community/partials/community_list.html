@@ -5,32 +5,32 @@
 {% block container %}
 
 <div class="content-block">
-<h1>Codango Communities</h1>
-<hr>
-<div class="row">
-    <div class="col-sm-12">
-    {% for community in communities %}
-      <div class="community-logo">
-        {% if community.logo %}
-            {% cloudinary community.logo width=100 height=100 crop="fill" %}
-        {% else %}
-            <img src="{% static 'img/community-default-logo.png'  %}" alt="Community Logo" width="100" height="100">
-        {% endif %}
-      </div>
-      <div class="community-detail">
-        <div class="community-name">
-          <h3><strong>
-            <a href="/community/{{community.id}}" class="community-name">{{ community.name }}</a></strong></h3>
+    <h1>Codango Communities</h1>
+    <hr>
+    <div class="row">
+        <div class="col-sm-12">
+            {% for community in communities %}
+                <div class="community-logo">
+                    {% if community.logo %}
+                        {% cloudinary community.logo width=100 height=100 crop="fill" %}
+                    {% else %}
+                        <img src="{% static 'img/community-default-logo.png'  %}" alt="Community Logo" width="100" height="100">
+                    {% endif %}
+                </div>
+                <div class="community-detail">
+                    <div class="community-name">
+                        <h3><strong>
+                        <a href="/community/{{community.id}}" class="community-name">{{ community.name }}</a></strong></h3>
+                    </div>
+                    <div class="community-description">
+                        {{ community.description | truncatechars:240 }}
+                    </div>
+                </div>
+                <hr>
+            {% empty %}
+                No communities yet.
+            {% endfor %}
         </div>
-        <div class="community-description">
-          {{ community.description | truncatechars:240 }}
-        </div>
-      </div>
-      <hr>
-    {% empty %}
-        No communities yet.
-    {% endfor %}
     </div>
-  </div>
 </div>
 {% endblock %}
