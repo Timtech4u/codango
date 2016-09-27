@@ -13,6 +13,13 @@ class TestCommunity(TestCase):
         self.login = self.client.login(
             username='test_user', password='test_password')
 
+    def create_community(self, private=False, visibility='full'):
+        self.community = Community.objects.create(name='Test Community',
+                                                  description='This is a test community',
+                                                  private=private,
+                                                  visibility=visibility,
+                                                  creator=self.user)
+
     def test_communinity_create(self):
         """Test that users can create community"""
         self.assertTrue(self.login)
@@ -38,12 +45,58 @@ class TestCommunity(TestCase):
         self.assertTrue(CommunityMember.objects.filter(
             user=self.user, community=Community.objects.get(name='Test Community')))
 
-    def test_communinity_list(self):
-        """Test that users can view list of communities"""
+    def test_public_community_is_listed(self):
+        """Test that public community is listed"""
         self.assertTrue(self.login)
+
+        # Create a public community
+        self.create_community()
 
         # Go to Community List Page
         response = self.client.get('/community/')
 
         # Test view community list
         self.assertEqual(response.status_code, 200)
+        self.assertIn(self.community, response.context_data['communities'])
+
+    def test_fully_visible_private_community_is_listed(self):
+        """Test that fully-visible private community is listed"""
+        self.assertTrue(self.login)
+
+        # Create a fully-visible private community
+        self.create_community(private=True, visibility='full')
+
+        # Go to Community List Page
+        response = self.client.get('/community/')
+
+        # Test view community list
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(self.community, response.context_data['communities'])
+
+    def test_partially_visible_private_community_is_listed(self):
+        """Test that partially-visible private community is listed"""
+        self.assertTrue(self.login)
+
+        # Create a partially-visible private community
+        self.create_community(private=True, visibility='partial')
+
+        # Go to Community List Page
+        response = self.client.get('/community/')
+
+        # Test view community list
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(self.community, response.context_data['communities'])
+
+    def test_non_visible_private_community_is_listed(self):
+        """Test that non-visible private community is listed"""
+        self.assertTrue(self.login)
+
+        # Create a non-visible private community
+        self.create_community(private=True, visibility='none')
+
+        # Go to Community List Page
+        response = self.client.get('/community/')
+
+        # Test view community list
+        self.assertEqual(response.status_code, 200)
+        self.assertNotIn(self.community, response.context_data['communities'])
