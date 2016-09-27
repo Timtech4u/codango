@@ -42,3 +42,15 @@ class CommunityCreateView(LoginRequiredMixin, TemplateView):
 
 class CommunityDetailView(LoginRequiredMixin, TemplateView):
     template_name = 'community/community.html'
+
+
+class AddOnCreateView(LoginRequiredMixin, TemplateView):
+    template_name = 'addon/create_addon.html'
+
+
+class AddOnListView(LoginRequiredMixin, TemplateView):
+    template_name = 'addon/addon_list.html'
+
+
+class AddOnDetailView(LoginRequiredMixin, TemplateView):
+    template_name = 'addon/addon.html'
