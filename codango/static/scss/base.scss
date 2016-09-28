@@ -489,24 +489,6 @@ hr {
     }
   }
 
-  .tab-content {
-    .navbar-nav > li > a {
-      display: inline;
-      outline: 0;
-      line-height: 55px;
-
-      &:active,
-      &:focus,
-      &:hover {
-        background-color: transparent;
-      }
-
-      .tab-nav-text {
-        color: #9E9E9E;
-      }
-    }
-  }
-
   .nav li.active {
     display: none;
   }
@@ -632,8 +614,24 @@ button {
 }
 
 .tab-content {
-  padding: 15px;
+  padding: 15px 0;
   margin-top: 15px;
+
+  .navbar-nav > li > a {
+    display: inline;
+    outline: 0;
+    line-height: 55px;
+
+    &:active,
+    &:focus,
+    &:hover {
+      background-color: transparent;
+    }
+
+    .tab-nav-text {
+      color: #9E9E9E;
+    }
+  }
 }
 
 button.btn {

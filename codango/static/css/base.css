@@ -333,15 +333,6 @@ hr {
   .signin-modal .modal-dialog .account-message {
     margin-top: 20px; }
 
-.signin-modal .tab-content .navbar-nav > li > a {
-  display: inline;
-  outline: 0;
-  line-height: 55px; }
-  .signin-modal .tab-content .navbar-nav > li > a:active, .signin-modal .tab-content .navbar-nav > li > a:focus, .signin-modal .tab-content .navbar-nav > li > a:hover {
-    background-color: transparent; }
-  .signin-modal .tab-content .navbar-nav > li > a .tab-nav-text {
-    color: #9E9E9E; }
-
 .signin-modal .nav li.active {
   display: none; }
 
@@ -437,8 +428,16 @@ button .btn {
   background-color: #e9eaed; }
 
 .tab-content {
-  padding: 15px;
+  padding: 15px 0;
   margin-top: 15px; }
+  .tab-content .navbar-nav > li > a {
+    display: inline;
+    outline: 0;
+    line-height: 55px; }
+    .tab-content .navbar-nav > li > a:active, .tab-content .navbar-nav > li > a:focus, .tab-content .navbar-nav > li > a:hover {
+      background-color: transparent; }
+    .tab-content .navbar-nav > li > a .tab-nav-text {
+      color: #9E9E9E; }
 
 button.btn {
   border-radius: 4px;

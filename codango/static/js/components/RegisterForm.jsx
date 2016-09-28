@@ -86,6 +86,7 @@ class RegisterForm extends Component {
           <FormControl type="text"
                        placeholder="Username"
                        name="username"
+                       value={this.state.username}
                        onChange={this.handleFieldChange}
           />
         </FormGroup>
@@ -96,6 +97,7 @@ class RegisterForm extends Component {
           <FormControl type="text"
                        placeholder="Email"
                        name="email"
+                       value={this.state.email}
                        onChange={this.handleFieldChange}
           />
         </FormGroup>
@@ -106,6 +108,7 @@ class RegisterForm extends Component {
           <FormControl type="password"
                        placeholder="Password"
                        name="password"
+                       value={this.state.password}
                        onChange={this.handleFieldChange}
           />
         </FormGroup>
@@ -116,6 +119,7 @@ class RegisterForm extends Component {
           <FormControl type="password"
                        placeholder="Confim Password"
                        name="confirm_password"
+                       value={this.state.confirm_password}
                        onChange={this.handleFieldChange}
           />
         </FormGroup>
