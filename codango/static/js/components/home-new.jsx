@@ -3,6 +3,7 @@ import Slider from './slider.jsx';
 import { StickyContainer, Sticky } from 'react-sticky';
 import SubMenu from './SubMenu.jsx';
 import Features from './features.jsx';
+import Feeds from './Feeds.jsx';
 
 export default class HomeNew extends Component {
 constructor(props){
@@ -24,6 +25,7 @@ constructor(props){
                 <SubMenu showLogin={this.state.showLogin}/>
               </header>
             </Sticky>
+            <Feeds />
           </StickyContainer>
       </div>
     );

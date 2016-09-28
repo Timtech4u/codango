@@ -545,9 +545,23 @@ hr {
     }
   }
 }
+
+.feeds {
+  margin-top: 30px;
+
+  .community-list-section,
+  .popular-block {
+    padding: 25px 35px;
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.3);
+  }
+}
 @media (max-width: 768px) {
   .navbar-form {
     display: none;
+  }
+
+  .submenu {
+    height: 100px;
   }
 }
 
