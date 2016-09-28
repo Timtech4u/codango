@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Col, Row, Media, Grid, Popover, OverlayTrigger } from 'react-bootstrap';
+import Post from './Post.jsx';
 
 class Feeds extends Component {
   render() {
