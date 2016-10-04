@@ -397,6 +397,102 @@ hr {
     width: 60%;
   }
 }
+
+.signin-modal {
+  .modal-dialog {
+    text-align: left;
+    width: 450px;
+    color: #9E9E9E;
+
+    .social-login {
+      margin-bottom: 60px;
+      margin-top: 30px;
+      text-align: center;
+    }
+
+    .modal-body {
+      padding: 50px;
+    }
+
+    .round-btn {
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      color: #fff;
+      font-size: 30px;
+      margin-right: 30px;
+      line-height: 50px;
+    }
+
+    .facebook-btn {
+      background-color: #3F51B5;
+    }
+
+    .gplus-btn {
+      background-color: #D0021B;
+    }
+
+    .or-divider {
+      width: 100%;
+      text-align: center;
+      border-bottom: 1px solid #ccc;
+      line-height: 2px;
+      margin: 10px 0 20px;
+      font-size: 30px;
+      margin-bottom: 60px;
+
+      span {
+        background: #fff;
+        padding: 0 40px;
+      }
+    }
+
+    .form-group {
+      margin-bottom: 50px;
+    }
+
+    input.form-control {
+      display: block;
+      box-sizing: padding-box;
+      border-radius: 0;
+      border: 0;
+      border: none;
+      border-bottom: 0.1rem solid #d1d1d1;
+      background-color: transparent;
+      box-shadow: none !important;
+    }
+
+    .login-btn {
+      transition: all 0.3s;
+      border-radius: 4px;
+      box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.1);
+      color: #fff;
+      background-color: #78C598;
+      border-color: #78C598;
+      margin-top: 20px;
+      padding: 15px;
+
+      &:focus {
+        outline: 0;
+      }
+    }
+
+    .form-control-feedback {
+      left: 0;
+      margin-left: -14px;
+      margin-top: 8px;
+      font-size: 16px;
+    }
+
+    .account-message {
+      margin-top: 20px;
+    }
+  }
+
+  .nav li.active {
+    display: none;
+  }
+}
 @media (max-width: 768px) {
   .navbar-form {
     display: none;
@@ -518,8 +614,24 @@ button {
 }
 
 .tab-content {
-  padding: 15px;
+  padding: 15px 0;
   margin-top: 15px;
+
+  .navbar-nav > li > a {
+    display: inline;
+    outline: 0;
+    line-height: 55px;
+
+    &:active,
+    &:focus,
+    &:hover {
+      background-color: transparent;
+    }
+
+    .tab-nav-text {
+      color: #9E9E9E;
+    }
+  }
 }
 
 button.btn {
