@@ -2,6 +2,7 @@ import time
 
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.test.utils import setup_test_environment
+from django.test import TestCase
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 

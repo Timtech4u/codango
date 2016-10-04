@@ -1,9 +1,12 @@
+from django.contrib import messages
+from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, render
-from django.views.generic import TemplateView
+from django.template import RequestContext
+from django.views.generic import TemplateView, View
 from resources.views import LoginRequiredMixin
 
-from .forms import CommunityForm
-from .models import CommunityMember
+from .forms import AddOnForm, CommunityForm
+from .models import AddOn, CommunityMember
 
 
 class CommunityCreateView(LoginRequiredMixin, TemplateView):
@@ -44,13 +47,55 @@ class CommunityDetailView(LoginRequiredMixin, TemplateView):
     template_name = 'community/community.html'
 
 
-class AddOnCreateView(LoginRequiredMixin, TemplateView):
-    template_name = 'addon/create_addon.html'
-
-
-class AddOnListView(LoginRequiredMixin, TemplateView):
+class ListCreateAddOnView(LoginRequiredMixin, TemplateView):
+    form_class = AddOnForm
     template_name = 'addon/addon_list.html'
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(ListCreateAddOnView, self).get_context_data(**kwargs)
+        addons = AddOn.objects.all()
+
+        context['addons'] = addons
+        context['addonform'] = self.form_class()
+        return context
+
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
+
+        if form.is_valid():
+            addon = form.save()
+            addon.save()
+            messages.add_message(
+                request, messages.SUCCESS, 'Addon created successfully')
+            return redirect('/community/list_addons',
+                            context_instance=RequestContext(request))
+
+        else:
+            messages.add_message(
+                request, messages.ERROR, 'Addon not created. Please try again')
+        return render(request, self.template_name, self.get_context_data())
 
 
 class AddOnDetailView(LoginRequiredMixin, TemplateView):
-    template_name = 'addon/addon.html'
+    template_name = 'addon/addon_list.html'
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(AddOnDetailView, self).get_context_data(**kwargs)
+        addon_id = int(kwargs['addon_id'])
+        addon = AddOn.objects.get(pk=addon_id)
+
+        context['addon'] = addon
+        return context
+
+    def get(self, request, *args, **kwargs):
+        return render(request, self.template_name, self.get_context_data())
+
+
+class AddOnDeleteView(LoginRequiredMixin, View):
+    def get(self, request, *args, **kwargs):
+        addon_id = int(kwargs['addon_id'])
+        addon = AddOn.objects.get(pk=addon_id)
+        addon.delete()
+        messages.add_message(
+            request, messages.SUCCESS, 'Addon deleted successfully')
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))

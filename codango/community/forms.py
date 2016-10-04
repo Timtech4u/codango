@@ -1,7 +1,7 @@
 from cloudinary.forms import CloudinaryFileField
-from django.forms import ModelForm
+from django.forms import ModelForm, TextInput
 
-from .models import Community
+from .models import Community, AddOn
 
 
 class CommunityForm(ModelForm):
@@ -25,3 +25,20 @@ class CommunityForm(ModelForm):
         self.fields[
             'description'].widget.attrs['placeholder'] = 'Describe your community (Not more than 1000 characters)'
         self.fields['visibility'].widget.attrs['disabled'] = True
+
+
+class AddOnForm(ModelForm):
+
+    class Meta:
+        model = AddOn
+        fields = ['name', 'description']
+        labels = {
+            'name': 'AddOn name',
+            'description': 'AddOn description'
+        }
+        widgets = {
+            'name': TextInput(attrs={'required': 'required'}),
+            'description': TextInput(attrs={
+                'required': 'required',
+                'size': '50'})
+        }

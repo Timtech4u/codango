@@ -113,6 +113,8 @@ class CommunityBlacklist(TimeStampMixin):
 
 class AddOn(TimeStampMixin):
     name = models.CharField(max_length=50)
+    description = models.TextField(
+        max_length=1000, default="Basic addon description")
     communities = models.ManyToManyField(Community)
 
     def __str__(self):
