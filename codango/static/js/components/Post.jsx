@@ -1,6 +1,18 @@
-import React, {Component} from 'react';
-import {Col, Row, Media, Grid, Popover, OverlayTrigger} from 'react-bootstrap';
+import React, { Component } from 'react';
+import {
+  Col,
+  Row,
+  Media,
+  Grid,
+  Popover,
+  OverlayTrigger
+} from 'react-bootstrap';
 
+/*
+    * This is a mock up of the current post view on Codango
+    * When implementing the post display, the component should
+    * be refactored and possibly redesigned
+*/
 
 class Post extends Component {
   render(){
