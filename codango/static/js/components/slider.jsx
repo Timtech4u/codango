@@ -1,7 +1,8 @@
 import React, {Component, PropTypes} from 'react';
 import {Carousel, Button} from 'react-bootstrap';
+import LoginModal from "./LoginModal.jsx"
 
-export default class Slider extends Component {
+class Slider extends Component {
   render() {
     let carouselCaptions = [
       {
@@ -33,9 +34,9 @@ export default class Slider extends Component {
               <Carousel.Caption>
                 <h3>{captions.title}</h3>
                 <p>{captions.caption}</p>
-                <Button className="get-stated-btn btn-lg">
+                <LoginModal type="get-stated-btn btn-lg" active="signup">
                   {captions.buttonText}<i className="mdi mdi-trending-neutral"></i>
-                </Button>
+                </LoginModal>
               </Carousel.Caption>
             </Carousel.Item>
           )
@@ -44,3 +45,5 @@ export default class Slider extends Component {
     )
   }
 }
+
+export default Slider;

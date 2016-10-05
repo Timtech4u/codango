@@ -1,9 +1,10 @@
+from django.http import Http404
 from django.shortcuts import redirect, render
 from django.views.generic import TemplateView
 from resources.views import LoginRequiredMixin
 
 from .forms import CommunityForm
-from .models import CommunityMember
+from .models import Community, CommunityMember
 
 
 class CommunityCreateView(LoginRequiredMixin, TemplateView):
@@ -42,6 +43,25 @@ class CommunityCreateView(LoginRequiredMixin, TemplateView):
 
 class CommunityDetailView(LoginRequiredMixin, TemplateView):
     template_name = 'community/community.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(CommunityDetailView, self).get_context_data(**kwargs)
+        try:
+            context['community'] = Community.objects.get(
+                id=kwargs.get('community_id'))
+        except Community.DoesNotExist:
+            raise Http404("Community does not exist")
+        return context
+
+
+class CommunityListView(LoginRequiredMixin, TemplateView):
+    template_name = 'community/community_list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(CommunityListView, self).get_context_data(**kwargs)
+        context['communities'] = Community.objects.exclude(
+            visibility='none')
+        return context
 
 
 class AddOnCreateView(LoginRequiredMixin, TemplateView):

@@ -1,6 +1,7 @@
 import { Link } from 'react-router';
 import React, { Component } from 'react';
 import { Nav, Navbar, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
+import LoginModal from './LoginModal.jsx';
 
 class MenuNew extends Component {
   render() {
@@ -22,6 +23,9 @@ class MenuNew extends Component {
             </li>
             <li>
               <Link to="/about-new#contact">Contact Us</Link>
+            </li>
+            <li>
+              <LoginModal active="login">Login / Sign Up</LoginModal>
             </li>
           </Nav>
         </Navbar.Collapse>
