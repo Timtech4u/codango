@@ -2,9 +2,11 @@ from django.http import Http404
 from django.shortcuts import redirect, render
 from django.views.generic import TemplateView
 from resources.views import LoginRequiredMixin
-
 from .forms import CommunityForm
 from .models import Community, CommunityMember
+from django.views.generic.edit import CreateView
+from django.views.generic.list import ListView
+from resources.views import LoginRequiredMixin
 
 
 class CommunityCreateView(LoginRequiredMixin, TemplateView):
@@ -54,11 +56,15 @@ class CommunityDetailView(LoginRequiredMixin, TemplateView):
         return context
 
 
+
 class CommunityListView(LoginRequiredMixin, TemplateView):
     template_name = 'community/community_list.html'
 
     def get_context_data(self, **kwargs):
         context = super(CommunityListView, self).get_context_data(**kwargs)
+
         context['communities'] = Community.objects.exclude(
             visibility='none')
-        return context
+
+        context['communities'] = Community.objects.all()
+

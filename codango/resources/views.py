@@ -128,7 +128,11 @@ class CommunityView(CommunityBaseView):
                 "read": False,
                 "user_id": [follow.follower.id for follow in user_follow_objs],
                 "status": "Successfully Posted Your Resource"
+<<<<<<< f5d836728ffdf94fb5f931a9e4ac0f758f9de214
                 if not edit else 'Resource Successfully Updated',
+=======
+                if not edit else 'Resource Successfully Updated'
+>>>>>>> [Feature #129520869] Implement community listing
             }
             response_json = json.dumps(response_dict)
             return HttpResponse(response_json, content_type="application/json")
