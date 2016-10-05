@@ -69,6 +69,8 @@ class Community(TimeStampMixin):
 
     class Meta:
         ordering = ['-date_modified']
+        unique_together = ('name', 'creator',)
+
 
 
 class CommunityMember(TimeStampMixin):
@@ -77,7 +79,7 @@ class CommunityMember(TimeStampMixin):
         ('approved', 'Approved'),
         ('declined', 'Declined'),
     )
-    community = models.ForeignKey(Community, related_name='members')
+    community = models.ForeignKey(Community, on_delete=models.CASCADE, related_name='members')
     user = models.ForeignKey(User, related_name='member')
     invitor = models.ForeignKey(User, related_name='invited_by')
     status = models.CharField(
@@ -90,6 +92,7 @@ class CommunityMember(TimeStampMixin):
 
     class Meta:
         ordering = ['-date_modified']
+        unique_together = ('community', 'user',)
 
 
 class CommunityBlacklist(TimeStampMixin):
