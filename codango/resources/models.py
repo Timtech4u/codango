@@ -1,7 +1,8 @@
-from django.db import models
+from cloudinary.models import CloudinaryField
+from community.models import Community
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
-from cloudinary.models import CloudinaryField
+from django.db import models
 
 
 class Resource(models.Model):
@@ -19,6 +20,8 @@ class Resource(models.Model):
     )
 
     author = models.ForeignKey(User)
+    community = models.ForeignKey(Community, blank=True, null=True,
+                                  related_name='resources')
     text = models.TextField(null=True, blank=False)
     language_tags = models.CharField(
         max_length=30, choices=LANGUAGE_TAGS, default='Untagged')

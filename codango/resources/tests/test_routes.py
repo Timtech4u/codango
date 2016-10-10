@@ -36,8 +36,8 @@ class CommunityViewTest(TestCase):
                                     {'text': 'Sample post', },
                                     HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         self.assertEqual(response.status_code, 200)
-        self.assertTrue(Resource.objects.filter(
-            text='Sample post', community=community))
+        self.assertTrue(Resource.objects.filter(text='Sample post',
+                                                community=community))
 
     def test_created_resource_belongs_to_community(self):
         # Create communities

@@ -3,6 +3,10 @@
 {% load cloudinary %}
 {% load staticfiles %}
 {% cloudinary_includes %}
+
+{% block title %}
+    {{ community.name }} - Codango
+{% endblock title %}
 {% block sidebar %}
 <div class="col-sm-3 hidden-sm hidden-xs">
     <div class="content-block">
@@ -22,20 +26,10 @@
 {% endblock mobile-sidebar %}
 
 {% block content %}
-{% include "community/partials/community.html" %}
-<div class="content-block">
- {% if community_name %}
-<h1 style="text-align: center;">Welcome to {{ community_name.name }} Community!
-{% if community_name.private == False  %}
-    {% if member == False %}
- <form action="{% url 'community_detail' community_id=community_name.pk %}" method="post" style="float: right">
-        {% csrf_token %}
-        <input type="submit" value="Join community">
-        <input type="hidden" value=" {{ context.creator }}">
-        <input type="hidden" value=" {{ context.name}}">
-    </form></h1>
-</div>
-    {% endif %}
-{% endif %}
-{% endif %}
+    {% include "account/partials/feeds.html" %}
 {% endblock content %}
+
+{% block script %}
+    <script src="{% static 'lib/ace-builds/src-min-noconflict/ace.js' %}"></script>
+    <script src="{% static 'js/snippet.js' %}"></script>
+{% endblock script %}
