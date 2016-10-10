@@ -498,7 +498,7 @@ hr {
   box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.2);
   margin-top: 0;
   height: 70px;
-  padding-top: 20px;
+  padding: 20px 45px 0;
 
   input.form-control {
     display: block;
@@ -554,6 +554,11 @@ hr {
     padding: 25px 35px;
     box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.3);
   }
+}
+
+.sticky {
+  z-index: 2000;
+  background: #fff;
 }
 @media (max-width: 768px) {
   .navbar-form {
