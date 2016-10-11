@@ -87,8 +87,8 @@ class CommunityDetailView(LoginRequiredMixin, TemplateView):
             for members in community_members:
                 member.append(members.user.username)
             if str(self.request.user) in member:
-                return redirect('/community/{}'.format(kwargs.get(
-                    'community_id')))
+                return redirect('/community/{}'.format(
+                    kwargs.get('community_id')))
         if self.request.user and not community.private:
             new_member = CommunityMember(community=community,
                                          user=self.request.user,
