@@ -7,5 +7,16 @@
 <div class="content-block">
     <h1> {{ community.name }} </h1>
     <hr>
+    AddOns
+    <a href="/community/addon_list/{{ community.id }}" id="add-addon" class="pull-right create-community">
+    	<i class="mdi mdi-plus-circle-outline" title="Add an addon"></i>
+    </a>
+    <ul>
+    {% for addon in community.addon_set.all %}
+
+    	{{ addon.name }}
+        </br>
+    {% endfor %}
+    </ul>
 </div>
 {% endblock %}

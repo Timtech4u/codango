@@ -13,7 +13,7 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='AddOnModel',
+            name='AddOn',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('date_created', models.DateTimeField(auto_now_add=True)),
@@ -60,7 +60,7 @@ class Migration(migrations.Migration):
             field=multiselectfield.db.fields.MultiSelectField(default=[b'BLOCK_MEMBER'], max_length=55, choices=[(b'INVITE_MEMBER', b'Send invites'), (b'DELETE_MEMBER', b'Remove members'), (b'BLOCK_MEMBER', b'Block members'), (b'SUSPEND_MEMBER', b'Suspend members')]),
         ),
         migrations.AddField(
-            model_name='addonmodel',
+            model_name='addon',
             name='communities',
             field=models.ManyToManyField(to='community.Community'),
         ),
