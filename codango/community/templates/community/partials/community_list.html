@@ -5,32 +5,46 @@
 {% block container %}
 
 <div class="content-block">
-    <h1>Codango Communities</h1>
-    <hr>
+<h1>Codango Communities</h1>
+<hr>
+{% if messages %}
     <div class="row">
-        <div class="col-sm-12">
-            {% for community in communities %}
-                <div class="community-logo">
-                    {% if community.logo %}
-                        {% cloudinary community.logo width=100 height=100 crop="fill" %}
-                    {% else %}
-                        <img src="{% static 'img/community-default-logo.png'  %}" alt="Community Logo" width="100" height="100">
-                    {% endif %}
-                </div>
-                <div class="community-detail">
-                    <div class="community-name">
-                        <h3><strong>
-                        <a href="/community/{{community.id}}" class="community-name">{{ community.name }}</a></strong></h3>
-                    </div>
-                    <div class="community-description">
-                        {{ community.description | truncatechars:240 }}
-                    </div>
-                </div>
-                <hr>
-            {% empty %}
-                No communities yet.
-            {% endfor %}
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}" role="alert" id="flash-message">
+            {{ message }}
         </div>
+        {% endfor %}
     </div>
+{% endif %}
+      {% for community in communities %}
+<div class="row">
+    <div class="col-sm-12">
+          <div class="community-logo col-sm-3">
+            {% if community.logo %}
+                {% cloudinary community.logo width=70 height=70 crop="fill" %}
+            {% else %}
+                {% cloudinary "vqr7n59zfxyeybttleug.gif" width=64 height=64 crop="fill" %}
+            {% endif %}
+          </div>
+            <h3><strong>{{ community.name }}</strong></h3>
+            {% if community.private %}
+            <form action="{% url 'community_detail' community_id=community.pk %}" method="post">
+                  {% csrf_token %}
+                  <i><input title="Joining this community is restricted" type="submit" value="Request to join community"></i>
+              </form>
+            {% else %}
+            <form action="{% url 'community_detail' community_id=community.pk %}" method="post">
+                  {% csrf_token %}
+                  <i><input title="You free to join this community" type="submit" value="Join community"></i>
+              </form>
+            {% endif %}
+              </form>
+
+            <br/>
+            {{community.description}}
+      <hr>
+      {% empty %}
+          No communities yet.
+      {% endfor %}
 </div>
 {% endblock %}

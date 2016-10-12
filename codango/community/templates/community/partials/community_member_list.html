@@ -1,0 +1,21 @@
+{% load bootstrap %}
+{% load cloudinary %}
+{% block container %}
+<div class="content-block">
+<h1> Members</h1>
+<hr>
+      {% for member in community_members %}
+          <div class="row">
+          <div class="col-sm-12">
+          <div class="community-name col-sm-9">
+            <h5><strong>{{ member.user.username }}</strong></h5>
+            <a href=""><h5 style="float: right">{{ member.status }}</h5></a>
+          </div>
+        </div>
+      </div>
+      <hr>
+      {% empty %}
+          You have no community members yet!
+      {% endfor %}
+</div>
+{% endblock %}
