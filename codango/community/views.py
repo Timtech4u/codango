@@ -128,3 +128,15 @@ class CommunityMemberListView(LoginRequiredMixin, TemplateView):
                         self).get_context_data(**kwargs)
         context['community_members'] = CommunityMember.objects.all()
         return context
+
+
+class AddOnCreateView(LoginRequiredMixin, TemplateView):
+    template_name = 'addon/create_addon.html'
+
+
+class AddOnListView(LoginRequiredMixin, TemplateView):
+    template_name = 'addon/addon_list.html'
+
+
+class AddOnDetailView(LoginRequiredMixin, TemplateView):
+    template_name = 'addon/addon.html'
