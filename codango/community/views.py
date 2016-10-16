@@ -80,6 +80,10 @@ class AddOnListView(LoginRequiredMixin, TemplateView):
         checked_addons = request.POST.getlist('addons_check')
         community = Community.objects.get(
             id=kwargs.get('community_id'))
+        addons = community.addon_set.all()
+        for addon in addons:
+            if addon not in checked_addons:
+                community.addon_set.remove(addon)
         for addon_name in checked_addons:
             addon = AddOn.objects.get(name=addon_name)
             community.addon_set.add(addon)
