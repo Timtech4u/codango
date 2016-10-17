@@ -22,8 +22,8 @@ class CommunityViewTest(TestCase):
         return Resource.objects.create(id=100, text=text, author=self.user,
                                        resource_file=resource_file, community=community)
 
-    def create_community(self, id):
-        return Community.objects.create(id=id, name='Test Community',
+    def create_community(self, id, name='Test community'):
+        return Community.objects.create(id=id, name=name,
                                         creator=self.user,
                                         description='This is a test community')
 
@@ -41,8 +41,8 @@ class CommunityViewTest(TestCase):
 
     def test_created_resource_belongs_to_community(self):
         # Create communities
-        community = self.create_community(id=100)
-        community2 = self.create_community(id=200)
+        community = self.create_community(id=100, name='Test community')
+        community2 = self.create_community(id=200, name='Test community 2')
 
         # Create a resource in community
         resource = self.create_resources(community=community)
