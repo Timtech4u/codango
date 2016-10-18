@@ -1,0 +1,12 @@
+<div class="content-block">
+	<form method="post">
+		{% csrf_token %}
+		{% for addon in addons %}
+			<input type="checkbox" value="{{ addon.name }}" name="addons_check" 
+			{% if addon in community_addons %} checked {% endif %}/>
+				{{ addon.name }}
+			</br>
+		{% endfor %} 
+		<input id="community_submit" class="btn btn-primary" type="submit" value="Link AddOn" />
+	</form>
+</div>
