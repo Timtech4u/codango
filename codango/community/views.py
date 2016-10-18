@@ -65,8 +65,6 @@ class UserPassesTestMixin(object):
         return self.test_func
 
     def dispatch(self, request, *args, **kwargs):
-        import ipdb
-        ipdb.set_trace()
         user_test_result = self.get_test_func()()
         if not user_test_result:
             return self.handle_no_permission()
