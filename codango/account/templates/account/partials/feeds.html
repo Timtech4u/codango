@@ -11,10 +11,16 @@
         {% endfor %}
     </div>
     {% endif %}
-    {% if request.path == '/user/'|add:request.user.username or request.path == '/home' or '/resource/ajax/community' in request.path %}
+    {% if community %}
+        <h1>{{ community.name }}</h1>
+        <hr>
+        {% url 'resource_create' community_id=community.id as resource_create_url %}
+    {% else %}
+        {% url 'resource_create' as resource_create_url %}
+    {% endif %}
     <div class="row">
         <div class="col-sm-12" id='share-form-new'>
-            <form id="id_share_form" role="form" class="share" action="{% url 'resource_create' %}" method="POST" enctype="multipart/form-data">
+            <form id="id_share_form" role="form" class="share" action="{{ resource_create_url }}" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
                 <textarea id="id-plain-text" name="text" class="form-control" rows="5" placeholder="Ask your Questions, Share your Knowledge... Don't forget to Tag it!!"></textarea>
                 <input id="id-pdf-file" name="resource_file" class="form-control hide well well-sm" type="file" />
@@ -60,7 +66,6 @@
             </form>
         </div>
     </div>
-    {% endif %}
     <div class="row">
         <div class="col-sm-12">
             <h3 class="activity-feed section-header"><i class="mdi mdi-rss"></i> {{ title }}

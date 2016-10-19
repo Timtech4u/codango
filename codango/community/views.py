@@ -1,18 +1,15 @@
-from django.http import Http404
+from community.models import Community, CommunityMember
+from django.contrib import messages
+from django.contrib.auth.models import User
+from django.http import Http404, HttpResponse, HttpResponseNotFound
 from django.shortcuts import redirect, render
-from django.views.generic import TemplateView
-from resources.views import LoginRequiredMixin
-from .forms import CommunityForm
-from .models import Community, CommunityMember
+from django.views.generic import TemplateView, View
 from django.views.generic.edit import CreateView
 from django.views.generic.list import ListView
-from resources.views import LoginRequiredMixin
+from resources.views import CommunityView, LoginRequiredMixin
+
 from .forms import CommunityForm
-from django.views.generic import View, TemplateView
-from django.contrib.auth.models import User
-from django.contrib import messages
-from community.models import CommunityMember, Community
-from django.http import HttpResponse, HttpResponseNotFound
+from .models import Community, CommunityMember
 
 
 class CommunityCreateView(LoginRequiredMixin, TemplateView):
@@ -50,8 +47,11 @@ class CommunityCreateView(LoginRequiredMixin, TemplateView):
             return render(request, self.template_name, context)
 
 
-class CommunityDetailView(LoginRequiredMixin, TemplateView):
+class CommunityDetailView(CommunityView):
     template_name = 'community/community.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        return super(CommunityDetailView, self).dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super(CommunityDetailView, self).get_context_data(**kwargs)
@@ -113,10 +113,7 @@ class CommunityListView(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(CommunityListView, self).get_context_data(**kwargs)
-        context['communities'] = Community.objects.exclude(
-            visibility='none')
-        context['communities'] = Community.objects.all()
-        context['communities'] = Community.objects.all()
+        context['communities'] = Community.objects.exclude(visibility='none')
         return context
 
 
