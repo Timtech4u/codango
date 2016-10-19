@@ -9,7 +9,7 @@ from django.test.utils import setup_test_environment
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 
-from ..models import AddOn, Community, CommunityMember, Tag
+from community.models import AddOn, Community, CommunityMember, Tag
 
 setup_test_environment()
 
@@ -142,15 +142,14 @@ class JoinCommunityTest(TestCase):
 
 class AddOnListViewTest(TestCase):
     def setUp(self):
-        self.user = User.objects.create(username='New', password='community')
-        self.user.set_password('community')
-        self.user.save()
+        self.user = User.objects.create_user(
+                username='New',
+                password='community')
         tag = Tag.objects.create(title="Python")
         self.community_python = Community.objects.create(
-            name="pythonistas",
-            description="A chill place for python lovers",
-            creator=self.user
-        )
+                            name="pythonistas",
+                            description="A chill place for python lovers",
+                            creator=self.user)
         self.community_python.tags.add(tag)
         self.addon = AddOn.objects.create(name="New AddOn")
         self.client = Client()
@@ -172,13 +171,13 @@ class AddOnListViewTest(TestCase):
 
         self.assertEqual(response.status_code, 302)
         community_addon = self.community_python.addon_set.get(
-            name=self.addon.name)
+                    name=self.addon.name)
         self.assertEqual(community_addon.name, self.addon.name)
 
     def test_member_cant_link_addon(self):
-        self.user = User.objects.create(username='Member', password='member')
-        self.user.set_password('member')
-        self.user.save()
+        self.user = User.objects.create_user(
+                username='Member',
+                password='member')
         self.client.login(username='Member', password='member')
         url = reverse('addon_list',
                       kwargs={'community_id': self.community_python.id})

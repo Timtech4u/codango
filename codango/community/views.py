@@ -192,21 +192,35 @@ class AddOnListView(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super(AddOnListView, self).get_context_data(**kwargs)
         community = Community.objects.get(
-            id=kwargs.get('community_id'))
+                id=kwargs.get('community_id'))
+        addons = AddOn.objects.all().order_by('name')
+        community_addons = community.addon_set.all()
+
+        addons_linkage_status = {}
+        index = 0
+        for addon in addons:
+            addons_linkage_status[addon.name] = False
+            try:
+                if addons_linkage_status.get(community_addons[index].name) == False:
+                    addons_linkage_status[community_addons[index].name] = True
+                    index += 1
+            except IndexError:
+                pass
+
         context['addons'] = AddOn.objects.all()
-        context['community_addons'] = community.addon_set.all()
+        context['community_addon_status'] = addons_linkage_status
         context['community_id'] = kwargs.get('community_id')
         return context
 
     def post(self, request, *args, **kwargs):
-        checked_addons = request.POST.getlist('addons_check')
+        checked_addon_names = request.POST.getlist('addons_check')
         community = Community.objects.get(
             id=kwargs.get('community_id'))
         addons = community.addon_set.all()
-        for addon in addons:
-            if addon not in checked_addons:
-                community.addon_set.remove(addon)
-        for addon_name in checked_addons:
+        for addon_name in addons:
+            if addon_name not in checked_addon_names:
+                community.addon_set.remove(addon_name)
+        for addon_name in checked_addon_names:
             addon = AddOn.objects.get(name=addon_name)
             community.addon_set.add(addon)
         return redirect(
