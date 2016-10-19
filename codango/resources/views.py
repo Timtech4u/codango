@@ -3,11 +3,13 @@ import json
 from account.emails import SendGrid
 from codango.settings.base import CODANGO_EMAIL
 from comments.forms import CommentForm
+from community.models import Community
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.db.models import Count, Q
-from django.http import HttpResponse, HttpResponseNotFound
+from django.http import Http404, HttpResponse, HttpResponseNotFound
+from django.shortcuts import get_object_or_404
 from django.template import loader
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView, View
@@ -15,6 +17,11 @@ from resources.forms import ResourceForm
 from resources.models import NotificationQueue, Resource
 from userprofile.models import Notification
 from votes.models import Vote
+
+
+def get_community(community_id):
+    if community_id:
+        return get_object_or_404(Community, id=community_id)
 
 
 class LoginRequiredMixin(object):
@@ -43,8 +50,11 @@ class CommunityBaseView(LoginRequiredMixin, TemplateView):
         query = self.request.GET[
             'q'] if 'q' in self.request.GET else ''
 
+        community = get_community(kwargs.get('community_id', 0))
+
         resources = self.sort_by(sortby,
                                  Resource.objects.filter(
+                                     Q(community=community),
                                      Q(text__contains=query) |
                                      Q(snippet_text__contains=query) |
                                      Q(resource_file_name__contains=query)))
@@ -119,6 +129,7 @@ class CommunityView(CommunityBaseView):
             # a list of Follow objects
             user_follow_objs = self.request.user.profile.get_following()
             resource.author = self.request.user
+            resource.community = get_community(kwargs.get('community_id', 0))
             resource.save()
             response_dict = {
                 "content": self.request.user.username +
@@ -219,8 +230,8 @@ class ResourceEditView(LoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super(ResourceEditView, self).get_context_data(**kwargs)
         try:
-            context['resource'] = \
-                Resource.objects.get(id=kwargs['resource_id'])
+            context['resource'] = Resource.objects.get(
+                id=kwargs['resource_id'])
         except Resource.DoesNotExist:
             pass
         context['title'] = 'Editing post'

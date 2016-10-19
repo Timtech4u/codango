@@ -106,8 +106,11 @@ class CommunityCreateView(LoginRequiredMixin, TemplateView):
             return render(request, self.template_name, context)
 
 
-class CommunityDetailView(LoginRequiredMixin, TemplateView):
+class CommunityDetailView(CommunityView):
     template_name = 'community/community.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        return super(CommunityDetailView, self).dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super(CommunityDetailView, self).get_context_data(**kwargs)
@@ -169,10 +172,7 @@ class CommunityListView(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(CommunityListView, self).get_context_data(**kwargs)
-        context['communities'] = Community.objects.exclude(
-            visibility='none')
-        context['communities'] = Community.objects.all()
-        context['communities'] = Community.objects.all()
+        context['communities'] = Community.objects.exclude(visibility='none')
         return context
 
 
