@@ -49,7 +49,7 @@ class Community(TimeStampMixin):
 
     name = models.CharField(max_length=50)
     logo = CloudinaryField(
-        'logo', null=True, blank=True)
+        'logo', null=True)
     description = models.TextField(max_length=1000)
     private = models.BooleanField(
         default=False, verbose_name='Private (Default is Public)')

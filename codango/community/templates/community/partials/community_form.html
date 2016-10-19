@@ -4,7 +4,7 @@
 <div class="content-block">
     <h3 class="title"><strong>Create A New Community</strong></h3>
     <hr>
-    <form method="post" id="community_form">
+    <form method="post" id="community_form" enctype="multipart/form-data">
         {% csrf_token %}
         {{ community_form|bootstrap }}
         <input id="community_submit" class="btn btn-primary" type="submit" value="Create Community" />
