@@ -9,4 +9,6 @@ urlpatterns = [
         views.CommunityDetailView.as_view(), name='community_detail'),
     url(r'^(?P<community_id>[0-9]+)/members$',
         views.CommunityMemberListView.as_view(), name='community_member'),
+    url(r'^addon_list/(?P<community_id>[0-9]+)$',
+        views.AddOnListView.as_view(), name='addon_list'),
 ]

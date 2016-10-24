@@ -1,15 +1,74 @@
-from community.models import Community, CommunityMember
 from django.contrib import messages
-from django.contrib.auth.models import User
-from django.http import Http404, HttpResponse, HttpResponseNotFound
+from django.contrib.auth import REDIRECT_FIELD_NAME
+from django.conf import settings
+from django.core.exceptions import PermissionDenied
+from django.core.urlresolvers import reverse_lazy
+from django.http import Http404
 from django.shortcuts import redirect, render
-from django.views.generic import TemplateView, View
-from django.views.generic.edit import CreateView
-from django.views.generic.list import ListView
+from django.utils.encoding import force_text
+from django.views.generic import TemplateView
 from resources.views import CommunityView, LoginRequiredMixin
 
-from .forms import CommunityForm
-from .models import Community, CommunityMember
+from forms import CommunityForm
+from .models import Community, CommunityMember, AddOn
+
+
+class UserPassesTestMixin(object):
+    """
+    CBV Mixin that allows you to define a test function which must return True
+    if the current user can access the view.
+    """
+
+    login_url = reverse_lazy('login')
+    permission_denied_message = 'You do not have permission to this resource'
+    raise_exception = False
+    redirect_field_name = REDIRECT_FIELD_NAME
+
+    def get_login_url(self):
+        """
+        Override this method to override the login_url attribute.
+        """
+        login_url = self.login_url or settings.LOGIN_URL
+        if not login_url:
+            raise ImproperlyConfigured(
+                '{0} is missing the login_url attribute. Define {0}.login_url, settings.LOGIN_URL, or override '
+                '{0}.get_login_url().'.format(self.__class__.__name__)
+            )
+        return force_text(login_url)
+
+    def get_permission_denied_message(self):
+        """
+        Override this method to override the permission_denied_message attribute.
+        """
+        return self.permission_denied_message
+
+    def get_redirect_field_name(self):
+        """
+        Override this method to override the redirect_field_name attribute.
+        """
+        return self.redirect_field_name
+
+    def handle_no_permission(self):
+        if self.raise_exception:
+            raise PermissionDenied(self.get_permission_denied_message())
+        raise PermissionDenied(self.get_permission_denied_message())
+
+    def test_func(self):
+        community = Community.objects.get(pk=self.kwargs.get('community_id'))
+        return community.creator.id == self.request.user.id
+
+    def get_test_func(self):
+        """
+        Override this method to use a different test_func method.
+        """
+        return self.test_func
+
+    def dispatch(self, request, *args, **kwargs):
+        user_test_result = self.get_test_func()()
+        if not user_test_result:
+            return self.handle_no_permission()
+        return super(UserPassesTestMixin, self).dispatch(request, *args, **kwargs)
+
 
 
 class CommunityCreateView(LoginRequiredMixin, TemplateView):
@@ -125,3 +184,45 @@ class CommunityMemberListView(LoginRequiredMixin, TemplateView):
                         self).get_context_data(**kwargs)
         context['community_members'] = CommunityMember.objects.all()
         return context
+
+
+class AddOnListView(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
+    template_name = 'community/addon_list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(AddOnListView, self).get_context_data(**kwargs)
+        community = Community.objects.get(
+                id=kwargs.get('community_id'))
+        addons = AddOn.objects.all().order_by('name')
+        community_addons = community.addon_set.all()
+
+        addons_linkage_status = {}
+        index = 0
+        for addon in addons:
+            addons_linkage_status[addon.name] = False
+            try:
+                if addon.name == community_addons[index].name:
+                    addons_linkage_status[community_addons[index].name] = True
+                    index += 1
+            except IndexError:
+                pass
+
+        context['addons'] = AddOn.objects.all()
+        context['community_addon_status'] = addons_linkage_status
+        context['community_id'] = kwargs.get('community_id')
+        return context
+
+    def post(self, request, *args, **kwargs):
+        checked_addon_names = request.POST.getlist('addons_check')
+        community = Community.objects.get(
+            id=kwargs.get('community_id'))
+        addons = community.addon_set.all()
+        for addon_name in addons:
+            if addon_name not in checked_addon_names:
+                community.addon_set.remove(addon_name)
+        for addon_name in checked_addon_names:
+            addon = AddOn.objects.get(name=addon_name)
+            community.addon_set.add(addon)
+        return redirect(
+            '/community/{}'.format(community.id)
+        )
