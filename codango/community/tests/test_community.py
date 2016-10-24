@@ -1,6 +1,7 @@
-from ..models import Community, CommunityMember
+from community.models import Community, CommunityMember
 from django.contrib.auth.models import User
 from django.test import TestCase
+from factories import TagFactory
 
 
 class TestCommunity(TestCase):
@@ -13,6 +14,8 @@ class TestCommunity(TestCase):
         self.login = self.client.login(
             username='test_user', password='test_password')
         self.assertTrue(self.login)
+        tag = TagFactory()
+        print (tag)
 
     def create_community(self, private=False, visibility='full'):
         self.community = Community.objects.create(name='Test Community',
@@ -21,7 +24,7 @@ class TestCommunity(TestCase):
                                                   visibility=visibility,
                                                   creator=self.user)
 
-    def test_communinity_create(self):
+    def test_community_create(self):
         """Test that users can create community"""
         response = self.client.post('/community/create',
                                     {'name': 'Test Community',
