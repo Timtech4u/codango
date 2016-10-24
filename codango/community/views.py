@@ -1,6 +1,5 @@
 from django.contrib import messages
 from django.contrib.auth import REDIRECT_FIELD_NAME
-from django.contrib.auth.views import redirect_to_login
 from django.conf import settings
 from django.core.exceptions import PermissionDenied
 from django.core.urlresolvers import reverse_lazy
@@ -8,10 +7,10 @@ from django.http import Http404
 from django.shortcuts import redirect, render
 from django.utils.encoding import force_text
 from django.views.generic import TemplateView
+from resources.views import CommunityView, LoginRequiredMixin
 
-from .forms import CommunityForm
+from forms import CommunityForm
 from .models import Community, CommunityMember, AddOn
-from resources.views import LoginRequiredMixin
 
 
 class UserPassesTestMixin(object):
@@ -71,6 +70,7 @@ class UserPassesTestMixin(object):
         return super(UserPassesTestMixin, self).dispatch(request, *args, **kwargs)
 
 
+
 class CommunityCreateView(LoginRequiredMixin, TemplateView):
     template_name = 'community/community-create.html'
     form_class = CommunityForm
@@ -106,8 +106,11 @@ class CommunityCreateView(LoginRequiredMixin, TemplateView):
             return render(request, self.template_name, context)
 
 
-class CommunityDetailView(LoginRequiredMixin, TemplateView):
+class CommunityDetailView(CommunityView):
     template_name = 'community/community.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        return super(CommunityDetailView, self).dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super(CommunityDetailView, self).get_context_data(**kwargs)
@@ -169,10 +172,7 @@ class CommunityListView(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(CommunityListView, self).get_context_data(**kwargs)
-        context['communities'] = Community.objects.exclude(
-            visibility='none')
-        context['communities'] = Community.objects.all()
-        context['communities'] = Community.objects.all()
+        context['communities'] = Community.objects.exclude(visibility='none')
         return context
 
 
@@ -201,7 +201,7 @@ class AddOnListView(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
         for addon in addons:
             addons_linkage_status[addon.name] = False
             try:
-                if addons_linkage_status.get(community_addons[index].name) == False:
+                if addon.name == community_addons[index].name:
                     addons_linkage_status[community_addons[index].name] = True
                     index += 1
             except IndexError:

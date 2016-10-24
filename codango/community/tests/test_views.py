@@ -130,14 +130,14 @@ class JoinCommunityTest(TestCase):
         self.assertTrue(self.login)
         self.assertEqual(self.public_community.get_no_of_members(), 1)
         try:
-            community_member = CommunityMember(
+            community = CommunityMember(
                 community=self.public_community,
                 user=self.user_to_join_community,
                 invitor=self.user, status="approved")
-            community_member.save()
+            community.save()
         except IntegrityError as e:
-            self.assertIn(
-                "columns community_id, user_id are not unique", e.message)
+            self.assertIn("columns community_id, user_id are not unique",
+                        e.message)
 
 
 class AddOnListViewTest(TestCase):
