@@ -1,4 +1,3 @@
-from cloudinary import uploader
 from django.http import Http404
 from django.shortcuts import redirect, render
 from django.views.generic import TemplateView
