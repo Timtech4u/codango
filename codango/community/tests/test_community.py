@@ -14,8 +14,6 @@ class TestCommunity(TestCase):
         self.login = self.client.login(
             username='test_user', password='test_password')
         self.assertTrue(self.login)
-        tag = TagFactory()
-        print (tag)
 
     def create_community(self, private=False, visibility='full'):
         self.community = Community.objects.create(name='Test Community',
