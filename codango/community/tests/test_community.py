@@ -2,6 +2,7 @@ import cloudinary
 from community.models import Community, CommunityMember
 from django.contrib.auth.models import User
 from django.test import TestCase
+from factories import TagFactory
 
 
 class TestCommunity(TestCase):
@@ -22,7 +23,7 @@ class TestCommunity(TestCase):
                                                   visibility=visibility,
                                                   creator=self.user)
 
-    def test_communinity_create(self):
+    def test_community_create(self):
         """Test that users can create community"""
         test_image_path = open('static/img/sample.png', 'rb')
         response = self.client.post('/community/create',
@@ -96,15 +97,3 @@ class TestCommunity(TestCase):
         # Test view community list
         self.assertEqual(response.status_code, 200)
         self.assertIn(self.community, response.context_data['communities'])
-
-    def test_non_visible_private_community_is_listed(self):
-        """Test that non-visible private community is listed"""
-        # Create a non-visible private community
-        self.create_community(private=True, visibility='none')
-
-        # Go to Community List Page
-        response = self.client.get('/community/')
-
-        # Test view community list
-        self.assertEqual(response.status_code, 200)
-        self.assertNotIn(self.community, response.context_data['communities'])

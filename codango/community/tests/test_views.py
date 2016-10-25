@@ -1,9 +1,15 @@
 import time
 
+from django.contrib.auth.models import User
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
+from django.core.urlresolvers import reverse
+from django.db import IntegrityError
+from django.test import Client, TestCase
 from django.test.utils import setup_test_environment
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+
+from community.models import AddOn, Community, CommunityMember, Tag
 
 setup_test_environment()
 
@@ -66,3 +72,114 @@ class TestCreateCommuntity(StaticLiveServerTestCase):
         self.browser.find_element_by_id('community_submit').click()
         body = self.browser.find_element_by_tag_name('body')
         self.assertNotIn('Create A New Community', body.text)
+
+
+class JoinCommunityTest(TestCase):
+
+    def setUp(self):
+        self.client = Client()
+        self.user = User.objects.create(username='New', password='community')
+        self.user.set_password('community')
+        self.user.save()
+        self.login = self.client.login(username='New', password='member')
+        self.public_community = Community(
+            name="Public Community",
+            private=False, creator=self.user)
+        self.public_community.save()
+        self.private_community = Community(
+            name="Private Community",
+            private=True, creator=self.user)
+        self.private_community.save()
+        self.user_to_join_community = User.objects.create(
+            username='Join', password='join')
+        self.user_to_join_community.set_password('join')
+        self.user_to_join_community.save()
+        self.login = self.client.login(
+            username='Join',
+            password='join')
+        self.community = CommunityMember(
+            community=self.public_community,
+            user=self.user_to_join_community,
+            invitor=self.user, status="approved")
+        self.community.save()
+
+    def test_user_can_join_public_community(self):
+        """Test user can join a public community"""
+        self.assertTrue(self.login)
+        data = {'community': self.public_community,
+                'user': self.user_to_join_community,
+                'invitor': self.user, 'status': 'approved'}
+        self.assertEqual(self.public_community.get_no_of_members(), 1)
+        url = "/community/{}".format(self.public_community.id)
+        response = self.client.post(url, data)
+        self.assertEqual(response.status_code, 302)
+
+    def test_user_cant_join_private_community(self):
+        """Test user cannot join a private community"""
+        data = {'community': self.private_community,
+                'user': self.user_to_join_community,
+                'invitor': self.user, 'status': 'approved'}
+        self.assertTrue(self.login)
+        self.assertTrue(self.private_community.get_no_of_members() == 0)
+        url = "/community/{}".format(self.private_community.id)
+        response = self.client.post(url, data)
+        self.assertEqual(response.status_code, 302)
+
+    def test_user_cant_join_public_community_twice(self):
+        """Test user can join a public community twice"""
+        self.assertTrue(self.login)
+        self.assertEqual(self.public_community.get_no_of_members(), 1)
+        try:
+            community = CommunityMember(
+                community=self.public_community,
+                user=self.user_to_join_community,
+                invitor=self.user, status="approved")
+            community.save()
+        except IntegrityError as e:
+            self.assertIn("columns community_id, user_id are not unique",
+                        e.message)
+
+
+class AddOnListViewTest(TestCase):
+    def setUp(self):
+        self.user = User.objects.create_user(
+                username='New',
+                password='community')
+        tag = Tag.objects.create(title="Python")
+        self.community_python = Community.objects.create(
+                            name="pythonistas",
+                            description="A chill place for python lovers",
+                            creator=self.user)
+        self.community_python.tags.add(tag)
+        self.addon = AddOn.objects.create(name="New AddOn")
+        self.client = Client()
+        self.client.login(username='New', password='community')
+
+    def test_user_can_retrieve_addon_list(self):
+        url = reverse('addon_list',
+                      kwargs={'community_id': self.community_python.id})
+        response = self.client.get(url)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(self.addon.name, response.content)
+
+    def test_creator_can_link_addon(self):
+        data = {'addons_check': [self.addon.name]}
+        url = reverse('addon_list',
+                      kwargs={'community_id': self.community_python.id})
+        response = self.client.post(url, data)
+
+        self.assertEqual(response.status_code, 302)
+        community_addon = self.community_python.addon_set.get(
+                    name=self.addon.name)
+        self.assertEqual(community_addon.name, self.addon.name)
+
+    def test_member_cant_link_addon(self):
+        self.user = User.objects.create_user(
+                username='Member',
+                password='member')
+        self.client.login(username='Member', password='member')
+        url = reverse('addon_list',
+                      kwargs={'community_id': self.community_python.id})
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 403)

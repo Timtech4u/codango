@@ -9,6 +9,15 @@
     <hr>
     <div class="row">
         <div class="col-sm-12">
+            {% if messages %}
+                <div class="row">
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }}" role="alert" id="flash-message">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
             {% for community in communities %}
                 <div class="community-logo">
                     {% if community.logo %}
@@ -20,11 +29,22 @@
                 <div class="community-detail">
                     <div class="community-name">
                         <h3><strong>
-                        <a href="/community/{{community.id}}" class="community-name">{{ community.name }}</a></strong></h3>
+                        <a href="{% url 'community_detail' community_id=community.pk %}" class="community-name">{{ community.name }}</a></strong></h3>
                     </div>
                     <div class="community-description">
                         {{ community.description | truncatechars:240 }}
                     </div>
+                    {% if community.private %}
+                        <form action="{% url 'community_detail' community_id=community.pk %}" method="post">
+                              {% csrf_token %}
+                              <i><input title="Joining this community is restricted" type="submit" value="Request to join community"></i>
+                        </form>
+                    {% else %}
+                        <form action="{% url 'community_detail' community_id=community.pk %}" method="post">
+                              {% csrf_token %}
+                              <i><input title="You free to join this community" type="submit" value="Join community"></i>
+                        </form>
+                    {% endif %}
                 </div>
                 <hr>
             {% empty %}

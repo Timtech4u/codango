@@ -336,9 +336,63 @@ hr {
 .signin-modal .nav li.active {
   display: none; }
 
+.submenu {
+  box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.2);
+  margin-top: 0;
+  height: 70px;
+  padding: 20px 45px 0; }
+  .submenu input.form-control {
+    display: block;
+    box-sizing: padding-box;
+    border-radius: 0;
+    border: 0;
+    border: none;
+    border-bottom: 0.1rem solid #d1d1d1;
+    background-color: transparent;
+    box-shadow: none !important; }
+  .submenu .btn {
+    background-color: #78C598;
+    outline: 0;
+    box-shadow: none;
+    border-color: #78C598;
+    color: #fff;
+    padding-right: 20px;
+    padding-left: 20px; }
+    .submenu .btn:active, .submenu .btn:hover {
+      outline: 0;
+      background-color: #78C598;
+      border-color: #78C598;
+      color: #fff; }
+  .submenu .dropdown button,
+  .submenu .open.dropdown button {
+    background-color: #fff;
+    color: #9B9B9B;
+    border: none;
+    box-shadow: none; }
+    .submenu .dropdown button:active, .submenu .dropdown button:focus, .submenu .dropdown button:hover,
+    .submenu .open.dropdown button:active,
+    .submenu .open.dropdown button:focus,
+    .submenu .open.dropdown button:hover {
+      background-color: #fff;
+      color: #9B9B9B;
+      border: none; }
+
+.feeds {
+  margin-top: 30px; }
+  .feeds .community-list-section,
+  .feeds .popular-block {
+    padding: 25px 35px;
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.3); }
+
+.sticky {
+  z-index: 2000;
+  background: #fff; }
+
 @media (max-width: 768px) {
   .navbar-form {
-    display: none; } }
+    display: none; }
+  .submenu {
+    height: 100px; } }
 
 .navbar {
   margin-bottom: 0;
@@ -987,7 +1041,6 @@ pre {
 
 /* End Create Community Style */
 /*
-
 /*React components*/
 /*About us static styling*/
 .ReactFlipCard {
