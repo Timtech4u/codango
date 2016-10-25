@@ -59,9 +59,11 @@ class CommunityViewTest(TestCase):
         resource = self.create_resources(community=community)
 
         # View community
-        response = self.client.get(reverse('community_detail', kwargs={'community_id': 100}),
-                                   content_type='application/json',
-                                   HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        response = self.client.get(
+            reverse('community_detail',
+                    kwargs={'community_id': 100}),
+            content_type='application/json',
+            HTTP_X_REQUESTED_WITH='XMLHttpRequest')
 
         # Test for created resource
         self.assertEqual(response.status_code, 200)
