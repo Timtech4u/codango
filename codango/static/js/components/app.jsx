@@ -2,6 +2,7 @@
 import {render} from 'react-dom';
 import {browserHistory, IndexRoute, Router, Route} from 'react-router';
 import React from 'react';
+import scrollIntoView from 'scroll-into-view';
 import Main from './main.jsx';
 import Home from './home.jsx';
 import Team from './team.jsx';
@@ -24,7 +25,7 @@ function hashLinkScroll() {
                                             window.location.search);
       const element = document.getElementById(id);
       if (element) {
-        element.scrollIntoView();
+        scrollIntoView(element);
       }
     }, 0);
   }
