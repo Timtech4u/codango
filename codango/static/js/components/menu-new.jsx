@@ -4,17 +4,9 @@ import { Nav, Navbar, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
 import LoginModal from './LoginModal.jsx';
 
 class MenuNew extends Component {
-  componentWillUpdate() {
-    alert('Jam session');
-  }
-
-  handleScroll(event) {
-    alert('Jam sth');
-  }
-
   render() {
     return (
-      <Navbar className="static-nav" onScroll={this.handleScroll.bind(this)}>
+      <Navbar className="static-nav">
         <Navbar.Header>
           <Navbar.Brand>
             <a href="/"><img src="../static/img/codango-logo-white.png"/></a>
