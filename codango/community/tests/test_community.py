@@ -1,7 +1,6 @@
 from community.models import Community, CommunityMember
 from django.contrib.auth.models import User
 from django.test import TestCase
-from factories import TagFactory
 
 
 class TestCommunity(TestCase):
