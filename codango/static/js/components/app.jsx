@@ -2,7 +2,6 @@
 import {render} from 'react-dom';
 import {browserHistory, IndexRoute, Router, Route} from 'react-router';
 import React from 'react';
-import scrollIntoView from 'scroll-into-view';
 import scrolltop from 'simple-scrolltop';
 import Main from './main.jsx';
 import Home from './home.jsx';
