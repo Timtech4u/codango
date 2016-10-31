@@ -35,11 +35,11 @@ function hashLinkScroll() {
   }
 }
 
-function getTopPosition(el) {
+function getTopPosition(element) {
   // returns the top position of an element
-  const rect = el.getBoundingClientRect();
+  const elementBoundary = element.getBoundingClientRect();
   const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-  return rect.top + scrollTop
+  return elementBoundary.top + scrollTop
 }
 
 const routes = (
