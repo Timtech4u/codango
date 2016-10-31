@@ -15,7 +15,11 @@ class CommunityForm(ModelForm):
         options={
             'resource_type': 'raw',
             'use_filename': True,
-            'allowed_formats': ['png', 'jpg', 'jpeg']
+            'allowed_formats': ['png', 'jpg', 'jpeg'],
+            'crop': 'limit',
+            'width': 100,
+            'height': 100,
+            'eager': [{'crop': 'limit', 'width': 100, 'height': 100}],
         })
 
     def __init__(self, *args, **kwargs):

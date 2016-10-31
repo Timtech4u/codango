@@ -1,4 +1,7 @@
+import os
+import cloudinary
 from community.models import Community, CommunityMember
+from django.conf import settings
 from django.contrib.auth.models import User
 from django.test import TestCase
 from factories import TagFactory
@@ -24,14 +27,19 @@ class TestCommunity(TestCase):
 
     def test_community_create(self):
         """Test that users can create community"""
+        image_abs_path = os.path.join(
+            settings.BASE_DIR, 'static/img/sample.png')
+        test_image_path = open(image_abs_path, 'rb')
         response = self.client.post('/community/create',
                                     {'name': 'Test Community',
                                      'description': 'This is a test community',
+                                     'logo': test_image_path,
                                      'private': True,
                                      'visibility': 'none',
                                      'default_group_permissions': ['BLOCK_MEMBER'],
                                      'creator': self.user
                                      })
+        test_image_path.close()
 
         # Test redirection to single community view
         self.assertEqual(response.status_code, 302)
@@ -45,6 +53,18 @@ class TestCommunity(TestCase):
         self.assertTrue(CommunityMember.objects.exists())
         self.assertTrue(CommunityMember.objects.filter(user=self.user,
                                                        community=Community.objects.get(name='Test Community')))
+
+        # Test logo is being uploaded
+        self.assertIn(
+            'sample', Community.objects.filter(
+                name='Test Community')[0].logo.public_id)
+
+        # Delete the logo from Cloudinary's CDN
+        cloudinary.uploader.destroy(
+            str(Community.objects.filter(
+                name='Test Community')[0].logo.public_id),
+            invalidate=True)
+
 
     def test_public_community_is_listed(self):
         """Test that public community is listed"""
