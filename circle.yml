@@ -20,6 +20,7 @@ test:
     - python codango/manage.py collectstatic --noinput --settings=codango.settings.test
     - python codango/manage.py migrate --settings=codango.settings.test
     - python codango/manage.py test codango --settings=codango.settings.test
+    - gulp buildreact
     - cd codango && coverage run manage.py test
     - COVERALLS_REPO_TOKEN=0fhSY0Iu3oC2m9GUuFP7RR62iS3AKa5mn coveralls
     - cd ..
