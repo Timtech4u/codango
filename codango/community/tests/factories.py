@@ -1,11 +1,17 @@
 import factory
 
 from community import models
+from django.contrib.auth.models import User
 
 
-class CommunityFactory(factory.django.DjangoModelFactory):
+class UserFactory(factory.django.DjangoModelFactory):
     class Meta:
-        model = models.Community
+        model = User
+
+    username = factory.Faker('name')
+    password = factory.LazyAttribute(
+        lambda a: '{0}'.format(
+            a.username.replace(' ', '')))
 
 
 class TagFactory(factory.django.DjangoModelFactory):
@@ -13,6 +19,18 @@ class TagFactory(factory.django.DjangoModelFactory):
         model = models.Tag
 
     title = "Test_tag"
+
+
+class CommunityFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = models.Community
+
+    name = 'Test Community'
+    description = 'This is a test community'
+    private = False
+    visibility = 'full'
+    creator = factory.RelatedFactory(UserFactory)
+    tags = factory.RelatedFactory(TagFactory)
 
 
 class PermissionFactory(factory.django.DjangoModelFactory):
@@ -24,14 +42,23 @@ class CommunityMemberFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = models.CommunityMember
 
+    community = factory.RelatedFactory(CommunityFactory)
+    user = UserFactory
+    invitor = factory.RelatedFactory(UserFactory)
+
 
 class CommunityBlacklistFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = models.CommunityBlacklist
+
+    user = factory.RelatedFactory(UserFactory)
+    blacklister = factory.RelatedFactory(CommunityMemberFactory)
+    community = factory.RelatedFactory(CommunityFactory)
 
 
 class AddOnFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = models.AddOn
 
+    name = 'test_addon'
     community = factory.SubFactory(CommunityFactory)
