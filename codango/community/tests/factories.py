@@ -37,6 +37,9 @@ class PermissionFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = models.Permission
 
+    label = 'BLOCK_MEMBER'
+    description = 'Block members'
+
 
 class CommunityMemberFactory(factory.django.DjangoModelFactory):
     class Meta:
