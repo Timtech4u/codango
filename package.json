@@ -28,6 +28,7 @@
     "react-flipcard": "0.2.1",
     "react-material-icons": "1.0.1",
     "react-tap-event-plugin": "1.0.0",
+    "simple-scrolltop": "^1.0.1",
     "superagent": "2.1.0",
     "webpack-dev-server": "1.14.1"
   },
