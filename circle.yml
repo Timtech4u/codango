@@ -23,6 +23,7 @@ test:
     - cd codango && coverage run manage.py test
     - COVERALLS_REPO_TOKEN=0fhSY0Iu3oC2m9GUuFP7RR62iS3AKa5mn coveralls
     - cd ..
+    - gulp builreact
     - npm test
 deployment:
   staging:

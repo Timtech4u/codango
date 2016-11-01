@@ -11,8 +11,6 @@
     "start": "npm run serve | npm run dev",
     "serve": "./node_modules/.bin/http-server -p 8080",
     "dev": "webpack-dev-server --progress --colors --port 8090",
-    "preinstall": "npm install --save bower",
-    "postinstall": "./node_modules/.bin/bower install",
     "test": "karma start",
     "left-pad": "git://github.com/azer/left-pad.git#bff80e3ef0db0bfaba7698606c4f623433d14355"
   },
