@@ -9,6 +9,9 @@ class UserFactory(factory.django.DjangoModelFactory):
         model = User
 
     username = factory.Faker('name')
+    email = factory.LazyAttribute(
+        lambda a: '{0}@yahoo.com'.format(
+            a.username.replace(' ', '')).lower())
     password = factory.LazyAttribute(
         lambda a: '{0}'.format(
             a.username.replace(' ', '')))
@@ -18,19 +21,25 @@ class TagFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = models.Tag
 
-    title = "Test_tag"
+    title = factory.Sequence(lambda n: "Test_tag %d" % n)
 
 
 class CommunityFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = models.Community
 
-    name = 'Test Community'
+    name = factory.Sequence(lambda n: "Test_community %d" % n)
     description = 'This is a test community'
     private = False
     visibility = 'full'
-    creator = factory.RelatedFactory(UserFactory)
-    tags = factory.RelatedFactory(TagFactory)
+    creator = factory.SubFactory(UserFactory)
+    # tags = factory.SubFactory(TagFactory)
+
+    @factory.post_generation
+    def tags(self, create, extracted, **kwargs):
+        if extracted:
+            for tag in extracted:
+                self.tags.add(tag)
 
 
 class PermissionFactory(factory.django.DjangoModelFactory):
@@ -63,5 +72,4 @@ class AddOnFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = models.AddOn
 
-    name = 'test_addon'
-    community = factory.SubFactory(CommunityFactory)
+    name = factory.Sequence(lambda n: "Test_addon %d" % n)

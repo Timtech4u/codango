@@ -4,26 +4,29 @@ from community.models import Community, CommunityMember
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.test import TestCase
-from factories import TagFactory
+from factories import CommunityFactory, TagFactory, UserFactory
 
 
 class TestCommunity(TestCase):
 
     def setUp(self):
         self.user = User.objects.create(
-            username='test_user', password='test_password')
-        self.user.set_password('test_password')
+            username=UserFactory.username,
+            password=UserFactory.password)
+        self.user.set_password(UserFactory.password)
         self.user.save()
         self.login = self.client.login(
-            username='test_user', password='test_password')
+            username=UserFactory.username,
+            password=UserFactory.password)
         self.assertTrue(self.login)
 
-    def create_community(self, private=False, visibility='full'):
-        self.community = Community.objects.create(name='Test Community',
-                                                  description='This is a test community',
-                                                  private=private,
-                                                  visibility=visibility,
-                                                  creator=self.user)
+    def create_community(self):
+        self.community = Community.objects.create(
+            name=CommunityFactory.name,
+            description=CommunityFactory.description,
+            private=CommunityFactory.private,
+            visibility=CommunityFactory.visibility,
+            creator=self.user)
 
     def test_community_create(self):
         """Test that users can create community"""
@@ -64,7 +67,6 @@ class TestCommunity(TestCase):
             str(Community.objects.filter(
                 name='Test Community')[0].logo.public_id),
             invalidate=True)
-
 
     def test_public_community_is_listed(self):
         """Test that public community is listed"""

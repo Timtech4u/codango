@@ -1,34 +1,42 @@
+import factories
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 from django.test import TestCase
-from ..models import Community, Tag, AddOn
+from community.models import AddOn, Community, Tag
 
 
 class AddonModelTestSuite(TestCase):
     def setUp(self):
-        self.user = User.objects.create(
-            username="regularjoe",
-            email="regularjoe@yahoo.com",
-            password="regularjoepass"
-        )
+        tags = factories.TagFactory.build_batch(2)
+        addons = factories.AddOnFactory.build_batch(2)
 
-        tag = Tag.objects.create(title="Python")
-        self.community_python = Community.objects.create(
-            name="pythonistas",
-            description="A chill place for python lovers",
-            creator=self.user
-        )
-        self.community_python.tags.add(tag)
-        self.community_ruby = Community.objects.create(
-            name="Ruby Tabernacle",
-            description="We eat gems and talk ruby",
-            creator=self.user
-        )
-        self.community_ruby.tags.add(tag)
+        # self.tag1 = Tag.objects.create(title=tags[0])
+        # self.tag2 = Tag.objects.create(title=tags[1])
 
-        self.addon_statistics = AddOn.objects.create(name="statistics")
-        self.addon_bots = AddOn.objects.create(name="bots")
-        self.addon_statistics.communities.add(self.community_python)
+        # self.user = User.objects.create(
+        #     username=factories.UserFactory.username,
+        #     password=factories.UserFactory.password
+        # )
+
+        # self.community1 = Community.objects.create(
+        #     name=community[0].name,
+        #     description=community[0].description,
+        #     creator=self.user
+        # )
+        # self.community1.tags.add(self.tag1)
+        # self.community1.save()
+        # self.community2 = Community.objects.create(
+        #     name=community[1].name,
+        #     description=community[1].description,
+        #     creator=self.user
+        # )
+        # self.community1.tags.add(self.tag2)
+
+        self.community = factories.CommunityFactory.create()
+
+        self.addon1 = AddOn.objects.create(name=addons[0].name)
+        self.addon2 = AddOn.objects.create(name=addons[1].name)
+        self.addon1.communities.add(self.community1)
 
     def test_can_create_addon(self):
         addon = AddOn.objects.create(name="pairprogram")
@@ -37,7 +45,7 @@ class AddonModelTestSuite(TestCase):
         self.assertIsNotNone(addon.name)
 
     def test_can_read_addon(self):
-        addon = AddOn.objects.get(name="statistics")
+        addon = AddOn.objects.get(name=addons[0].name)
         self.assertIsInstance(addon, AddOn)
 
     def test_can_update_addon(self):
