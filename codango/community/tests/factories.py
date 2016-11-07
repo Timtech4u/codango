@@ -33,7 +33,6 @@ class CommunityFactory(factory.django.DjangoModelFactory):
     private = False
     visibility = 'full'
     creator = factory.SubFactory(UserFactory)
-    # tags = factory.SubFactory(TagFactory)
 
     @factory.post_generation
     def tags(self, create, extracted, **kwargs):
@@ -73,3 +72,9 @@ class AddOnFactory(factory.django.DjangoModelFactory):
         model = models.AddOn
 
     name = factory.Sequence(lambda n: "Test_addon %d" % n)
+
+    @factory.post_generation
+    def communities(self, create, extracted, **kwargs):
+        if extracted:
+            for community in extracted:
+                self.communities.add(community)

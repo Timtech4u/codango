@@ -7,36 +7,11 @@ from community.models import AddOn, Community, Tag
 
 class AddonModelTestSuite(TestCase):
     def setUp(self):
-        tags = factories.TagFactory.build_batch(2)
-        addons = factories.AddOnFactory.build_batch(2)
+        self.addons = factories.AddOnFactory.build_batch(2)
+        self.communities = factories.CommunityFactory.create()
+        self.user = factories.UserFactory()
 
-        # self.tag1 = Tag.objects.create(title=tags[0])
-        # self.tag2 = Tag.objects.create(title=tags[1])
-
-        # self.user = User.objects.create(
-        #     username=factories.UserFactory.username,
-        #     password=factories.UserFactory.password
-        # )
-
-        # self.community1 = Community.objects.create(
-        #     name=community[0].name,
-        #     description=community[0].description,
-        #     creator=self.user
-        # )
-        # self.community1.tags.add(self.tag1)
-        # self.community1.save()
-        # self.community2 = Community.objects.create(
-        #     name=community[1].name,
-        #     description=community[1].description,
-        #     creator=self.user
-        # )
-        # self.community1.tags.add(self.tag2)
-
-        self.community = factories.CommunityFactory.create()
-
-        self.addon1 = AddOn.objects.create(name=addons[0].name)
-        self.addon2 = AddOn.objects.create(name=addons[1].name)
-        self.addon1.communities.add(self.community1)
+        self.addon = AddOn.objects.create(name=self.addons[0].name)
 
     def test_can_create_addon(self):
         addon = AddOn.objects.create(name="pairprogram")
@@ -45,47 +20,52 @@ class AddonModelTestSuite(TestCase):
         self.assertIsNotNone(addon.name)
 
     def test_can_read_addon(self):
-        addon = AddOn.objects.get(name=addons[0].name)
+        addon = AddOn.objects.get(name=self.addons[0].name)
         self.assertIsInstance(addon, AddOn)
 
     def test_can_update_addon(self):
-        addon = AddOn.objects.get(name="statistics")
+        addon = AddOn.objects.get(name=self.addons[0].name)
         addon.name = "analytics"
         addon.save()
         addon = AddOn.objects.get(name="analytics")
-        self.assertEqual(addon.id, self.addon_statistics.id)
+        self.assertEqual(addon.id, self.addon.id)
         self.assertEqual(addon.name, "analytics")
 
     def test_can_delete_addon(self):
-        addon = AddOn.objects.get(name="statistics")
+        addon = AddOn.objects.get(name=self.addons[0].name)
         addon.delete()
         self.assertRaises(
             ObjectDoesNotExist,
             AddOn.objects.get,
-            pk=self.addon_statistics.id
+            pk=self.addon.id
         )
 
     def test_can_read_community_from_addon(self):
-        addon = AddOn.objects.get(name="statistics")
-        community = addon.communities.get(name="pythonistas")
+        self.addon.communities.add(self.communities)
+        addon = AddOn.objects.get(name=self.addons[0].name)
+        community = self.addon.communities.get(name=self.communities.name)
         self.assertIsInstance(community, Community)
 
     def test_can_add_community_to_addon(self):
-        self.addon_bots.communities.add(self.community_ruby)
-        community = self.addon_bots.communities.get(name="Ruby Tabernacle")
-        self.assertEqual(community, self.community_ruby)
+        self.addon.communities.add(self.communities)
+        community = self.addon.communities.get(name=self.communities.name)
+        self.assertEqual(community, self.communities)
 
     def test_can_add_multiple_communities_to_addon(self):
-        self.addon_statistics.communities.add(self.community_ruby)
-        self.assertEqual(self.addon_statistics.communities.all().count(), 2)
+        self.addon.communities.add(self.communities)
+        self.community2 = factories.CommunityFactory.create(name='community2')
+        self.addon.communities.add(self.community2)
+        self.assertEqual(self.addon.communities.all().count(), 2)
 
     def test_can_remove_addon_from_community(self):
-        self.addon_statistics.communities.remove(self.community_python)
-        self.assertEqual(self.addon_statistics.communities.all().count(), 0)
+        self.addon.communities.add(self.communities)
+        self.assertEqual(self.addon.communities.all().count(), 1)
+        self.addon.communities.remove(self.communities)
+        self.assertEqual(self.addon.communities.all().count(), 0)
 
     def test_add_invalid_object_to_addon(self):
         self.assertRaises(
             TypeError,
-            self.addon_statistics.communities.add,
+            self.addon.communities.add,
             self.user
         )
