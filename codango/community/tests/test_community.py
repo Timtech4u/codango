@@ -20,12 +20,12 @@ class TestCommunity(TestCase):
             password=UserFactory.password)
         self.assertTrue(self.login)
 
-    def create_community(self):
+    def create_community(self, private=CommunityFactory.private, visibility=CommunityFactory.visibility):
         self.community = Community.objects.create(
             name=CommunityFactory.name,
             description=CommunityFactory.description,
-            private=CommunityFactory.private,
-            visibility=CommunityFactory.visibility,
+            private=private,
+            visibility=visibility,
             creator=self.user)
 
     def test_community_create(self):
@@ -33,15 +33,16 @@ class TestCommunity(TestCase):
         image_abs_path = os.path.join(
             settings.BASE_DIR, 'static/img/sample.png')
         test_image_path = open(image_abs_path, 'rb')
-        response = self.client.post('/community/create',
-                                    {'name': 'Test Community',
-                                     'description': 'This is a test community',
-                                     'logo': test_image_path,
-                                     'private': True,
-                                     'visibility': 'none',
-                                     'default_group_permissions': ['BLOCK_MEMBER'],
-                                     'creator': self.user
-                                     })
+        response = self.client.post(
+            '/community/create',
+            {'name': 'Test Community',
+             'description': 'This is a test community',
+             'logo': test_image_path,
+             'private': True,
+             'visibility': 'none',
+             'default_group_permissions': ['BLOCK_MEMBER'],
+             'creator': self.user
+             })
         test_image_path.close()
 
         # Test redirection to single community view
