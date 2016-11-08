@@ -4,20 +4,19 @@ from community.models import Community, CommunityMember
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.test import TestCase
-from factories import CommunityFactory, TagFactory, UserFactory
+from factories import CommunityFactory, UserFactory
 
 
 class TestCommunity(TestCase):
 
     def setUp(self):
-        self.user = User.objects.create(
-            username=UserFactory.username,
-            password=UserFactory.password)
-        self.user.set_password(UserFactory.password)
-        self.user.save()
+        user = UserFactory.build_batch(1)
+        self.user = User.objects.create_user(
+            username=user[0].username,
+            password=user[0].password)
         self.login = self.client.login(
-            username=UserFactory.username,
-            password=UserFactory.password)
+            username=user[0].username,
+            password=user[0].password)
         self.assertTrue(self.login)
 
     def create_community(self, private=CommunityFactory.private, visibility=CommunityFactory.visibility):

@@ -1,15 +1,16 @@
 import time
 
+from community.models import AddOn, Community, CommunityMember, Tag
 from django.contrib.auth.models import User
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.core.urlresolvers import reverse
 from django.db import IntegrityError
 from django.test import Client, TestCase
 from django.test.utils import setup_test_environment
+from factories import AddOnFactory, CommunityFactory, UserFactory
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 
-from community.models import AddOn, Community, CommunityMember, Tag
 
 setup_test_environment()
 
@@ -77,31 +78,38 @@ class TestCreateCommuntity(StaticLiveServerTestCase):
 class JoinCommunityTest(TestCase):
 
     def setUp(self):
-        self.client = Client()
-        self.user = User.objects.create(username='New', password='community')
-        self.user.set_password('community')
-        self.user.save()
-        self.login = self.client.login(username='New', password='member')
-        self.public_community = Community(
-            name="Public Community",
-            private=False, creator=self.user)
-        self.public_community.save()
-        self.private_community = Community(
-            name="Private Community",
-            private=True, creator=self.user)
-        self.private_community.save()
-        self.user_to_join_community = User.objects.create(
-            username='Join', password='join')
-        self.user_to_join_community.set_password('join')
-        self.user_to_join_community.save()
+        user = UserFactory.build_batch(2)
+        self.user = User.objects.create_user(
+            username=user[0].username,
+            password=user[0].password)
         self.login = self.client.login(
-            username='Join',
-            password='join')
-        self.community = CommunityMember(
+            username=user[0].username,
+            password=user[0].password)
+        self.assertTrue(self.login)
+        self.public_community = Community.objects.create(
+            name=CommunityFactory.name,
+            description=CommunityFactory.description,
+            private=CommunityFactory.private,
+            visibility=CommunityFactory.visibility,
+            creator=self.user)
+        community2 = CommunityFactory.create(name='community2')
+        self.private_community = Community.objects.create(
+            name=community2.name,
+            description=community2.description,
+            private=True,
+            visibility='none',
+            creator=self.user)
+        self.user_to_join_community = User.objects.create_user(
+            username=user[1].username,
+            password=user[1].password)
+        self.login = self.client.login(
+            username=user[1].username,
+            password=user[1].password)
+        self.community = CommunityMember.objects.create(
             community=self.public_community,
             user=self.user_to_join_community,
-            invitor=self.user, status="approved")
-        self.community.save()
+            invitor=self.user,
+            status="approved")
 
     def test_user_can_join_public_community(self):
         """Test user can join a public community"""
@@ -137,27 +145,31 @@ class JoinCommunityTest(TestCase):
             community.save()
         except IntegrityError as e:
             self.assertIn("columns community_id, user_id are not unique",
-                        e.message)
+                          e.message)
 
 
 class AddOnListViewTest(TestCase):
     def setUp(self):
+        user = UserFactory.build_batch(1)
         self.user = User.objects.create_user(
-                username='New',
-                password='community')
-        tag = Tag.objects.create(title="Python")
-        self.community_python = Community.objects.create(
-                            name="pythonistas",
-                            description="A chill place for python lovers",
-                            creator=self.user)
-        self.community_python.tags.add(tag)
-        self.addon = AddOn.objects.create(name="New AddOn")
+            username=user[0].username,
+            password=user[0].password)
+        self.community = Community.objects.create(
+            name=CommunityFactory.name,
+            description=CommunityFactory.description,
+            private=CommunityFactory.private,
+            visibility=CommunityFactory.visibility,
+            creator=self.user)
+        addon = AddOnFactory.build_batch(1)
+        self.addon = AddOn.objects.create(name=addon[0].name)
         self.client = Client()
-        self.client.login(username='New', password='community')
+        self.client.login(
+            username=user[0].username,
+            password=user[0].password)
 
     def test_user_can_retrieve_addon_list(self):
         url = reverse('addon_list',
-                      kwargs={'community_id': self.community_python.id})
+                      kwargs={'community_id': self.community.id})
         response = self.client.get(url)
 
         self.assertEqual(response.status_code, 200)
@@ -166,20 +178,20 @@ class AddOnListViewTest(TestCase):
     def test_creator_can_link_addon(self):
         data = {'addons_check': [self.addon.name]}
         url = reverse('addon_list',
-                      kwargs={'community_id': self.community_python.id})
+                      kwargs={'community_id': self.community.id})
         response = self.client.post(url, data)
 
         self.assertEqual(response.status_code, 302)
-        community_addon = self.community_python.addon_set.get(
-                    name=self.addon.name)
+        community_addon = self.community.addon_set.get(
+            name=self.addon.name)
         self.assertEqual(community_addon.name, self.addon.name)
 
     def test_member_cant_link_addon(self):
         self.user = User.objects.create_user(
-                username='Member',
-                password='member')
+            username='Member',
+            password='member')
         self.client.login(username='Member', password='member')
         url = reverse('addon_list',
-                      kwargs={'community_id': self.community_python.id})
+                      kwargs={'community_id': self.community.id})
         response = self.client.get(url)
         self.assertEqual(response.status_code, 403)

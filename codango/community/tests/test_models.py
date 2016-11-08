@@ -8,8 +8,6 @@ class AddonModelTestSuite(TestCase):
     def setUp(self):
         self.addons = factories.AddOnFactory.build_batch(2)
         self.communities = factories.CommunityFactory.create()
-        self.user = factories.UserFactory()
-
         self.addon = AddOn.objects.create(name=self.addons[0].name)
 
     def test_can_create_addon(self):
@@ -42,7 +40,7 @@ class AddonModelTestSuite(TestCase):
     def test_can_read_community_from_addon(self):
         self.addon.communities.add(self.communities)
         addon = AddOn.objects.get(name=self.addons[0].name)
-        community = self.addon.communities.get(name=self.communities.name)
+        community = addon.communities.get(name=self.communities.name)
         self.assertIsInstance(community, Community)
 
     def test_can_add_community_to_addon(self):
@@ -66,5 +64,5 @@ class AddonModelTestSuite(TestCase):
         self.assertRaises(
             TypeError,
             self.addon.communities.add,
-            self.user
+            factories.UserFactory.create()
         )
