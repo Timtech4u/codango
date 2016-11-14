@@ -23,7 +23,7 @@ class NotificationQueueFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = models.NotificationQueue
 
-    user = factory.RelatedFactory(UserFactory)
+    user = factory.SubFactory(UserFactory)
     notification_type = "Notification Type"
     first_interaction = "first interaction"
     count = 1
