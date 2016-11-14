@@ -1,9 +1,9 @@
+from datetime import datetime, timedelta
 import factory
+from freezegun import freeze_time
 
 from comments import models
 from community.tests.factories import UserFactory
-from datetime import datetime, timedelta
-from freezegun import freeze_time
 from resources.tests.factories import ResourceFactory
 
 
@@ -12,8 +12,8 @@ class CommentFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = models.Comment
 
-    author = factory.RelatedFactory(UserFactory)
-    resource = factory.RelatedFactory(ResourceFactory)
+    author = factory.SubFactory(UserFactory)
+    resource = factory.SubFactory(ResourceFactory)
     content = 'This is a sample comment'
     date_created = datetime.now()
     date_modified = date_created + timedelta(hours=1)

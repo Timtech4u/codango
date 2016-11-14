@@ -10,8 +10,8 @@ class ResourceFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = models.Resource
 
-    author = factory.RelatedFactory(UserFactory)
-    community = factory.RelatedFactory(CommunityFactory)
+    author = factory.SubFactory(UserFactory)
+    community = factory.SubFactory(CommunityFactory)
     text = 'This is a sample resource text'
     language_tags = 'PYTHON'
     date_added = datetime.now()
