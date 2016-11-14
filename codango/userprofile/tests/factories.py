@@ -1,5 +1,4 @@
 import factory
-from cloudinary.models import CloudinaryField
 from community.tests.factories import UserFactory
 from django.utils import timezone
 from userprofile import models
@@ -8,6 +7,7 @@ from userprofile import models
 class UserProfileFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = models.UserProfile
+        django_get_or_create = ('user',)
 
     user = factory.SubFactory(UserFactory)
     social_id = factory.Sequence(
@@ -17,10 +17,11 @@ class UserProfileFactory(factory.django.DjangoModelFactory):
     place_of_work = factory.Faker('company')
     position = factory.Faker('job')
     about = factory.LazyAttribute(
-        lambda a: 'About user: {0}'.format(a.user.username))
+        lambda a: 'About {} {}'.format(
+            a.first_name, a.last_name))
     github_username = factory.LazyAttribute(
-        lambda a: '{0}'.format(
-            a.user.username.replace(' ', '')).lower())
+        lambda a: '{}-{}'.format(
+            a.first_name, a.last_name))
     frequency = 'none'
     like_preference = False
     comment_preference = False

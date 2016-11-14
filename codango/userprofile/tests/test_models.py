@@ -1,5 +1,4 @@
 from django.test import TestCase
-from django.contrib.auth.models import User
 from userprofile.models import UserProfile, Language, Notification
 from userprofile.tests.factories import \
     UserProfileFactory, LanguageFactory, NotificationFactory
@@ -8,27 +7,24 @@ from userprofile.tests.factories import \
 class ProfileTestModels(TestCase):
 
     def setUp(self):
-        self.user_factory = UserProfileFactory()
-        self.language_factory = LanguageFactory(
-            user=self.user_factory.user)
-        self.notification_factory = NotificationFactory(
-            user=self.user_factory.user)
-        """self.user = User.objects.create(
-                                    username='adebola', password='adebolu')
-                                self.language = Language.objects.create(name="Python", user=self.user)
-                                self.notification = Notification.objects.create(content="Python",
-                                                                                user=self.user, read=False, link="link",
-                                                                                activity_type="Vote")"""
+        self.language_factory = LanguageFactory()
+        self.notification_factory = NotificationFactory()
+
+    def tearDown(self):
+        UserProfile.objects.all().delete()
+        Language.objects.all().delete()
+        Notification.objects.all().delete()
 
     def test_for_profile_creation(self):
+        self.user_factory = UserProfileFactory()
         userprofile = UserProfile.objects.get(
-            first_name=self.user_factory.first_name)
+            user=self.user_factory.user)
         self.assertTrue(isinstance(userprofile, UserProfile))
 
     def test_for_language(self):
-        language = str(self.language)
+        language = str(self.language_factory)
         self.assertIsNotNone(language)
 
     def test_for_notificaiotn(self):
-        notification = str(self.notification)
+        notification = str(self.notification_factory)
         self.assertIsNotNone(notification)
