@@ -4,7 +4,7 @@ from comments import models
 from community.tests.factories import UserFactory
 from datetime import datetime, timedelta
 from freezegun import freeze_time
-from resource.tests.factories import ResourceFactory
+from resources.tests.factories import ResourceFactory
 
 
 @freeze_time("2016-09-14 12:00:01")
