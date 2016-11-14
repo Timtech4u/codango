@@ -1,5 +1,6 @@
 from django.core.exceptions import ObjectDoesNotExist
 from django.test import TestCase
+
 from community.models import AddOn, Community
 from factories import AddOnFactory, CommunityFactory, UserFactory
 
