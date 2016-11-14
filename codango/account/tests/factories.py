@@ -1,13 +1,17 @@
+from datetime import datetime
 import factory
 
-from pairprogram import models
+from account import models
 
 
-class SessionFactory(factory.django.DjangoModelFactory):
+class ContactFactory(factory.django.DjangoModelFactory):
     class Meta:
-        model = models.Session
+        model = models.ContactModel
 
-
-class ParticipantFactory(factory.django.DjangoModelFactory):
-    class Meta:
-        model = models.Participant
+    name = factory.Sequence(lambda n: "New Person %d" % n)
+    email = factory.LazyAttribute(
+        lambda a: '{0}@domain.com'.format(
+            a.name.replace(' ', '')).lower())
+    subject = factory.Sequence(lambda n: "Subject %d" % n)
+    message = factory.Sequence(lambda n: "My message %d" % n)
+    date_sent = factory.LazyFunction(datetime.now)

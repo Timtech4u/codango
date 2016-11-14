@@ -1,28 +1,25 @@
+from django.utils import timezone
 import factory
 
-from userprofile import models
+from community.tests.factories import UserFactory
+from pairprogram import models
 
 
-class UserProfileFactory(factory.django.DjangoModelFactory):
+class SessionFactory(factory.django.DjangoModelFactory):
     class Meta:
-        model = models.UserProfile
+        model = models.Session
+
+    session_name = factory.Sequence(lambda n: "Session %d" % n)
+    language = factory.Sequence(lambda n: "Language %d" % n)
+    last_active_date = factory.LazyFunction(timezone.now)
+    status = True
+    initiator = factory.SubFactory(UserFactory)
 
 
-class UserSettingsFactory(factory.django.DjangoModelFactory):
+class ParticipantFactory(factory.django.DjangoModelFactory):
     class Meta:
-        model = models.UserSettings
+        model = models.Participant
 
-
-class FollowFactory(factory.django.DjangoModelFactory):
-    class Meta:
-        model = models.Follow
-
-
-class LanguageFactory(factory.django.DjangoModelFactory):
-    class Meta:
-        model = models.Language
-
-
-class NotificationFactory(factory.django.DjangoModelFactory):
-    class Meta:
-        model = models.Notification
+    participant = factory.SubFactory(UserFactory)
+    session = factory.SubFactory(SessionFactory)
+    joined_date = factory.LazyFunction(timezone.now)

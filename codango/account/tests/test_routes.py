@@ -4,6 +4,8 @@ from django.core.urlresolvers import resolve, reverse
 from account.views import ForgotPasswordView, ResetPasswordView
 from mock import patch
 from account.emails import SendGrid
+from account.tests.factories import ContactFactory
+from community.tests.factories import UserFactory
 from resources.models import Resource
 from pairprogram.models import Session, Participant
 
@@ -12,17 +14,23 @@ class IndexViewTest(TestCase):
 
     def setUp(self):
         self.client = Client()
+        self.created_factory_user = UserFactory.build_batch(2)
+        self.created_factory_user_details, \
+            self.created_factory_user2_details = \
+            ContactFactory.build(name=self.created_factory_user[0].username), \
+            ContactFactory.build(name=self.created_factory_user[1].username)
         User.objects.create_user(
-            username='lade',
-            password='password',
+            username=self.created_factory_user[0].username,
+            password=self.created_factory_user[0].password,
         )
         self.initiator = User.objects.create_user(
-                username='andela',
-                password='awesome',
-                email='andela@andela.com'
+            username=self.created_factory_user[1].username,
+            password=self.created_factory_user[1].password,
+            email=self.created_factory_user2_details.email
         )
-        self.pair_session = Session.objects.create(id=1,
-            initiator=self.initiator, session_name="SomeRandomSession")
+        self.pair_session = Session.objects.create(
+            id=1, initiator=self.initiator,
+            session_name="SomeRandomSession")
 
     def test_can_reach_index_page(self):
         response = self.client.get('/')
@@ -34,27 +42,27 @@ class IndexViewTest(TestCase):
 
     def test_can_login(self):
         response = self.client.post('/login', {
-            'username': 'lade',
-            'password': 'password'
+            'username': self.created_factory_user[0].username,
+            'password': self.created_factory_user[0].password
         })
         self.assertEqual(response.status_code, 302)
 
     def test_can_register(self):
         response = self.client.post('/register', {
-            'username': 'lade.o',
-            'password': 'password',
-            'password_conf': 'password',
-            'email': 'olufunmilade.oshodi@andela.com'
+            'username': self.created_factory_user[1].username.replace(' ', ''),
+            'password': self.created_factory_user[1].password,
+            'password_conf': self.created_factory_user[1].password,
+            'email': self.created_factory_user2_details.email
         })
         self.assertEqual(response.status_code, 302)
 
     def test_can_register_and_create_session(self):
         response = self.client.post('/register', {
-            'username': 'lade.o',
-            'password': 'password',
-            'password_conf': 'password',
+            'username': self.created_factory_user[1].username.replace(' ', ''),
+            'password': self.created_factory_user[1].password,
+            'password_conf': self.created_factory_user[1].password,
             'session_id': 1,
-            'email': 'olufunmilade.oshodi@andela.com'
+            'email': self.created_factory_user2_details.email
         })
         session_program = Participant.objects.all()
         self.assertEqual(len(session_program), 1)
@@ -65,14 +73,16 @@ class HomeViewTest(TestCase):
 
     def setUp(self):
         self.client = Client()
+        self.created_factory_user = UserFactory()
         self.user = User.objects.create_user(
-            username='lade',
-            password='password'
+            username=self.created_factory_user.username.replace(' ', ''),
+            password=self.created_factory_user.password
         )
-        self.user.set_password('password')
+        self.user.set_password(self.created_factory_user.password)
         self.user.save()
         self.login = self.client.login(
-            username='lade', password='password')
+            username=self.created_factory_user.username.replace(' ', ''),
+            password=self.created_factory_user.password)
 
     def test_can_reach_home_page(self):
         self.assertEqual(self.login, True)
@@ -88,14 +98,16 @@ class SearchViewTest(TestCase):
 
     def setUp(self):
         self.client = Client()
+        self.created_factory_user = UserFactory()
         self.user = User.objects.create_user(
-            username='lade',
-            password='password'
+            username=self.created_factory_user.username.replace(' ', ''),
+            password=self.created_factory_user.password
         )
-        self.user.set_password('password')
+        self.user.set_password(self.created_factory_user.password)
         self.user.save()
         self.login = self.client.login(
-            username='lade', password='password')
+            username=self.created_factory_user.username.replace(' ', ''),
+            password=self.created_factory_user.password)
 
     def create_resources(self, text='some more words',
                          resource_file='resource_file'):
@@ -118,7 +130,7 @@ class SearchViewTest(TestCase):
         response2 = self.client.get(url2)
 
         self.assertEqual(len(response.context['resources']), 2)
-        self.assertEqual(len(response.context['users']), 1)
+        self.assertEqual(len(response.context['users']), 2)
         self.assertEqual(response2.status_code, 200)
         self.assertEqual(response.status_code, 200)
 
@@ -162,10 +174,17 @@ class PasswordResetTestCase(TestCase):
         # create a test client:
         self.client = Client()
         # register a sample user:
+        self.created_factory_user = UserFactory()
+        self.created_factory_user_details = ContactFactory(
+            name=self.created_factory_user.username)
         self.user_account = User.objects.create_user(
-            'inioluwafageyinbo', 'inioluwafageyinbo@gmail.com', 'codango')
-        self.user_account.first_name = 'Inioluwa'
-        self.user_account.last_name = 'Fageyinbo'
+            self.created_factory_user.username.replace(' ', ''),
+            self.created_factory_user_details.email,
+            'codango')
+        self.user_account.first_name = \
+            self.created_factory_user.username.split(" ")[0]
+        self.user_account.last_name = \
+            self.created_factory_user.username.split(" ")[:1]
         self.user_account.save()
 
     def test_get_returns_200(self):
@@ -182,24 +201,31 @@ class ProfileViewTestCase(TestCase):
 
     def setUp(self):
         self.client = Client()
+        self.created_factory_user = UserFactory()
         self.user = User.objects.create_user(
-            username='lade',
-            password='password'
+            username=self.created_factory_user.username.replace(' ', ''),
+            password=self.created_factory_user.password
         )
-        self.user.set_password('password')
+        self.user.set_password(self.created_factory_user.password)
         self.user.save()
         self.login = self.client.login(
-            username='lade', password='password')
+            username=self.created_factory_user.username.replace(' ', ''),
+            password=self.created_factory_user.password)
 
     def test_can_reach_profile_page(self):
-        response = self.client.get('/user/lade')
+        response = self.client.get(
+            '/user/{}'.format(
+                self.created_factory_user.username.replace(' ', '')))
         self.assertEqual(response.status_code, 200)
 
     def test_can_reach_profile_edit_page(self):
-        response = self.client.post('/user/lade/edit',
-                                    {'position': 'Software Developer',
-                                     'place_of_work': 'Andela',
-                                     'first_name': 'Lade',
-                                     'last_name': 'Oshodi',
-                                     'about': 'I love to Code'})
+        response = self.client.post(
+            '/user/lade/edit',
+            {
+                'position': 'Software Developer',
+                'place_of_work': 'Andela',
+                'first_name': self.created_factory_user.username.split(" ")[0],
+                'last_name': self.created_factory_user.username.split(" ")[:1],
+                'about': 'I love to Code'
+            })
         self.assertEqual(response.status_code, 302)

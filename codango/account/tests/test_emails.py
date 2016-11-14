@@ -1,14 +1,16 @@
 from django.test import TestCase
 from mock import patch
 from account.emails import SendGrid
+from account.tests.factories import ContactFactory
 
 
 class EmailTestCase(TestCase):
 
     def setUp(self):
+        factory_user = ContactFactory()
         self.email = SendGrid.compose(
             sender='Codango <codango@andela.com>',
-            recipient='olufunmilade.oshodi@andela.com',
+            recipient=factory_user.email,
             subject='Codango: Password Recovery',
             text="This is a test",
             html=None,

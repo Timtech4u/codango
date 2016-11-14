@@ -1,5 +1,5 @@
 from django.test import TestCase, Client
-from account import hash
+from account.tests.factories import ContactFactory
 from django.contrib.auth.models import User
 from account.hash import UserHasher
 
@@ -13,10 +13,15 @@ class HashTest(TestCase):
         # create a test client:
         self.client = Client()
         # register a sample user:
+        created_user_details = ContactFactory()
         self.registered_account = User.objects.create_user(
-            'OlufunmiladeGit', 'Olufunmilade.Git@andela.com', 'ladegit')
-        self.registered_account.first_name = 'Olufunmilade'
-        self.registered_account.last_name = 'Git'
+            created_user_details.name,
+            created_user_details.email,
+            created_user_details.name)
+        self.registered_account.first_name = \
+            created_user_details.name.split()[0]
+        self.registered_account.last_name = \
+            created_user_details.name.split()[:1]
         self.registered_account.save()
 
     def test_gen_hash_returns_min_15_chars(self):
