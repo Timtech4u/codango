@@ -1,20 +1,19 @@
-import factories
 from django.core.exceptions import ObjectDoesNotExist
 from django.test import TestCase
 from community.models import AddOn, Community
+from factories import AddOnFactory, CommunityFactory, UserFactory
 
 
 class AddonModelTestSuite(TestCase):
     def setUp(self):
-        self.addons = factories.AddOnFactory.build_batch(2)
-        self.communities = factories.CommunityFactory.create()
+        self.addons = AddOnFactory.build_batch(2)
+        self.communities = CommunityFactory.create()
         self.addon = AddOn.objects.create(name=self.addons[0].name)
 
     def test_can_create_addon(self):
-        addon = AddOn.objects.create(name="pairprogram")
-        self.assertIsInstance(addon, AddOn)
-        self.assertIsNotNone(addon.id)
-        self.assertIsNotNone(addon.name)
+        self.assertIsInstance(self.addon, AddOn)
+        self.assertIsNotNone(self.addon.id)
+        self.assertIsNotNone(self.addon.name)
 
     def test_can_read_addon(self):
         addon = AddOn.objects.get(name=self.addons[0].name)
@@ -50,7 +49,7 @@ class AddonModelTestSuite(TestCase):
 
     def test_can_add_multiple_communities_to_addon(self):
         self.addon.communities.add(self.communities)
-        self.community2 = factories.CommunityFactory.create(name='community2')
+        self.community2 = CommunityFactory.create(name='community2')
         self.addon.communities.add(self.community2)
         self.assertEqual(self.addon.communities.all().count(), 2)
 
@@ -64,5 +63,5 @@ class AddonModelTestSuite(TestCase):
         self.assertRaises(
             TypeError,
             self.addon.communities.add,
-            factories.UserFactory.create()
+            UserFactory()
         )

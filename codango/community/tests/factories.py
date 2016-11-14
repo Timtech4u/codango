@@ -53,18 +53,18 @@ class CommunityMemberFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = models.CommunityMember
 
-    community = factory.RelatedFactory(CommunityFactory)
-    user = UserFactory
-    invitor = factory.RelatedFactory(UserFactory)
+    community = factory.SubFactory(CommunityFactory)
+    user = factory.SubFactory(UserFactory)
+    invitor = factory.SubFactory(UserFactory)
 
 
 class CommunityBlacklistFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = models.CommunityBlacklist
 
-    user = factory.RelatedFactory(UserFactory)
-    blacklister = factory.RelatedFactory(CommunityMemberFactory)
-    community = factory.RelatedFactory(CommunityFactory)
+    user = factory.SubFactory(UserFactory)
+    blacklister = factory.SubFactory(CommunityMemberFactory)
+    community = factory.SubFactory(CommunityFactory)
 
 
 class AddOnFactory(factory.django.DjangoModelFactory):
