@@ -1,24 +1,29 @@
+from community.tests.factories import UserFactory
+from django.contrib.auth.models import User
 from django.test import TestCase
+from factories import ResourceFactory
+from mock import patch
 from resources.models import Resource
 from votes.models import Vote
-from django.contrib.auth.models import User
-from mock import patch
 
 
 class ResourceTestModels(TestCase):
 
     def setUp(self):
-        self.user = User.objects.create(
-            username='inioluwafageyinbo', password='codango')
+        user = UserFactory.build_batch(1)
+        self.user = User.objects.create_user(
+            username=user[0].username,
+            password=user[0].password)
         self.resource = Resource.objects.create(
-            text='test file',
+            text=ResourceFactory.text,
             author=self.user,
-            resource_file='help'
+            resource_file=ResourceFactory.resource_file
         )
 
     def create_resources(
-            self, text='some more words',
-            resource_file='resource_file'):
+            self,
+            text=ResourceFactory.text,
+            resource_file=ResourceFactory.resource_file):
         return Resource.objects.create(
             text=text,
             author=self.user,

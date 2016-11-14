@@ -1,18 +1,24 @@
-from django.test import TestCase
-from resources.models import Resource
 from comments.models import Comment
+from community.tests.factories import UserFactory
 from django.contrib.auth.models import User
+from django.test import TestCase
+from factories import CommentFactory
+from resources.models import Resource
+from resources.tests.factories import ResourceFactory
 
 
 class CommentTestModels(TestCase):
 
     def setUp(self):
-        self.user = User.objects.create(
-            username='inioluwafageyinbo', password='codango')
+        user = UserFactory.build_batch(1)
+        self.user = User.objects.create_user(
+            username=user[0].username,
+            password=user[0].password)
 
     def create_resources(
-            self, text='some more words',
-            resource_file='resource_file'):
+            self,
+            text=ResourceFactory.text,
+            resource_file=ResourceFactory.resource_file):
         return Resource.objects.create(
             text=text,
             author=self.user,
@@ -24,7 +30,7 @@ class CommentTestModels(TestCase):
         comment = Comment.objects.create(
             resource=resource,
             author=self.user,
-            content="This is a test comment"
+            content=CommentFactory.content
         )
         self.assertTrue(isinstance(comment, Comment))
 
@@ -33,7 +39,7 @@ class CommentTestModels(TestCase):
         comment = Comment.objects.create(
             resource=resource,
             author=self.user,
-            content="This is a test comment"
+            content=CommentFactory.content
         )
         content = str(comment)
         self.assertIsNotNone(content)
