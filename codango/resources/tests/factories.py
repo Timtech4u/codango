@@ -1,7 +1,9 @@
 import factory
-from community.tests.factories import CommunityFactory, UserFactory
+
 from datetime import datetime, timedelta
 from freezegun import freeze_time
+
+from community.tests.factories import CommunityFactory, UserFactory
 from resources import models
 
 

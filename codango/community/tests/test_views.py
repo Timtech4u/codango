@@ -1,15 +1,18 @@
 import time
 
-from community.models import AddOn, Community, CommunityMember, Tag
-from django.contrib.auth.models import User
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.core.urlresolvers import reverse
 from django.db import IntegrityError
 from django.test import Client, TestCase
 from django.test.utils import setup_test_environment
-from factories import AddOnFactory, CommunityFactory, UserFactory
+
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+
+from community.models import AddOn, Community
+from django.contrib.auth.models import User
+from factories import AddOnFactory, CommunityFactory
+from factories import CommunityMemberFactory, UserFactory
 
 
 setup_test_environment()
@@ -78,37 +81,26 @@ class TestCreateCommuntity(StaticLiveServerTestCase):
 class JoinCommunityTest(TestCase):
 
     def setUp(self):
-        user = UserFactory.build_batch(2)
+        users = UserFactory.build_batch(2)
+        user1 = users[0]
+        user2 = users[1]
         self.user = User.objects.create_user(
-            username=user[0].username,
-            password=user[0].password)
+            username=user1.username,
+            password=user1.password)
         self.login = self.client.login(
-            username=user[0].username,
-            password=user[0].password)
+            username=user1.username,
+            password=user1.password)
         self.assertTrue(self.login)
-        self.public_community = Community.objects.create(
-            name=CommunityFactory.name,
-            description=CommunityFactory.description,
-            private=CommunityFactory.private,
-            visibility=CommunityFactory.visibility,
-            creator=self.user)
-        community2 = CommunityFactory.create(name='community2')
-        self.private_community = Community.objects.create(
-            name=community2.name,
-            description=community2.description,
-            private=True,
-            visibility='none',
-            creator=self.user)
+        self.public_community = CommunityFactory(name='public_community')
+        self.private_community = CommunityFactory(name='private_community')
         self.user_to_join_community = User.objects.create_user(
-            username=user[1].username,
-            password=user[1].password)
+            username=user2.username,
+            password=user2.password)
         self.login = self.client.login(
-            username=user[1].username,
-            password=user[1].password)
-        self.community = CommunityMember.objects.create(
+            username=user2.username,
+            password=user2.password)
+        self.community = CommunityMemberFactory(
             community=self.public_community,
-            user=self.user_to_join_community,
-            invitor=self.user,
             status="approved")
 
     def test_user_can_join_public_community(self):
@@ -138,10 +130,11 @@ class JoinCommunityTest(TestCase):
         self.assertTrue(self.login)
         self.assertEqual(self.public_community.get_no_of_members(), 1)
         try:
-            community = CommunityMember(
+            community = CommunityMemberFactory(
                 community=self.public_community,
                 user=self.user_to_join_community,
-                invitor=self.user, status="approved")
+                invitor=self.user,
+                status="approved")
             community.save()
         except IntegrityError as e:
             self.assertIn("columns community_id, user_id are not unique",
@@ -150,22 +143,22 @@ class JoinCommunityTest(TestCase):
 
 class AddOnListViewTest(TestCase):
     def setUp(self):
-        user = UserFactory.build_batch(1)
+        user = UserFactory.build()
         self.user = User.objects.create_user(
-            username=user[0].username,
-            password=user[0].password)
+            username=user.username,
+            password=user.password)
         self.community = Community.objects.create(
             name=CommunityFactory.name,
             description=CommunityFactory.description,
             private=CommunityFactory.private,
             visibility=CommunityFactory.visibility,
             creator=self.user)
-        addon = AddOnFactory.build_batch(1)
-        self.addon = AddOn.objects.create(name=addon[0].name)
+        addon = AddOnFactory.build()
+        self.addon = AddOn.objects.create(name=addon.name)
         self.client = Client()
         self.client.login(
-            username=user[0].username,
-            password=user[0].password)
+            username=user.username,
+            password=user.password)
 
     def test_user_can_retrieve_addon_list(self):
         url = reverse('addon_list',

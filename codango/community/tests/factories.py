@@ -56,6 +56,7 @@ class CommunityMemberFactory(factory.django.DjangoModelFactory):
     community = factory.SubFactory(CommunityFactory)
     user = factory.SubFactory(UserFactory)
     invitor = factory.SubFactory(UserFactory)
+    status = 'pending'
 
 
 class CommunityBlacklistFactory(factory.django.DjangoModelFactory):

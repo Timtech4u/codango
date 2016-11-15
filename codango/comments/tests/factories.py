@@ -1,5 +1,6 @@
-from datetime import datetime, timedelta
 import factory
+
+from datetime import datetime, timedelta
 from freezegun import freeze_time
 
 from comments import models
