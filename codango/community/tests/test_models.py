@@ -7,20 +7,20 @@ from factories import AddOnFactory, CommunityFactory, UserFactory
 
 class AddonModelTestSuite(TestCase):
     def setUp(self):
-        self.addons = AddOnFactory.build()
+        self.addon = AddOnFactory.build()
         self.community = CommunityFactory()
-        self.addon = AddOn.objects.create(name=self.addons.name)
+        self.addon = AddOn.objects.create(name=self.addon.name)
 
     def test_can_create_addon(self):
         self.assertIsNotNone(self.addon.id)
         self.assertIsNotNone(self.addon.name)
 
     def test_can_read_addon(self):
-        addon = AddOn.objects.get(name=self.addons.name)
+        addon = AddOn.objects.get(name=self.addon.name)
         self.assertIsInstance(addon, AddOn)
 
     def test_can_update_addon(self):
-        addon = AddOn.objects.get(name=self.addons.name)
+        addon = AddOn.objects.get(name=self.addon.name)
         addon.name = "analytics"
         addon.save()
         addon = AddOn.objects.get(name="analytics")
@@ -28,7 +28,7 @@ class AddonModelTestSuite(TestCase):
         self.assertEqual(addon.name, "analytics")
 
     def test_can_delete_addon(self):
-        addon = AddOn.objects.get(name=self.addons.name)
+        addon = AddOn.objects.get(name=self.addon.name)
         addon.delete()
         self.assertRaises(
             ObjectDoesNotExist,
@@ -38,7 +38,7 @@ class AddonModelTestSuite(TestCase):
 
     def test_can_read_community_from_addon(self):
         self.addon.communities.add(self.community)
-        addon = AddOn.objects.get(name=self.addons.name)
+        addon = AddOn.objects.get(name=self.addon.name)
         community = addon.communities.get(name=self.community.name)
         self.assertIsInstance(community, Community)
 

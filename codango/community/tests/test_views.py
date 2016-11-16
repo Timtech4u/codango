@@ -144,6 +144,8 @@ class JoinCommunityTest(TestCase):
 class AddOnListViewTest(TestCase):
     def setUp(self):
         user = UserFactory.build()
+        addon = AddOnFactory.build()
+
         self.user = User.objects.create_user(
             username=user.username,
             password=user.password)
@@ -153,8 +155,8 @@ class AddOnListViewTest(TestCase):
             private=CommunityFactory.private,
             visibility=CommunityFactory.visibility,
             creator=self.user)
-        addon = AddOnFactory.build()
         self.addon = AddOn.objects.create(name=addon.name)
+
         self.client = Client()
         self.client.login(
             username=user.username,
