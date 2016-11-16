@@ -1,8 +1,7 @@
-from rest_framework import status
 from rest_framework.test import APITestCase
 
 from django.contrib.auth.models import User
-from ..models import Resource
+from resources.models import Resource
 
 # DRY variables to be used repeatedly
 message = {"detail":
