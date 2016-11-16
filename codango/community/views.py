@@ -86,7 +86,6 @@ class CommunityCreateView(LoginRequiredMixin, TemplateView):
 
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST, request.FILES)
-
         if form.is_valid():
             community = form.save(commit=False)
             community.creator = self.request.user
