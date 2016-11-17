@@ -21,19 +21,24 @@ class TagFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = models.Tag
 
-    title = "Test_tag"
+    title = factory.Sequence(lambda n: "Test_tag %d" % n)
 
 
 class CommunityFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = models.Community
 
-    name = 'Test Community'
+    name = factory.Sequence(lambda n: "Test_community %d" % n)
     description = 'This is a test community'
     private = False
     visibility = 'full'
-    creator = factory.RelatedFactory(UserFactory)
-    tags = factory.RelatedFactory(TagFactory)
+    creator = factory.SubFactory(UserFactory)
+
+    @factory.post_generation
+    def tags(self, create, extracted, **kwargs):
+        if extracted:
+            for tag in extracted:
+                self.tags.add(tag)
 
 
 class PermissionFactory(factory.django.DjangoModelFactory):
@@ -48,23 +53,29 @@ class CommunityMemberFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = models.CommunityMember
 
-    community = factory.RelatedFactory(CommunityFactory)
-    user = UserFactory
-    invitor = factory.RelatedFactory(UserFactory)
+    community = factory.SubFactory(CommunityFactory)
+    user = factory.SubFactory(UserFactory)
+    invitor = factory.SubFactory(UserFactory)
+    status = 'pending'
 
 
 class CommunityBlacklistFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = models.CommunityBlacklist
 
-    user = factory.RelatedFactory(UserFactory)
-    blacklister = factory.RelatedFactory(CommunityMemberFactory)
-    community = factory.RelatedFactory(CommunityFactory)
+    user = factory.SubFactory(UserFactory)
+    blacklister = factory.SubFactory(CommunityMemberFactory)
+    community = factory.SubFactory(CommunityFactory)
 
 
 class AddOnFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = models.AddOn
 
-    name = 'test_addon'
-    community = factory.SubFactory(CommunityFactory)
+    name = factory.Sequence(lambda n: "Test_addon %d" % n)
+
+    @factory.post_generation
+    def communities(self, create, extracted, **kwargs):
+        if extracted:
+            for community in extracted:
+                self.communities.add(community)

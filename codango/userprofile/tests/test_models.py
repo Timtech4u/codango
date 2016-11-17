@@ -1,14 +1,16 @@
 from django.test import TestCase
 from userprofile.models import UserProfile, Language, Notification
-from userprofile.tests.factories import \
-    UserProfileFactory, LanguageFactory, NotificationFactory
+from userprofile.tests.factories import (
+    UserProfileFactory,
+    LanguageFactory,
+    NotificationFactory)
 
 
 class ProfileTestModels(TestCase):
 
     def setUp(self):
-        self.language_factory = LanguageFactory()
-        self.notification_factory = NotificationFactory()
+        self.language = LanguageFactory()
+        self.notification = NotificationFactory()
 
     def tearDown(self):
         UserProfile.objects.all().delete()
@@ -16,15 +18,15 @@ class ProfileTestModels(TestCase):
         Notification.objects.all().delete()
 
     def test_for_profile_creation(self):
-        self.user_factory = UserProfileFactory()
+        self.user = UserProfileFactory()
         userprofile = UserProfile.objects.get(
-            user=self.user_factory.user)
+            user=self.user.user)
         self.assertTrue(isinstance(userprofile, UserProfile))
 
     def test_for_language(self):
-        language = str(self.language_factory)
+        language = str(self.language)
         self.assertIsNotNone(language)
 
     def test_for_notificaiotn(self):
-        notification = str(self.notification_factory)
+        notification = str(self.notification)
         self.assertIsNotNone(notification)

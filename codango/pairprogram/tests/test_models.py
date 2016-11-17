@@ -1,5 +1,5 @@
 from django.test import TestCase, Client
-from django.contrib.auth.models import User
+
 from community.tests.factories import UserFactory
 from pairprogram.tests.factories import SessionFactory
 from pairprogram.models import Session
@@ -8,11 +8,7 @@ from pairprogram.models import Session
 class TestPairProgram(TestCase):
     def setUp(self):
         self.client = Client()
-        self.factory_user = UserFactory()
-        self.user = User.objects.create(
-            username=self.factory_user.username.replace(' ', ''),
-            email=self.factory_user.email,
-            password=self.factory_user.password)
+        self.user = UserFactory()
         self.client.login(
             username=self.user.username,
             password=self.user.password)

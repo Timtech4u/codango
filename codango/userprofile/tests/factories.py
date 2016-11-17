@@ -1,6 +1,7 @@
-import factory
-from community.tests.factories import UserFactory
 from django.utils import timezone
+import factory
+
+from community.tests.factories import UserFactory
 from userprofile import models
 
 

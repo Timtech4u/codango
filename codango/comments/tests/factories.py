@@ -1,8 +1,8 @@
+from datetime import datetime
 import factory
 
 from comments import models
 from community.tests.factories import UserFactory
-from datetime import datetime
 from resource.tests.factories import ResourceFactory
 
 

@@ -7,10 +7,10 @@ from account.tests.factories import ContactFactory
 class EmailTestCase(TestCase):
 
     def setUp(self):
-        factory_user = ContactFactory()
+        contact = ContactFactory()
         self.email = SendGrid.compose(
             sender='Codango <codango@andela.com>',
-            recipient=factory_user.email,
+            recipient=contact.email,
             subject='Codango: Password Recovery',
             text="This is a test",
             html=None,

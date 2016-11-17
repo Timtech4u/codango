@@ -13,15 +13,16 @@ class HashTest(TestCase):
         # create a test client:
         self.client = Client()
         # register a sample user:
-        created_user_details = ContactFactory()
+        contact = ContactFactory()
+        contact_name = contact.name.split()
         self.registered_account = User.objects.create_user(
-            created_user_details.name,
-            created_user_details.email,
-            created_user_details.name)
+            contact.name,
+            contact.email,
+            contact.name)
         self.registered_account.first_name = \
-            created_user_details.name.split()[0]
+            contact_name[0]
         self.registered_account.last_name = \
-            created_user_details.name.split()[:1]
+            contact_name[:1]
         self.registered_account.save()
 
     def test_gen_hash_returns_min_15_chars(self):
