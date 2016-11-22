@@ -16,13 +16,13 @@ class Menu extends Component {
         <Navbar.Collapse>
           <Nav pullRight>
             <li>
-              <Link to="/about-new#features">Features</Link>
+              <Link to="/about#features">Features</Link>
             </li>
             <li>
-              <Link to="/about-new#team">Team</Link>
+              <Link to="/about#team">Team</Link>
             </li>
             <li>
-              <Link to="/about-new#contact">Contact Us</Link>
+              <Link to="/about#contact">Contact Us</Link>
             </li>
             <li>
               <LoginModal active="login">Login / Sign Up</LoginModal>
