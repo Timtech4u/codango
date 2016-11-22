@@ -1,44 +1,37 @@
-import {render} from 'react-dom';
-import {Router, Route, Link, browserHistory} from 'react-router';
-import React, {Component} from 'react';
-import {Nav, Navbar, NavbarHeader, NavItem, Button} from 'react-bootstrap';
+import { Link } from 'react-router';
+import React, { Component } from 'react';
+import { Nav, Navbar, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
+import LoginModal from './LoginModal.jsx';
 
-export default class Menu extends Component {
+class Menu extends Component {
   render() {
     return (
-      <div>
-        <Nav className="navbar navbar-default navbar-fixed-top">
-          <div className="container">
-            <div className="navbar-header">
-              <Button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                <span className="sr-only">Toggle navigation</span>
-                <span className="icon-bar"></span>
-                <span className="icon-bar"></span>
-                <span className="icon-bar"></span>
-              </Button>
-              <a className="navbar-brand" href="/"><img src="../static/img/codango-logo.png"/></a>
-            </div>
-            <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-              <ul className="nav navbar-nav navbar-right">
-                <li>
-                  <Link to="/about">About Us</Link>
-                </li>
-                <li>
-                  <Link to="/contact">Contact Us</Link>
-                </li>
-                <li>
-                  <Link to="/team">Team</Link>
-                </li>
-                <li>
-                  <Link to="/new-homepage">New</Link>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </Nav>
-        {this.props.children}
-      </div>
+      <Navbar className="static-nav">
+        <Navbar.Header>
+          <Navbar.Brand>
+            <a href="/"><img src="../static/img/codango-logo-white.png"/></a>
+          </Navbar.Brand>
+          <Navbar.Toggle/>
+        </Navbar.Header>
+        <Navbar.Collapse>
+          <Nav pullRight>
+            <li>
+              <Link to="/about-new#features">Features</Link>
+            </li>
+            <li>
+              <Link to="/about-new#team">Team</Link>
+            </li>
+            <li>
+              <Link to="/about-new#contact">Contact Us</Link>
+            </li>
+            <li>
+              <LoginModal active="login">Login / Sign Up</LoginModal>
+            </li>
+          </Nav>
+        </Navbar.Collapse>
+      </Navbar>
     )
   }
 }
-module.exports = Menu;
+
+export default Menu;

@@ -1,21 +1,14 @@
-import ReactDOM from 'react-dom';
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import request from 'superagent';
-import {Grid} from 'react-bootstrap';
-
 import {
-  Alert,
+  Grid,
+  Row,
   Col,
-  form,
   Form,
   FormGroup,
   FormControl,
-  Control,
-  ControlLabel,
-  Checkbox,
   Button,
-  Tab,
-  Tabs
+  Alert
 } from 'react-bootstrap';
 
 class Contact extends Component {
@@ -34,7 +27,7 @@ class Contact extends Component {
       flashMessage: '',
       displayFlashMessage: 'none',
       messageType: 'success'
-    }
+    };
   }
 
   handleFieldChange(event) {
@@ -46,13 +39,12 @@ class Contact extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    this.sendMessage(this.state.name, this.state.email, this.state.subject, this.state.message)
+    this.sendMessage(this.state.name, this.state.email, this.state.subject, this.state.message);
   }
 
   clearTextFields() {
     this.setState({name: '', email: '', subject: '', message: ''});
   }
-
   displayFlashMessage(message, messageType) {
     this.setState({messageType: messageType, flashMessage: message, displayFlashMessage: "block"});
     setTimeout(function() {
@@ -63,81 +55,79 @@ class Contact extends Component {
   sendMessage(name, email, subject, message) {
     request.post('/api/v1/contact/').type('form').send({'name': name, 'email': email, 'subject': subject, 'message': message}).end((err, result) => {
       if (err) {
-        return this.displayFlashMessage("An error occured. Ensure you supply a valid email", "danger")
+        return this.displayFlashMessage("An error occured. Ensure you supply a valid email", "danger");
       } else {
         if (result.status === 201) {
-          this.clearTextFields()
-          return this.displayFlashMessage("Your message has been successfully sent", "success")
+          this.clearTextFields();
+          return this.displayFlashMessage("Your message has been successfully sent", "success");
         }
-        return this.displayFlashMessage("Message not sent", "danger")
+        return this.displayFlashMessage("Message not sent", "danger");
       }
     });
   }
   render() {
     return (
-      <Grid className="top-margin">
-        <div className="row">
-          <div className="col-sm-12 col-lg-12">
-            <h1 className="page-title">Contact us
-              <small>
-                <em>We'd love to hear from you</em>
-              </small>
-            </h1>
-          </div>
-        </div>
-        <div className="row">
-          <div className="col-md-8">
-            <div className="well  well-sm">
-              <Form horizontal action="post" onSubmit={this.handleSubmit} className="Contact">
-                <Alert bsStyle={this.state.messageType} style={{
-                  "display": this.state.displayFlashMessage
-                }}>
-                  {this.state.flashMessage}
-                </Alert>
-                <FormGroup controlId="formControlsText">
-                  <Col componentClass={ControlLabel} sm={2}>Name</Col>
-                  <Col sm={10}>
-                    <FormControl type="text" required={true} placeholder="Enter fullname" name="name" value={this.state.name} onChange={this.handleFieldChange}/>
-                  </Col>
-                </FormGroup>
-                <FormGroup controlId="formControlsText">
-                  <Col componentClass={ControlLabel} sm={2}>Email</Col>
-                  <Col sm={10}>
-                    <FormControl type="email" required={true} placeholder="john.doe@example.com" name="email" value={this.state.email} onChange={this.handleFieldChange}/>
-                  </Col>
-                </FormGroup>
-                <FormGroup controlId="formControlsText">
-                  <Col componentClass={ControlLabel} sm={2}>Subject</Col>
-                  <Col sm={10}>
-                    <FormControl type="text" placeholder="Enter message subject" name="subject" value={this.state.subject} onChange={this.handleFieldChange}/>
-                  </Col>
-                </FormGroup>
-                <FormGroup controlId="formControlsText">
-                  <Col componentClass={ControlLabel} sm={2}>Message</Col>
-                  <Col sm={10}>
-                    <FormControl componentClass="textarea" required={true} placeholder="Enter your message here" name="message" value={this.state.message} onChange={this.handleFieldChange}/>
-                  </Col>
-                </FormGroup>
-                <FormGroup controlId="formControlsText">
-                  <Col smOffset={2} sm={2}>
-                    <Button type="submit" id="contact" type="submit" className="btn btn-primary">Send Message</Button>
-                  </Col>
-                </FormGroup>
-              </Form>
-            </div>
-          </div>
-          <div className="col-md-4">
-            <address>
-              <strong>Codango, Inc.</strong><br/>
-              55 Moleye Street<br/>
-              Sabo, Yaba<br/>
-              Nigeria<br/>
-              0800-codango
-            </address>
-          </div>
-        </div>
+      <Grid id="contact">
+        <Row className="show-grid contact">
+          <Form action="post" onSubmit={this.handleSubmit} className="Contact">
+            <Col md={12}>
+              <h3>
+                Get In Touch
+              </h3>
+              <Alert
+                bsStyle={this.state.messageType}
+                style={{"display": this.state.displayFlashMessage}}
+              >
+               {this.state.flashMessage}
+              </Alert>
+            </Col>
+            <Col md={6}>
+              <FormControl
+                type="text"
+                placeholder="Name"
+                name="name"
+                required={true}
+                value={this.state.name}
+                onChange={this.handleFieldChange}
+              />
+            </Col>
+            <Col md={6}>
+              <FormControl
+                type="text"
+                placeholder="Email"
+                name="email"
+                required={true}
+                value={this.state.email}
+                onChange={this.handleFieldChange}
+              />
+            </Col>
+            <Col md={12}>
+              <FormControl
+                type="text"
+                placeholder="Subject"
+                name="subject"
+                value={this.state.subject}
+                onChange={this.handleFieldChange}
+              />
+            </Col>
+            <Col md={12}>
+              <FormControl
+                componentClass="textarea"
+                required={true}
+                placeholder="Message"
+                name="message"
+                value={this.state.message}
+                onChange={this.handleFieldChange}
+              />
+            </Col>
+            <Col mdOffset={4} md={4}>
+              <Button type="submit" id="contact" type="submit" className="btn">Send Message</Button>
+            </Col>
+          </Form>
+        </Row>
       </Grid>
-    );
+    )
   }
-};
-module.exports = Contact;
+}
+
+export default Contact;
