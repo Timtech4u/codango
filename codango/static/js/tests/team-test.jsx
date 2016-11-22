@@ -1,12 +1,17 @@
 import React from 'react';
-const expect = require('expect');
-import { shallow , mount, render } from 'enzyme';
-// Team page-test.jsx
+import { expect } from 'chai';
+import { shallow } from 'enzyme';
 import Team from '../components/team.jsx';
+import TeamMember from '../components/team-member.jsx';
+const Slider = require('react-slick');
 
-describe('<Team/>', () => {
-    it("it tests the team page elements", () => {
-        const wrapper = shallow(<Team/>);
-        expect(wrapper.find('.team-members').length).toBe(13);
-    });
+describe('<Team />', () => {
+  const wrapper = shallow(<Team />)
+  it('expect Slider to be rendered tow times', () => {
+    expect(wrapper.find(Slider)).to.have.length(2);
+  });
+
+  it('expect TeamMember container to be in component', () => {
+    expect(wrapper.containsMatchingElement(<TeamMember />)).to.equals(true);
+  });
 });

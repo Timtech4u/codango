@@ -2,7 +2,7 @@ import React from 'react';
 const expect = require('expect');
 import { mount } from 'enzyme';
 import { Form } from 'react-bootstrap';
-import Footer from '../components/footer-new.jsx';
+import Footer from '../components/footer.jsx';
 
 describe('<Footer-new />', () => {
   const wrapper = mount(<Footer />);
